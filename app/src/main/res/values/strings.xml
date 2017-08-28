@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">YourCab</string>
+
+    <!-- Sign and SignUp Page-->
+    <string name="signUp_btn">New User</string>
+    <string name="signIn_btn">Sign In</string>
+    <string name="gps_network_not_enabled">Please Enable Location</string>
+    <string name="open_location_settings">Location Settings</string>
+    <string name="Cancel">Cancel</string>
+
+
+</resources>
