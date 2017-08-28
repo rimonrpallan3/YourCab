@@ -1,11 +1,11 @@
 package com.voyager.user.yourcab.splashscreen;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.location.LocationSettingsStates;
 import com.voyager.user.yourcab.MainActivity;
 import com.voyager.user.yourcab.R;
 import com.voyager.user.yourcab.splashscreen.presenter.SplashPresenter;
