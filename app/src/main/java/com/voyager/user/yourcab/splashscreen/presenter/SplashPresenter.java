@@ -1,11 +1,11 @@
 package com.voyager.user.yourcab.splashscreen.presenter;
 
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.Settings;
+
 
 
 import com.voyager.user.yourcab.common.Helper;
@@ -20,24 +20,18 @@ public class SplashPresenter implements IConnectionStatus{
 
     Context context;
     ISplashView splashView;
+    Activity activity;
 
     private int SPLASH_DISPLAY_LENGTH = 1000;
 
-    public SplashPresenter(Context context, ISplashView splashView) {
+    public SplashPresenter(Context context, ISplashView splashView, Activity activity) {
+        this.activity = activity;
         this.context = context;
         this.splashView = splashView;
     }
 
     @Override
-    public boolean isOnline() {
-        System.out.println("Hello Online---------------");
-
-        return false;
-    }
-
-    @Override
     public void load() {
-        System.out.println("Hello load---------------");
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -45,10 +39,7 @@ public class SplashPresenter implements IConnectionStatus{
                 if(Helper.isLocationEnabled(context)) {
                     splashView.moveToMainView();
                 }else {
-                    Helper.toEnabledLocation(context);
-                    if(Helper.isLocationEnabled(context)) {
-                        splashView.moveToMainView();
-                    }
+                    Helper.toEnabledLocation(context,activity);
                 }
             }
         },SPLASH_DISPLAY_LENGTH);

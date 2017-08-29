@@ -1,6 +1,7 @@
 package com.voyager.user.yourcab.common;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,8 @@ import com.voyager.user.yourcab.R;
  */
 
 public class Helper {
+
+    public static int REQUEST_LOCATION_CHECK_SETTINGS = 1;
 
 
     public static boolean isNetworkAvailable(Context context) {
@@ -58,7 +61,7 @@ public class Helper {
         return  GpsStatus;
     }
 
-    public static void toEnabledLocation(final Context context){
+    public static void toEnabledLocation(final Context context, final Activity activity){
         LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = false;
         boolean network_enabled = false;
@@ -80,7 +83,7 @@ public class Helper {
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
                     Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    context.startActivity(myIntent);
+                    activity.startActivityForResult(myIntent,Helper.REQUEST_LOCATION_CHECK_SETTINGS);
                     //get gps
                 }
             });

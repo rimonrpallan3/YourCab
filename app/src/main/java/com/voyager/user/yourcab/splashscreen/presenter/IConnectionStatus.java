@@ -5,6 +5,5 @@ package com.voyager.user.yourcab.splashscreen.presenter;
  */
 
 public interface IConnectionStatus {
-    boolean isOnline();
     void load();
 }
