@@ -1,6 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_weight="100">
+
+    <ImageView
+        android:id="@+id/RegisterPageLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="@dimen/_40"
+        android:src="@drawable/logo_2"
+        android:layout_weight="10"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_40"
+        android:layout_marginRight="@dimen/_40"
+        android:layout_marginLeft="@dimen/_40"
+        android:orientation="vertical"
+        android:layout_weight="90">
+
+
+    <EditText
+        android:id="@+id/edtFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_10"
+        android:background="@drawable/oval_shape_btn_3"
+        android:hint="@string/email_number"
+        android:paddingLeft="@dimen/_40" />
+
+    <EditText
+        android:id="@+id/edtLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_10"
+        android:background="@drawable/oval_shape_btn_3"
+        android:hint="@string/paswd"
+        android:paddingLeft="@dimen/_40" />
+
+    <EditText
+        android:id="@+id/edtPhoneNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_10"
+        android:background="@drawable/oval_shape_btn_3"
+        android:hint="@string/phno"
+        android:paddingLeft="@dimen/_40" />
+
+    <EditText
+        android:id="@+id/edtCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_10"
+        android:background="@drawable/oval_shape_btn_3"
+        android:hint="@string/address"
+        android:paddingLeft="@dimen/_40" />
+
+    <EditText
+        android:id="@+id/edtCPR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_10"
+        android:background="@drawable/oval_shape_btn_3"
+        android:hint="@string/cpr_no"
+        android:paddingLeft="@dimen/_40" />
+
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/oval_shape_btn_2"
+        android:onClick="btnRegister"
+        android:text="@string/btn_register"
+        android:textColor="#FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10"
+        android:layout_marginLeft="@dimen/_20"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_acnt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="LogIn"
+            android:text="@string/Login"
+            android:textColor="#90c602" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>

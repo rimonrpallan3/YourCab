@@ -9,7 +9,7 @@
         android:topLeftRadius="@dimen/_30"
         android:topRightRadius="@dimen/_30" />
 
-    <solid android:color="#00513f" />
+    <solid android:color="#b2cac5" />
 
     <padding
         android:bottom="0dp"
@@ -18,7 +18,7 @@
         android:top="0dp" />
 
     <size
-        android:height="@dimen/_30"
+        android:height="@dimen/_50"
         android:width="@dimen/_160" />
 
 </shape>

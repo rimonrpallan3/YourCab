@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/SignInPageLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="@dimen/_40"
+        android:src="@drawable/logo_2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="@dimen/_40"
+        android:layout_marginTop="@dimen/_40"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edtEmailPhno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_40"
+            android:hint="@string/email_number"
+            android:layout_marginBottom="@dimen/_10"
+            android:background="@drawable/oval_shape_btn_3"/>
+
+        <EditText
+            android:id="@+id/edtPswd"
+            android:hint="@string/paswd"
+            android:paddingLeft="@dimen/_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10"
+            android:background="@drawable/oval_shape_btn_3"/>
+
+        <Button
+            android:id="@+id/btn"
+            android:text="@string/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/oval_shape_btn_2"
+            android:onClick="btnSubmit"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/_20"
+            android:layout_marginTop="@dimen/_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/account_create"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#90c602"
+                android:text="@string/SignUp"
+                android:onClick="SignUp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

@@ -7,6 +7,17 @@
     <string name="gps_network_not_enabled">Please Enable Location</string>
     <string name="open_location_settings">Location Settings</string>
     <string name="Cancel">Cancel</string>
+    <string name="email_number">Email/Mobile Number</string>
+    <string name="paswd">Password</string>
+    <string name="account_create">Create an account?</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="submit">Submit</string>
+    <string name="btn_register">Register Now</string>
+    <string name="cpr_no">CPR</string>
+    <string name="address">City</string>
+    <string name="phno">Phone Number</string>
+    <string name="create_acnt">Have an Account?</string>
+    <string name="Login">Log In.</string>
 
 
 </resources>

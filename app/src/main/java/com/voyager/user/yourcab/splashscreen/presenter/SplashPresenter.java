@@ -17,7 +17,6 @@ import com.voyager.user.yourcab.splashscreen.view.ISplashView;
 
 public class SplashPresenter implements IConnectionStatus{
 
-
     Context context;
     ISplashView splashView;
     Activity activity;
