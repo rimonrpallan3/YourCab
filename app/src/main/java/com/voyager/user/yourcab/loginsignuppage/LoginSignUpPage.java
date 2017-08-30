@@ -1,4 +1,4 @@
-package com.voyager.user.yourcab.LoginSignupPage;
+package com.voyager.user.yourcab.loginsignuppage;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.voyager.user.yourcab.R;
-import com.voyager.user.yourcab.RegisterPage.RegisterPage;
-import com.voyager.user.yourcab.SignInPage.SiginInPage;
+import com.voyager.user.yourcab.registerpage.RegisterPage;
+import com.voyager.user.yourcab.signinpage.SiginInPage;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginSignUpPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_sigup_page);
     }
 
     public void btnSignIn(View v){

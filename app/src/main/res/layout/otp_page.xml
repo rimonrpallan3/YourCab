@@ -17,28 +17,49 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_margin="@dimen/_40"
+        android:layout_margin="@dimen/_20"
         android:layout_marginTop="@dimen/_40"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:id="@+id/edtEmailPhno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/otp_firsttxt_msg"
             android:paddingLeft="@dimen/_40"
-            android:hint="@string/email_number"
-            android:layout_marginBottom="@dimen/_10"
-            android:background="@drawable/oval_shape_btn_3"/>
+            android:layout_marginBottom="@dimen/_10"/>
 
         <EditText
-            android:id="@+id/edtPswd"
-            android:hint="@string/paswd"
+            android:id="@+id/edtOPTNo"
+            android:hint="@string/otp_no"
             android:paddingLeft="@dimen/_40"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10"
             android:background="@drawable/oval_shape_btn_3"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/opt_second_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/otp_secondtxt_msg"
+                android:paddingLeft="@dimen/_40"/>
+            <TextView
+                android:id="@+id/opt_terms_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/otp_terms_cond"
+                android:layout_alignBottom="@+id/opt_second_msg"
+                android:layout_marginBottom="@dimen/_10"/>
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnSubmit"

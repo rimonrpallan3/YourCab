@@ -1,4 +1,4 @@
-package com.voyager.user.yourcab.LoginSignupPage.presenter;
+package com.voyager.user.yourcab.loginsignuppage.presenter;
 
 /**
  * Created by User on 8/29/2017.

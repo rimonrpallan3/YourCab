@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.voyager.user.yourcab.LoginSignupPage.MainActivity;
+import com.voyager.user.yourcab.loginsignuppage.LoginSignUpPage;
 import com.voyager.user.yourcab.R;
 import com.voyager.user.yourcab.common.Helper;
 import com.voyager.user.yourcab.splashscreen.presenter.SplashPresenter;
@@ -31,7 +31,7 @@ public class SplashScreen extends AppCompatActivity implements ISplashView{
 
     @Override
     public void moveToMainView() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginSignUpPage.class);
         startActivity(intent);
         finish();
     }

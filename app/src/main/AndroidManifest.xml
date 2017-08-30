@@ -26,15 +26,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginSignupPage.MainActivity"
+        <activity android:name=".loginsignuppage.LoginSignUpPage"
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".LoginSignupPage.MainActivity"
+        <activity android:name=".loginsignuppage.LoginSignUpPage"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SignInPage.SiginInPage"
+        <activity android:name=".signinpage.SiginInPage"
             android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterPage.RegisterPage"
+        <activity android:name=".registerpage.RegisterPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".landingpage.LandingPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".otppage.OTPPage"
             android:screenOrientation="portrait"/>
     </application>
 

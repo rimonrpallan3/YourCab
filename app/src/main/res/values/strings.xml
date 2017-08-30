@@ -18,6 +18,12 @@
     <string name="phno">Phone Number</string>
     <string name="create_acnt">Have an Account?</string>
     <string name="Login">Log In.</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="otp_no">OTP Number</string>
+    <string name="otp_firsttxt_msg">Enter the OTP receivedon your registered number.</string>
+    <string name="otp_secondtxt_msg"><![CDATA[I agree to the Terms & Conditions & Privacy Policy issued.]]></string>
+    <string name="otp_terms_cond"><![CDATA[Terms & Condition]]></string>
 
 
 </resources>
