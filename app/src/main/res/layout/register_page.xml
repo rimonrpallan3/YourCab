@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:onClick="LogIn"
             android:text="@string/Login"
-            android:textColor="#90c602" />
+            android:textColor="@color/highLightText" />
 
     </LinearLayout>
 

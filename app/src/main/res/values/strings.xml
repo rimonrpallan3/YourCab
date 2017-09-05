@@ -21,9 +21,10 @@
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="otp_no">OTP Number</string>
+    <string name="drivers_doc"><![CDATA[Driver's Documents]]></string>
     <string name="otp_firsttxt_msg">Enter the OTP receivedon your registered number.</string>
-    <string name="otp_secondtxt_msg"><![CDATA[I agree to the Terms & Conditions & Privacy Policy issued.]]></string>
-    <string name="otp_terms_cond"><![CDATA[Terms & Condition]]></string>
+    <string name="otp_secondtxt_msg"><![CDATA[I agree to the Terms & Conditions & Privacy Policy issued. Terms & Condition.]]></string>
+
 
 
 </resources>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <ImageView
         android:id="@+id/SignInPageLogo"
@@ -10,96 +11,82 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
         android:layout_marginTop="@dimen/_40"
+        android:layout_weight="10"
         android:src="@drawable/logo_2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:layout_margin="@dimen/_20"
-        android:layout_marginTop="@dimen/_40"
-        android:orientation="vertical">
+        android:layout_weight="90"
+        android:orientation="vertical"
+        android:weightSum="100">
 
         <TextView
             android:id="@+id/edtEmailPhno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10"
+            android:layout_marginTop="@dimen/_10"
+            android:layout_weight="10"
+            android:layout_marginLeft="@dimen/_40"
             android:text="@string/otp_firsttxt_msg"
-            android:paddingLeft="@dimen/_40"
-            android:layout_marginBottom="@dimen/_10"/>
+            android:textSize="@dimen/_14" />
 
         <EditText
             android:id="@+id/edtOPTNo"
-            android:hint="@string/otp_no"
-            android:paddingLeft="@dimen/_40"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10"
-            android:background="@drawable/oval_shape_btn_3"/>
+            android:background="@drawable/oval_shape_btn_3"
+            android:hint="@string/otp_no"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/_40" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10"
+            android:layout_marginTop="@dimen/_10"
+            android:layout_marginLeft="@dimen/_10"
+            android:gravity="left"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/opt_second_msg"
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"/>
+
+
+            <TextView
+                android:id="@+id/optSecondMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/otp_secondtxt_msg"
-                android:paddingLeft="@dimen/_40"/>
-            <TextView
-                android:id="@+id/opt_terms_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/otp_terms_cond"
-                android:layout_alignBottom="@+id/opt_second_msg"
-                android:layout_marginBottom="@dimen/_10"/>
+                android:textAlignment="gravity"
+                android:textSize="@dimen/_14" />
 
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btnSubmit"
-            android:text="@string/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
             android:background="@drawable/oval_shape_btn_2"
-            android:onClick="btnSubmit"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_marginLeft="@dimen/_20"
-            android:layout_marginTop="@dimen/_10"
-            android:orientation="horizontal">
+            android:onClick="btnSubmit"
+            android:text="@string/submit"
+            android:textColor="#FFFFFF" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/account_create"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#90c602"
-                android:text="@string/SignUp"
-                android:onClick="SignUp"/>
-
-
-        </LinearLayout>
 
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/_90" />
 
 
-</FrameLayout>
+</LinearLayout>

@@ -5,4 +5,7 @@ package com.voyager.user.yourcab.otppage.view;
  */
 
 public interface IOTPView {
+    void setTermsAndConductionText();
+    void moveToMainView();
+
 }

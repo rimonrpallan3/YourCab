@@ -54,12 +54,6 @@ public class Helper {
 
     }
 
-    public boolean GPSStatus(Context context){
-        Boolean GpsStatus;
-        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-        GpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        return  GpsStatus;
-    }
 
     public static void toEnabledLocation(final Context context, final Activity activity){
         LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);

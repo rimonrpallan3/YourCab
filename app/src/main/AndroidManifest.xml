@@ -40,6 +40,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".otppage.OTPPage"
             android:screenOrientation="portrait"/>
+        <activity android:name=".DocumentPage.DocumentPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".TermsAndConduction.TermsAndConduction"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
