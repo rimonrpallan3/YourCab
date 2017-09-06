@@ -21,9 +21,26 @@
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="otp_no">OTP Number</string>
-    <string name="drivers_doc"><![CDATA[Driver's Documents]]></string>
+    <string name="drivers_license">Driver License</string>
+    <string name="cont">\u0020 Continue</string>
     <string name="otp_firsttxt_msg">Enter the OTP receivedon your registered number.</string>
     <string name="otp_secondtxt_msg"><![CDATA[I agree to the Terms & Conditions & Privacy Policy issued. Terms & Condition.]]></string>
+    <string name="driver_front">Driver License Front</string>
+    <string name="driver_back">Driver License Back</string>
+    <string name="certificate_Register">Certificate of Register</string>
+    <string name="vehicle_Register">Vehicle Register</string>
+    <string name="vehicle_Permit">Vehicle Permit</string>
+    <string name="commercial_Insurance">Commercial Insurance</string>
+    <string name="tax_Receipt">Tax Receipt</string>
+    <string name="contract_Carriage_Permit">Contract Carriage Permit</string>
+    <string name="insurance_Certification">Insurance Certification</string>
+    <string name="image_upload_txt">Please Upload the Document by taking a Picture.</string>
+    <string name="image_upload_doc_txt">Please Upload the Certificate by taking a Picture. and do something with it, please voyager do something.</string>
+    <string name="tk_photo">Take Photo</string>
+    <string name="drivers_doc">Take a photo of your Document</string>
+    <string name="drivers_certification">Take a photo of your Certificate</string>
+    <string name="image_upload_certificate_txt">Please Upload the Document by taking a Picture. and do something with it, please voyager do something.</string>
+
 
 
 

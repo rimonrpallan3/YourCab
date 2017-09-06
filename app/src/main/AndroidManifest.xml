@@ -16,6 +16,10 @@
         <uses-permission android:name="android.permission.INTERNET" />
         <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-feature android:name="android.hardware.camera"
+            android:required="true" />
 
         <activity android:name=".splashscreen.SplashScreen"
             android:launchMode="singleTop"
@@ -44,6 +48,26 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".TermsAndConduction.TermsAndConduction"
             android:screenOrientation="portrait"/>
+        <activity android:name=".photoLiciense.PhotoLiciense"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".photoDoc.PhotoDoc"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".photoCertificate.PhotoCertificate"
+            android:screenOrientation="portrait"/>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+
+
     </application>
 
 </manifest>
