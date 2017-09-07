@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.voyager.user.yourcab.R;
 import com.voyager.user.yourcab.registerpage.RegisterPage;
-import com.voyager.user.yourcab.signinpage.SiginInPage;
+import com.voyager.user.yourcab.signinpage.SignInPage;
 
 public class LoginSignUpPage extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class LoginSignUpPage extends AppCompatActivity {
     }
 
     public void btnSignIn(View v){
-        Intent intent = new Intent(this, SiginInPage.class);
+        Intent intent = new Intent(this, SignInPage.class);
         startActivity(intent);
     }
 

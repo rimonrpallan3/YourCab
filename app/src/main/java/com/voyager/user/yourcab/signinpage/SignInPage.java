@@ -19,7 +19,7 @@ import com.voyager.user.yourcab.signinpage.view.ISignInView;
  * Created by User on 8/23/2017.
  */
 
-public class SiginInPage extends AppCompatActivity implements ISignInView{
+public class SignInPage extends AppCompatActivity implements ISignInView{
 
     private EditText edtEmailPhno;
     private EditText edtPswd;

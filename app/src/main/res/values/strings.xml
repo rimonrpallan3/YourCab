@@ -41,7 +41,9 @@
     <string name="drivers_certification">Take a photo of your Certificate</string>
     <string name="image_upload_certificate_txt">Please Upload the Document by taking a Picture. and do something with it, please voyager do something.</string>
     <string name="register_msg">Thanks for registering with us. You will get a notification once your profile is approved.</string>
-    <string name="approval_msg">Approval Pending</string>
+    <string name="approval_btn">Approval Pending</string>
+    <string name="approval_msg">Congratulations!!! Your profile is approved. Please click the below button to login for further activities.</string>
+    <string name="login_btn">Login</string>
 
 
 

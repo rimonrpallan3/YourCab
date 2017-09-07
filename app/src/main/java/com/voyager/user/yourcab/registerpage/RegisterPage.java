@@ -6,16 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.voyager.user.yourcab.R;
-import com.voyager.user.yourcab.landingpage.LandingPage;
 import com.voyager.user.yourcab.otppage.OTPPage;
 import com.voyager.user.yourcab.registerpage.presenter.RegisterPresenter;
 import com.voyager.user.yourcab.registerpage.view.IRegisterView;
-import com.voyager.user.yourcab.signinpage.SiginInPage;
-import com.voyager.user.yourcab.signinpage.presenter.SignInPresenter;
+import com.voyager.user.yourcab.signinpage.SignInPage;
 
 /**
  * Created by User on 8/23/2017.
@@ -61,7 +58,7 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
     }
 
     public void LogIn(View v){
-        Intent intent = new Intent(this, SiginInPage.class);
+        Intent intent = new Intent(this, SignInPage.class);
         startActivity(intent);
         finish();
     }

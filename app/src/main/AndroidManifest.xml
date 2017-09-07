@@ -36,7 +36,7 @@
         </activity>
         <activity android:name=".loginsignuppage.LoginSignUpPage"
             android:screenOrientation="portrait"/>
-        <activity android:name=".signinpage.SiginInPage"
+        <activity android:name=".signinpage.SignInPage"
             android:screenOrientation="portrait"/>
         <activity android:name=".registerpage.RegisterPage"
             android:screenOrientation="portrait"/>
@@ -55,6 +55,8 @@
         <activity android:name=".photoCertificate.PhotoCertificate"
             android:screenOrientation="portrait"/>
         <activity android:name=".registersuccess.RegisterSuccessPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".registerapproved.RegisterApproved"
             android:screenOrientation="portrait"/>
 
 
