@@ -154,39 +154,46 @@ public class DocumentPage extends AppCompatActivity  {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println("onActivityResult_requestCode : "+requestCode);
         // Check which request we're responding to
-        if (requestCode == Helper.DRIVER_LICENSE_FRONT) {
+        int methodName = 0;
+        try{
+            methodName =data.getIntExtra("METHOD_NAME",0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("methodName : " +methodName);
+        if (requestCode == Helper.DRIVER_LICENSE_FRONT && methodName>0) {
             driverLicenseFront.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BdriverLicenseFront = true;
         }
-        if (requestCode == Helper.DRIVER_LICENSE_BACK) {
+        if (requestCode == Helper.DRIVER_LICENSE_BACK && methodName>0) {
             driverLicenseBack.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BdriverLicenseBack = true;
         }
-        if (requestCode == Helper.CERTIFICATE_REGISTER) {
+        if (requestCode == Helper.CERTIFICATE_REGISTER && methodName>0) {
             certificateRegister.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BcertificateRegister = true;
         }
-        if (requestCode == Helper.VEHICLE_REGISTER) {
+        if (requestCode == Helper.VEHICLE_REGISTER && methodName>0) {
             vehicleRegister.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BvehicleRegister = true;
         }
-        if (requestCode == Helper.COMMERCIAL_INSURANCE) {
+        if (requestCode == Helper.COMMERCIAL_INSURANCE && methodName>0) {
             commercialInsurance.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BcommercialInsurance = true;
         }
-        if (requestCode == Helper.VEHICLE_PERMIT) {
+        if (requestCode == Helper.VEHICLE_PERMIT && methodName>0) {
             vehiclePermit.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BvehiclePermit = true;
         }
-        if (requestCode == Helper.TAX_RECEPIT) {
+        if (requestCode == Helper.TAX_RECEPIT && methodName>0) {
             taxReceipt.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BtaxReceipt = true;
         }
-        if (requestCode == Helper.CONTACT_CARRIAGE_PERMIT) {
+        if (requestCode == Helper.CONTACT_CARRIAGE_PERMIT && methodName>0) {
             contractCarriagePermit.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BcontractCarriagePermit = true;
         }
-        if (requestCode == Helper.INSURANCE_CERTIFICATION) {
+        if (requestCode == Helper.INSURANCE_CERTIFICATION && methodName>0) {
             insuranceCertification.setCompoundDrawablesWithIntrinsicBounds(null,null,icDone,null);
             BinsuranceCertification = true;
         }
