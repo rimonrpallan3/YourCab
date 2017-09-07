@@ -1,16 +1,15 @@
 package com.voyager.user.yourcab.photoDoc;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,8 +29,9 @@ import java.util.Date;
 public class PhotoDoc extends AppCompatActivity {
     String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 2;
-    Button tkPhoto;
     ImageView docImg;
+    Bundle bundle;
+    int methodName;
 
 
     @Override
@@ -39,11 +39,14 @@ public class PhotoDoc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_doc);
         docImg =(ImageView) this.findViewById(R.id.docImg);
+        bundle = getIntent().getExtras();
+        methodName = bundle.getInt("METHOD_NAME");
+        System.out.println("onCreate_methodName : "+methodName);
+
     }
 
     public void tkPhoto(View v){
         dispatchTakePictureIntent();
-        tkPhoto =v.findViewById(R.id.tkPhoto);
     }
 
     private File createImageFile() throws IOException {
@@ -128,6 +131,11 @@ public class PhotoDoc extends AppCompatActivity {
                    // setPic();
                     galleryAddPic();
                     mCurrentPhotoPath = null;
+                    System.out.println("onActivityResult_methodName : "+methodName);
+                    Intent intent=new Intent();
+                    intent.putExtra("METHOD_NAME",methodName);
+                    setResult(methodName,intent);
+                    finish();
                 }
             }
 

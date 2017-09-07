@@ -6,4 +6,6 @@
 
     <!--Highlight Text Color-->
     <color name="highLightText">#90c602</color>
+    <color name="white">#FFF</color>
+    <color name="Approval_pending">#eeaa00</color>
 </resources>

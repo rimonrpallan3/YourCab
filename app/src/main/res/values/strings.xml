@@ -40,6 +40,8 @@
     <string name="drivers_doc">Take a photo of your Document</string>
     <string name="drivers_certification">Take a photo of your Certificate</string>
     <string name="image_upload_certificate_txt">Please Upload the Document by taking a Picture. and do something with it, please voyager do something.</string>
+    <string name="register_msg">Thanks for registering with us. You will get a notification once your profile is approved.</string>
+    <string name="approval_msg">Approval Pending</string>
 
 
 

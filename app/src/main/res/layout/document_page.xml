@@ -6,7 +6,6 @@
     android:layout_weight="100"
     android:orientation="vertical">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -28,7 +27,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/driver_front"
         android:onClick="driverLicenseFront"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -42,7 +40,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/driver_back"
         android:onClick="driverLicenseBack"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -56,7 +53,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/certificate_Register"
         android:onClick="certificateRegister"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -70,7 +66,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/vehicle_Register"
         android:onClick="vehicleRegister"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -84,7 +79,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/vehicle_Permit"
         android:onClick="vehiclePermit"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -98,7 +92,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/commercial_Insurance"
         android:onClick="commercialInsurance"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40"/>
 
@@ -112,7 +105,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/tax_Receipt"
         android:onClick="taxReceipt"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -126,7 +118,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/contract_Carriage_Permit"
         android:onClick="contractCarriagePermit"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -140,7 +131,6 @@
         android:background="@drawable/oval_shape_btn_1"
         android:hint="@string/insurance_Certification"
         android:onClick="insuranceCertification"
-        android:drawableRight="@drawable/ic_done"
         android:paddingRight="@dimen/_20"
         android:paddingLeft="@dimen/_40" />
 
@@ -153,6 +143,5 @@
         android:onClick="contSubmit"
         android:text="@string/cont"
         android:textColor="#FFFF" />
-
 
 </LinearLayout>

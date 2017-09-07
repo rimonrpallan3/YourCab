@@ -22,7 +22,15 @@ import com.voyager.user.yourcab.R;
 public class Helper {
 
     public static int REQUEST_LOCATION_CHECK_SETTINGS = 1;
-
+    public static int DRIVER_LICENSE_FRONT = 2;
+    public static int DRIVER_LICENSE_BACK = 3;
+    public static int CERTIFICATE_REGISTER = 4;
+    public static int VEHICLE_REGISTER = 5;
+    public static int VEHICLE_PERMIT = 6;
+    public static int COMMERCIAL_INSURANCE = 7;
+    public static int TAX_RECEPIT = 8;
+    public static int CONTACT_CARRIAGE_PERMIT = 9;
+    public static int INSURANCE_CERTIFICATION = 10;
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
