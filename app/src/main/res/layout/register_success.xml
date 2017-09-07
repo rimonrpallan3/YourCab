@@ -29,10 +29,13 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50"
+            android:layout_height="@dimen/_60"
             android:layout_marginTop="@dimen/_40"
             android:layout_gravity="center"
             android:gravity="center"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
             android:textColor="@color/white"
             android:background="@color/Approval_pending"
             android:text="@string/approval_msg"/>

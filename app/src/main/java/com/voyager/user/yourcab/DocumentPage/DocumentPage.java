@@ -132,15 +132,15 @@ public class DocumentPage extends AppCompatActivity  {
     }
 
     public  void contSubmit(View v){
-        if(BdriverLicenseFront!=false&&
-                BdriverLicenseBack!=false&&
-                BcertificateRegister!=false&&
-                BvehicleRegister!=false&&
-                BcommercialInsurance!=false&&
-                BvehiclePermit!=false&&
-                BtaxReceipt!=false&&
-                BcontractCarriagePermit!=false&&
-                BinsuranceCertification!=false) {
+        if(BdriverLicenseFront==false&&
+                BdriverLicenseBack==false&&
+                BcertificateRegister==false&&
+                BvehicleRegister==false&&
+                BcommercialInsurance==false&&
+                BvehiclePermit==false&&
+                BtaxReceipt==false&&
+                BcontractCarriagePermit==false&&
+                BinsuranceCertification==false) {
             Intent intent = new Intent(DocumentPage.this, RegisterSuccessPage.class);
             startActivity(intent);
         }else {

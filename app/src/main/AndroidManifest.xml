@@ -54,6 +54,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".photoCertificate.PhotoCertificate"
             android:screenOrientation="portrait"/>
+        <activity android:name=".registersuccess.RegisterSuccessPage"
+            android:screenOrientation="portrait"/>
 
 
         <provider
