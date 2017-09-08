@@ -32,6 +32,7 @@ public class PhotoDoc extends AppCompatActivity {
     ImageView docImg;
     Bundle bundle;
     int methodName;
+    File photoFile = null;
 
 
     @Override
@@ -71,7 +72,6 @@ public class PhotoDoc extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -127,7 +127,8 @@ public class PhotoDoc extends AppCompatActivity {
         try {
 
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-                if (mCurrentPhotoPath != null) {
+                System.out.println("mCurrentPhotoPath : "+mCurrentPhotoPath+" ,photoFile : "+photoFile);
+                if (mCurrentPhotoPath != null && photoFile != null) {
                    // setPic();
                     galleryAddPic();
                     mCurrentPhotoPath = null;

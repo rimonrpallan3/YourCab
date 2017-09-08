@@ -9,4 +9,5 @@
     <color name="white">#FFF</color>
     <color name="Approval_pending">#eeaa00</color>
     <color name="green">#00513f</color>
+    <color name="black">#000000</color>
 </resources>
