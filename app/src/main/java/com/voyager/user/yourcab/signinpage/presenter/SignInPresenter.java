@@ -49,6 +49,6 @@ public class SignInPresenter implements ILoginPresenter {
     }
 
     private void initUser(){
-        user = new UserModel("rimon@itvoyager.com","123");
+        user = new UserModel("123","123");
     }
 }

@@ -25,6 +25,7 @@
       <FrameLayout
           android:layout_width="0dp"
           android:layout_height="match_parent"
+          android:onClick="homeTab"
           android:layout_weight="20">
           <ImageButton
               android:id="@+id/homeTabImg"
@@ -41,7 +42,7 @@
               android:layout_gravity="bottom|center"
               android:textColor="@color/white"
               android:clickable="false"
-              android:layout_marginBottom="@dimen/_04"
+              android:textSize="@dimen/_14"
               android:text="TEST TEST" >
           </TextView>
       </FrameLayout>
@@ -50,6 +51,7 @@
       <FrameLayout
           android:layout_width="0dp"
           android:layout_height="match_parent"
+          android:onClick="earnTab"
           android:layout_weight="20">
           <ImageButton
               android:id="@+id/earnTabImg"
@@ -66,13 +68,14 @@
               android:layout_gravity="bottom|center"
               android:textColor="@color/white"
               android:clickable="false"
-              android:layout_marginBottom="@dimen/_04"
+              android:textSize="@dimen/_14"
               android:text="TEST TEST" >
           </TextView>
       </FrameLayout>
       <FrameLayout
           android:layout_width="0dp"
           android:layout_height="match_parent"
+          android:onClick="rateTab"
           android:layout_weight="20">
 
           <TextView
@@ -81,7 +84,7 @@
               android:layout_gravity="bottom|center"
               android:textColor="@color/white"
               android:clickable="false"
-              android:layout_marginBottom="@dimen/_04"
+              android:textSize="@dimen/_14"
               android:text="TEST TEST" >
           </TextView>
 
@@ -91,19 +94,19 @@
               android:layout_height="match_parent"
               android:layout_marginBottom="@dimen/_10"
               android:background="@null"
-              android:src="@drawable/ic_home"></ImageButton>
+              android:src="@drawable/ic_star_border"></ImageButton>
       </FrameLayout>
       <FrameLayout
           android:layout_width="0dp"
           android:layout_height="match_parent"
+          android:onClick="profileTab"
           android:layout_weight="20">
           <ImageButton
               android:id="@+id/profileTabImg"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@null"
-              android:src="@drawable/ic_account_circle"
-              android:layout_marginBottom="@dimen/_10">
+              android:src="@drawable/ic_home">
           </ImageButton>
 
           <TextView
@@ -112,7 +115,7 @@
               android:layout_gravity="bottom|center"
               android:textColor="@color/white"
               android:clickable="false"
-              android:layout_marginBottom="@dimen/_04"
+                android:textSize="@dimen/_14"
               android:text="TEST TEST" >
           </TextView>
       </FrameLayout>
