@@ -1,12 +1,12 @@
 package com.voyager.user.yourcab.landingpage;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
-
 
 import com.voyager.user.yourcab.R;
 import com.voyager.user.yourcab.tabfragment.earningstabfragment.EarningTabFragment;
@@ -21,15 +21,23 @@ import com.voyager.user.yourcab.tabfragment.ratingstabfragment.RatingTabFragment
 
 public class LandingPage extends AppCompatActivity {
 
+    Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
+        activity = this;
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new HomeTabFragment(activity))
+                    .commit();
+        }
     }
 
     public void homeTab(View v){
         Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
-        HomeTabFragment homeTabFragment = new HomeTabFragment();
+        HomeTabFragment homeTabFragment = new HomeTabFragment(activity);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, homeTabFragment);
         fragmentTransaction.addToBackStack(null);
@@ -37,7 +45,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void earnTab(View v){
-        Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Earn Selected", Toast.LENGTH_SHORT).show();
         EarningTabFragment earningTabFragment = new EarningTabFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, earningTabFragment);
@@ -46,7 +54,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void rateTab(View v){
-        Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Rate Selected", Toast.LENGTH_SHORT).show();
         RatingTabFragment ratingTabFragment = new RatingTabFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, ratingTabFragment);
@@ -55,7 +63,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void profileTab(View v){
-        Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Profile Selected", Toast.LENGTH_SHORT).show();
         ProfileTabFragment profileTabFragment = new ProfileTabFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, profileTabFragment);
@@ -63,5 +71,9 @@ public class LandingPage extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+        finish();
+    }
 }

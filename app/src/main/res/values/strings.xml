@@ -45,6 +45,11 @@
     <string name="approval_msg">Congratulations!!! Your profile is approved. Please click the below button to login for further activities.</string>
     <string name="login_btn">Login</string>
     <string name="terms_and_cond"><![CDATA[Terms & Condition]]></string>
+    <string name="home">Home</string>
+    <string name="earning">Earning</string>
+    <string name="rating">Ratings</string>
+    <string name="account">Account</string>
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
 
 
 </resources>
