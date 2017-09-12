@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:weightSum="100">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:orientation="horizontal">
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_08"
+            android:layout_marginLeft="@dimen/_20"
+            android:layout_marginBottom="@dimen/_08">
+
+            <com.voyager.user.yourcab.costom.CircleImageView
+                android:id="@+id/imageView_churchImage"
+                android:layout_width="@dimen/_80"
+                android:layout_height="@dimen/_80"
+                android:src="@drawable/profile"
+                android:transitionName="profile"
+                app:civ_border="true"
+                android:layout_gravity="center"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="1dp" />
+
+            <ImageView
+                android:visibility="visible"
+                android:id="@+id/driverAvailableImg"
+                android:layout_width="@dimen/_20"
+                android:layout_height="@dimen/_20"
+                android:src="@android:drawable/presence_online"
+                android:layout_gravity="bottom|right" />
+        </FrameLayout>
+
+
+
+
+    </LinearLayout>
 
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="80" />
+
 </LinearLayout>
