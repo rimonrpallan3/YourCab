@@ -41,6 +41,7 @@
                 android:text="User Name" />
 
             <TextView
+                android:id="@+id/editDriverImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10"
@@ -76,6 +77,7 @@
                 android:text="Select a Vehicle" />
 
             <TextView
+                android:id="@+id/editDriverCarImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10"
