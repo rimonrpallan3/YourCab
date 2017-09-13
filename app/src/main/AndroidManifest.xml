@@ -41,7 +41,8 @@
         <activity android:name=".registerpage.RegisterPage"
             android:screenOrientation="portrait"/>
         <activity android:name=".landingpage.LandingPage"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/SCBSwitch"/>
         <activity android:name=".otppage.OTPPage"
             android:screenOrientation="portrait"/>
         <activity android:name=".DocumentPage.DocumentPage"

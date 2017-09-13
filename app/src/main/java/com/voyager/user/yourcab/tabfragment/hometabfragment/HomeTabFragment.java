@@ -4,6 +4,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,10 +16,14 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -39,7 +47,7 @@ import java.util.List;
 /**
  * Created by rimon on 22/4/16.
  */
-public class HomeTabFragment extends Fragment implements OnMapReadyCallback {
+public class HomeTabFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
 
 
     List<MapDetails> mapDetailsList;
@@ -66,6 +74,9 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback {
     View rootView;
     Activity activity;
 
+    SwitchCompat driverSwitch;
+    ImageView driverAvailableImg;
+
 
     public HomeTabFragment(Activity activity) {
         this.activity =activity;
@@ -86,7 +97,9 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback {
         View rootView = inflater.inflate(R.layout.home_tab_fragment, container, false);
         this.rootView =rootView;
         System.out.println("HomeTabFragment");
-        mMapView = (MapView) rootView.findViewById(R.id.map);
+        mMapView =  rootView.findViewById(R.id.map);
+        driverSwitch =(SwitchCompat) rootView.findViewById(R.id.driverSwitch);
+        driverAvailableImg = (ImageView) rootView.findViewById(R.id.driverAvailableImg);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
@@ -97,8 +110,12 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback {
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         MapsInitializer.initialize(this.getActivity());
 
+        driverSwitch.setOnClickListener(this);
+        driverAvailableImg.setOnClickListener(this);
+
         return rootView;
     }
+
 
     /**
      * This method creates an ArrayList that has Church Notification model class objects
@@ -258,4 +275,17 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback {
         mMapView.onLowMemory();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.driverSwitch:
+                Log.e("driverSwitch Clicked", "yehhh!!");
+                if (driverSwitch.isChecked()){
+                    driverAvailableImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.presence_online));
+                }
+                else{
+                    driverAvailableImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.presence_busy));
+                }
+        }
+    }
 }

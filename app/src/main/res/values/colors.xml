@@ -10,4 +10,11 @@
     <color name="Approval_pending">#eeaa00</color>
     <color name="green">#00513f</color>
     <color name="black">#000000</color>
+    <color name="red">#F44336</color>
+    <color name="red_dull">#EF5350</color>
+
+    <!-- Switch Color -->
+    <color name="disable_forground_grey">#F44336</color>
+    <color name="disable_thumb_grey">#EF5350</color>
+    <color name="enable_thumb_grey">#90c602</color>
 </resources>

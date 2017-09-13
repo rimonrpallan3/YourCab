@@ -40,7 +40,7 @@ public class EarningTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.earning_tab_fragment, container, false);
-        System.out.println("Faith_Landing_Card_Church_VideoPlay_TabFragment");
+        System.out.println("EarningTabFragment");
 
 
         return rootView;

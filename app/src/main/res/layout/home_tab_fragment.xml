@@ -13,37 +13,49 @@
         android:layout_weight="20"
         android:orientation="horizontal">
 
-
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_08"
+            android:layout_marginBottom="@dimen/_08"
             android:layout_marginLeft="@dimen/_20"
-            android:layout_marginBottom="@dimen/_08">
+            android:layout_marginTop="@dimen/_08">
 
             <com.voyager.user.yourcab.costom.CircleImageView
                 android:id="@+id/imageView_churchImage"
                 android:layout_width="@dimen/_80"
                 android:layout_height="@dimen/_80"
+                android:layout_gravity="center"
                 android:src="@drawable/profile"
                 android:transitionName="profile"
                 app:civ_border="true"
-                android:layout_gravity="center"
-                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_color="@color/black"
                 app:civ_border_width="1dp" />
 
             <ImageView
-                android:visibility="visible"
                 android:id="@+id/driverAvailableImg"
                 android:layout_width="@dimen/_20"
                 android:layout_height="@dimen/_20"
-                android:src="@android:drawable/presence_online"
-                android:layout_gravity="bottom|right" />
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/_06"
+                android:src="@android:drawable/presence_busy"
+                android:visibility="visible" />
         </FrameLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/driverSwitch"
+                android:layout_width="@dimen/_50"
+                android:layout_height="@dimen/_50"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:switchMinWidth="@dimen/_50"
+                android:theme="@style/SCBSwitch"/>
 
+        </FrameLayout>
 
     </LinearLayout>
 
