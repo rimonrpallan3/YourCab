@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/_08">
 
             <com.voyager.user.yourcab.costom.CircleImageView
-                android:id="@+id/imageView_churchImage"
+                android:id="@+id/profileDriverImg"
                 android:layout_width="@dimen/_80"
                 android:layout_height="@dimen/_80"
                 android:layout_gravity="center"
