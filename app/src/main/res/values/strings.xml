@@ -10,14 +10,14 @@
     <string name="email_number">Email/Mobile Number</string>
     <string name="paswd">Password</string>
     <string name="account_create">Create an account?</string>
-    <string name="SignUp">Sign Up</string>
+    <string name="SignUp">\u0020 Sign Up</string>
     <string name="submit">Submit</string>
     <string name="btn_register">Register Now</string>
     <string name="cpr_no">CPR</string>
     <string name="address">City</string>
     <string name="phno">Phone Number</string>
     <string name="create_acnt">Have an Account?</string>
-    <string name="Login">Log In.</string>
+    <string name="Login">\u0020 Log In.</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="otp_no">OTP Number</string>
@@ -56,6 +56,14 @@
     <string name="setting_profile_txt">\u0020 Setting</string>
     <string name="about_profile_txt">\u0020 About</string>
     <string name="sign_out">Sign Out</string>
+    <string name="earning_heading">EARNING OF THIS WEEK</string>
+    <string name="earning_trip_heading">TRIPS</string>
+    <string name="earning_balance_heading">BALANCE</string>
+    <string name="earning_promotion_heading">Promotion</string>
+    <string name="earning_promotion_subheading">Make more</string>
+    <string name="earning_invites_heading">Invites</string>
+    <string name="earning_invites_subheading">like driving? Invite a friend!</string>
+    <string name="earning_ern_more">EARN MORE</string>
 
 
 </resources>

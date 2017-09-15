@@ -16,8 +16,8 @@
         android:weightSum="100">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="50"
             android:gravity="center"
@@ -28,6 +28,7 @@
                 android:layout_width="@dimen/_80"
                 android:layout_height="@dimen/_80"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_04"
                 android:src="@drawable/profile"
                 android:transitionName="profile"
                 app:civ_border="true"
@@ -37,14 +38,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10"
+                android:layout_marginTop="@dimen/_04"
                 android:text="User Name" />
 
             <TextView
                 android:id="@+id/editDriverImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10"
+                android:layout_marginBottom="@dimen/_04"
+                android:layout_marginTop="@dimen/_04"
                 android:text="EDIT "
                 android:textColor="@color/highLightText" />
 
@@ -52,8 +54,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="50"
             android:gravity="center"
@@ -64,6 +66,7 @@
                 android:layout_width="@dimen/_80"
                 android:layout_height="@dimen/_80"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_04"
                 android:src="@drawable/profile"
                 android:transitionName="profile"
                 app:civ_border="true"
@@ -73,14 +76,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10"
+                android:layout_marginTop="@dimen/_04"
                 android:text="Select a Vehicle" />
 
             <TextView
                 android:id="@+id/editDriverCarImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10"
+                android:layout_marginBottom="@dimen/_04"
+                android:layout_marginTop="@dimen/_04"
                 android:text="CHANGE "
                 android:textColor="@color/highLightText" />
 
@@ -90,28 +94,32 @@
     </LinearLayout>
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="70"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="100">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_20"
             android:layout_marginRight="@dimen/_20"
-            android:orientation="vertical">
+            android:layout_weight="90"
+            android:orientation="vertical"
+            android:weightSum="60">
 
 
             <TextView
                 android:id="@+id/driverProfile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_20"
+                android:layout_weight="10"
                 android:background="@drawable/oval_shape_btn_4"
-                android:gravity="center|left"
                 android:drawableLeft="@drawable/ic_account_circle"
+                android:gravity="center|left"
                 android:hint="@string/driver_profile_txt"
                 android:paddingLeft="@dimen/_20"
                 android:paddingRight="@dimen/_20" />
@@ -119,23 +127,25 @@
             <TextView
                 android:id="@+id/profileHelp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
+                android:layout_weight="10"
                 android:background="@drawable/oval_shape_btn_4"
                 android:drawableLeft="@android:drawable/ic_menu_help"
-                android:hint="@string/help_profile_txt"
                 android:gravity="center|left"
+                android:hint="@string/help_profile_txt"
                 android:paddingLeft="@dimen/_20"
                 android:paddingRight="@dimen/_20" />
 
             <TextView
                 android:id="@+id/driverDoc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
+                android:layout_weight="10"
                 android:background="@drawable/oval_shape_btn_4"
-                android:gravity="center|left"
                 android:drawableLeft="@android:drawable/ic_input_get"
+                android:gravity="center|left"
                 android:hint="@string/document_profile_txt"
                 android:paddingLeft="@dimen/_20"
                 android:paddingRight="@dimen/_20" />
@@ -143,11 +153,12 @@
             <TextView
                 android:id="@+id/driverSetting"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
+                android:layout_weight="10"
                 android:background="@drawable/oval_shape_btn_4"
-                android:gravity="center|left"
                 android:drawableLeft="@android:drawable/ic_partial_secure"
+                android:gravity="center|left"
                 android:hint="@string/setting_profile_txt"
                 android:paddingLeft="@dimen/_30"
                 android:paddingRight="@dimen/_20" />
@@ -155,14 +166,22 @@
             <TextView
                 android:id="@+id/driverAbout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
+                android:layout_weight="10"
                 android:background="@drawable/oval_shape_btn_4"
-                android:gravity="center|left"
                 android:drawableLeft="@android:drawable/ic_dialog_info"
+                android:gravity="center|left"
                 android:hint="@string/about_profile_txt"
                 android:paddingLeft="@dimen/_20"
                 android:paddingRight="@dimen/_20" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10">
+
+            </View>
 
 
         </LinearLayout>
@@ -170,14 +189,14 @@
         <Button
             android:id="@+id/btnSignOut"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_20"
             android:layout_marginLeft="@dimen/_20"
             android:layout_marginRight="@dimen/_20"
+            android:layout_weight="10"
             android:background="@drawable/oval_shape_btn_2"
             android:text="@string/sign_out"
             android:textColor="#FFFFFF" />
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
