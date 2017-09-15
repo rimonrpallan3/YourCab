@@ -2,6 +2,7 @@ package com.voyager.user.yourcab.otppage.presenter;
 
 import android.content.Context;
 import android.text.SpannableString;
+import android.widget.TextView;
 
 /**
  * Created by User on 8/30/2017.
@@ -9,6 +10,6 @@ import android.text.SpannableString;
 
 public interface IOTPControler {
 
-    SpannableString getTextClickable(Context context02);
-
+    void setOPTSecondMsg(TextView v);
+    void doOTPValidationAndCheck(String edtOPTNo,Boolean checkTermsAndConductionBox);
 }

@@ -2,18 +2,14 @@ package com.voyager.user.yourcab.otppage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.voyager.user.yourcab.DocumentPage.DocumentPage;
 import com.voyager.user.yourcab.R;
 import com.voyager.user.yourcab.TermsAndConduction.TermsAndConduction;
 import com.voyager.user.yourcab.otppage.presenter.OTPPresenter;
@@ -23,54 +19,66 @@ import com.voyager.user.yourcab.otppage.view.IOTPView;
  * Created by User on 8/30/2017.
  */
 
-public class OTPPage extends AppCompatActivity implements IOTPView{
+ public class OTPPage extends AppCompatActivity implements IOTPView{
 
     OTPPresenter otpPresenter;
-    Button btnSubmit;
     TextView optSecondMsg;
+    EditText edtOPTNo;
+    CheckBox checkTermsAndConductionBox;
+    Button btnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.otp_page);
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
         optSecondMsg = (TextView) findViewById(R.id.optSecondMsg);
+        edtOPTNo = (EditText) findViewById(R.id.edtOPTNo);
+        checkTermsAndConductionBox = (CheckBox) findViewById(R.id.checkTermsAndConductionBox);
+        btnSubmit = (Button) findViewById(R.id.btnSubmit);
         otpPresenter = new OTPPresenter(this,this);
-
-        SpannableString ss = new SpannableString(getString(R.string.otp_secondtxt_msg));
-        final ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(final View textView) {
-                Intent intent = new Intent(OTPPage.this, TermsAndConduction.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void updateDrawState(final TextPaint textPaint) {
-                textPaint.setColor(ContextCompat.getColor(getApplicationContext(), R.color.highLightText));
-                textPaint.setUnderlineText(true);
-            }
-        };
-
-        ss.setSpan(clickableSpan,59,76, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        optSecondMsg.setText(ss);
-        optSecondMsg.setMovementMethod(LinkMovementMethod.getInstance());
+        otpPresenter.setOPTSecondMsg(optSecondMsg);
     }
 
+/*
     @Override
-    public void setTermsAndConductionText() {
-        SpannableString ss = otpPresenter.getTextClickable(this);
-        System.out.println("setTermsAndConductionText- String: "+ss);
-    }
-
-    @Override
-    public void moveToMainView() {
-
-    }
-
-    public void  btnSubmit(View v){
+    public void moveToDocPage() {
         Intent intent = new Intent(OTPPage.this, DocumentPage.class);
         startActivity(intent);
         finish();
     }
-}
+*/
+
+    @Override
+    public void onSubmit(Boolean result, int code) {
+        edtOPTNo.setEnabled(true);
+        if (result) {
+            Intent intent = new Intent(this, OTPPage.class);
+            startActivity(intent);
+            finish();
+        } else {
+            btnSubmit.setEnabled(true);
+            switch (code) {
+                case -1:
+                    Toast.makeText(this, "Please fill all the fields, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -2:
+                    Toast.makeText(this, "Please fill a valid First Name, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(this, "Please try Again Later, code = " + code, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void moveToTermsAndConductionPage() {
+        Intent intent = new Intent(OTPPage.this, TermsAndConduction.class);
+        startActivity(intent);
+    }
+
+    public void btnSubmit(View v){
+        edtOPTNo.setEnabled(false);
+        btnSubmit.setEnabled(false);
+        otpPresenter.doOTPValidationAndCheck(edtOPTNo.getText().toString(),checkTermsAndConductionBox.isChecked());
+    }
+ }

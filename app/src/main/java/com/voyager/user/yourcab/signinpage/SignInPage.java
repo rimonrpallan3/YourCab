@@ -73,8 +73,11 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
             startActivity(intent);
             finish();
         }
-        else
-            Toast.makeText(this,"Login Fail, code = " + code,Toast.LENGTH_SHORT).show();
+        else {
+            Toast.makeText(this, "Please input correct UserName and Password, code = " + code, Toast.LENGTH_SHORT).show();
+            btnSubmit.setEnabled(true);
+            signInPresenter.clear();
+        }
     }
 
     @Override

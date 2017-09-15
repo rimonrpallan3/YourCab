@@ -26,8 +26,6 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
     private EditText edtCity;
     private EditText edtCPR;
     private Button btnRegister;
-
-
     RegisterPresenter registerPresenter;
 
     @Override
@@ -70,12 +68,34 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         edtPhoneNo.setEnabled(true);
         edtCity.setEnabled(true);
         edtCPR.setEnabled(true);
-        if (result){
+        if (result) {
             Intent intent = new Intent(this, OTPPage.class);
             startActivity(intent);
             finish();
+        } else {
+            btnRegister.setEnabled(true);
+            switch (code) {
+                case -1:
+                    Toast.makeText(this, "Please fill all the fields, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -2:
+                    Toast.makeText(this, "Please fill a valid First Name, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -3:
+                    Toast.makeText(this, "Please fill a valid Last Name, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -4:
+                    Toast.makeText(this, "Please fill a valid Phone No, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -5:
+                    Toast.makeText(this, "Please fill a valid City Name, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -6:
+                    Toast.makeText(this, "Please fill a valid CPR No, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(this, "Please try Again Later, code = " + code, Toast.LENGTH_SHORT).show();
+            }
         }
-        else
-            Toast.makeText(this,", code = " + code,Toast.LENGTH_SHORT).show();
     }
 }

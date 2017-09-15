@@ -28,6 +28,7 @@ public class RegisterPresenter implements IRegisterFetcher{
 
     @Override
     public void doRegister(String FName, String LName, String phno, String city, String CPR) {
+        System.out.println("FName : "+FName+" LName : "+LName+" phno : "+phno+" city : "+city+" CPR : "+CPR);
         this.FName = FName;
         this.LName = LName;
         this.phno = phno;
