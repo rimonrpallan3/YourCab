@@ -96,11 +96,6 @@ public class DocumentPage extends AppCompatActivity  {
         bundle.putInt("METHOD_NAME", Helper.VEHICLE_PERMIT);
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.VEHICLE_PERMIT);
-
-
-        if (v.getId() == R.id.vehiclePermit) {
-            // Do something when myButton was clicked
-        }
     }
 
     public  void commercialInsurance(View v){

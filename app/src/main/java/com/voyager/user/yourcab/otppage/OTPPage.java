@@ -51,6 +51,7 @@ import com.voyager.user.yourcab.otppage.view.IOTPView;
     @Override
     public void onSubmit(Boolean result, int code) {
         edtOPTNo.setEnabled(true);
+        btnSubmit.setEnabled(true);
         if (result) {
             Intent intent = new Intent(this, OTPPage.class);
             startActivity(intent);
@@ -59,10 +60,10 @@ import com.voyager.user.yourcab.otppage.view.IOTPView;
             btnSubmit.setEnabled(true);
             switch (code) {
                 case -1:
-                    Toast.makeText(this, "Please fill all the fields, code = " + code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please Type in OTP, code = " + code, Toast.LENGTH_SHORT).show();
                     break;
                 case -2:
-                    Toast.makeText(this, "Please fill a valid First Name, code = " + code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please Agree the Terms and Conduction, code = " + code, Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     Toast.makeText(this, "Please try Again Later, code = " + code, Toast.LENGTH_SHORT).show();
