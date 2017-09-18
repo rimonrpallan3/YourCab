@@ -19,30 +19,6 @@ public class UserDetails  implements  IUserValidate{
         this.CPR = CPR;
     }
 
-    @Override
-    public String getFirstName() {
-        return FName;
-    }
-
-    @Override
-    public String getLastName() {
-        return LName;
-    }
-
-    @Override
-    public String getPhoneNumber() {
-        return phno;
-    }
-
-    @Override
-    public String getCity() {
-        return city;
-    }
-
-    @Override
-    public String getCPR() {
-        return CPR;
-    }
 
 
     @Override

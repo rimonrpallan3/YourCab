@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.voyager.user.yourcab.DocumentPage.DocumentPage;
 import com.voyager.user.yourcab.R;
 import com.voyager.user.yourcab.TermsAndConduction.TermsAndConduction;
 import com.voyager.user.yourcab.otppage.presenter.OTPPresenter;
@@ -53,14 +54,14 @@ import com.voyager.user.yourcab.otppage.view.IOTPView;
         edtOPTNo.setEnabled(true);
         btnSubmit.setEnabled(true);
         if (result) {
-            Intent intent = new Intent(this, OTPPage.class);
+            Intent intent = new Intent(this, DocumentPage.class);
             startActivity(intent);
             finish();
         } else {
             btnSubmit.setEnabled(true);
             switch (code) {
                 case -1:
-                    Toast.makeText(this, "Please Type in OTP, code = " + code, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please type in OTP, code = " + code, Toast.LENGTH_SHORT).show();
                     break;
                 case -2:
                     Toast.makeText(this, "Please Agree the Terms and Conduction, code = " + code, Toast.LENGTH_SHORT).show();
