@@ -59,11 +59,12 @@
     <string name="earning_heading">EARNING OF THIS WEEK</string>
     <string name="earning_trip_heading">TRIPS</string>
     <string name="earning_balance_heading">BALANCE</string>
-    <string name="earning_promotion_heading">Promotion</string>
-    <string name="earning_promotion_subheading">Make more</string>
+    <string name="earning_summery_heading">Summery</string>
+    <string name="earning_summery_subheading">Know more</string>
     <string name="earning_invites_heading">Invites</string>
     <string name="earning_invites_subheading">like driving? Invite a friend!</string>
     <string name="earning_ern_more">EARN MORE</string>
+    <string name="star_rate_text">Your Star Rating</string>
 
 
 </resources>

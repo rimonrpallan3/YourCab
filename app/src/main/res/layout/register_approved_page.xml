@@ -13,10 +13,10 @@
 
         <ImageView
             android:id="@+id/splashscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_150"
+            android:layout_height="@dimen/_150"
             android:layout_gravity="center"
-            android:src="@drawable/logo_2" />
+            android:src="@drawable/icon4" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,6 +25,7 @@
             android:layout_marginTop="@dimen/_40"
             android:layout_marginLeft="@dimen/_40"
             android:layout_marginRight="@dimen/_40"
+            android:textSize="@dimen/_14"
             android:text="@string/approval_msg"/>
 
         <Button
@@ -36,6 +37,7 @@
             android:onClick="btnSignIn"
             android:background="@drawable/oval_shape_btn_2"
             android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/_80"
             android:text="@string/login_btn"/>
 
     </LinearLayout>

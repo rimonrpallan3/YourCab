@@ -1,123 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/RegisterPageLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:src="@drawable/icon4"
-        android:layout_marginTop="@dimen/_20"
-        android:layout_marginBottom="@dimen/_20"/>
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10"
-        android:layout_marginRight="@dimen/_40"
-        android:layout_marginLeft="@dimen/_40"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
 
-    <EditText
-        android:id="@+id/edtFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_10"
-        android:background="@drawable/oval_shape_btn_3"
-        android:hint="@string/first_name"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="@dimen/_40" />
+        <ImageView
+            android:id="@+id/RegisterPageLogo"
+            android:layout_width="@dimen/_180"
+            android:layout_height="@dimen/_120"
+            android:layout_gravity="top|center"
+            android:layout_marginBottom="@dimen/_10"
+            android:layout_marginTop="@dimen/_20"
+            android:src="@drawable/icon4" />
 
-    <EditText
-        android:id="@+id/edtLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_10"
-        android:background="@drawable/oval_shape_btn_3"
-        android:hint="@string/last_name"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="@dimen/_40" />
-
-    <EditText
-        android:id="@+id/edtPhoneNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_10"
-        android:background="@drawable/oval_shape_btn_3"
-        android:hint="@string/phno"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="@dimen/_40" />
-
-    <EditText
-        android:id="@+id/edtCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_10"
-        android:background="@drawable/oval_shape_btn_3"
-        android:hint="@string/address"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="@dimen/_40" />
-
-    <EditText
-        android:id="@+id/edtCPR"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/_10"
-        android:background="@drawable/oval_shape_btn_3"
-        android:hint="@string/cpr_no"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:inputType="number"
-        android:paddingLeft="@dimen/_40" />
-
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/oval_shape_btn_2"
-        android:onClick="btnRegister"
-        android:text="@string/btn_register"
-        android:textColor="#FFFFFF" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10"
-        android:layout_marginLeft="@dimen/_20"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/create_acnt" />
+            android:layout_marginLeft="@dimen/_40"
+            android:layout_marginRight="@dimen/_40"
+            android:layout_marginTop="@dimen/_10"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="LogIn"
-            android:text="@string/Login"
-            android:textColor="@color/highLightText" />
+
+            <EditText
+                android:id="@+id/edtFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10"
+                android:background="@drawable/oval_shape_btn_3"
+                android:ellipsize="end"
+                android:hint="@string/first_name"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_40" />
+
+            <EditText
+                android:id="@+id/edtLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10"
+                android:background="@drawable/oval_shape_btn_3"
+                android:ellipsize="end"
+                android:hint="@string/last_name"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_40" />
+
+            <EditText
+                android:id="@+id/edtPhoneNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10"
+                android:background="@drawable/oval_shape_btn_3"
+                android:ellipsize="end"
+                android:hint="@string/phno"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_40" />
+
+            <EditText
+                android:id="@+id/edtCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10"
+                android:background="@drawable/oval_shape_btn_3"
+                android:ellipsize="end"
+                android:hint="@string/address"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_40" />
+
+            <EditText
+                android:id="@+id/edtCPR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10"
+                android:background="@drawable/oval_shape_btn_3"
+                android:ellipsize="end"
+                android:hint="@string/cpr_no"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_40" />
+
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/oval_shape_btn_2"
+                android:onClick="btnRegister"
+                android:text="@string/btn_register"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20"
+                android:layout_marginTop="@dimen/_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_acnt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="LogIn"
+                    android:text="@string/Login"
+                    android:textColor="@color/highLightText" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

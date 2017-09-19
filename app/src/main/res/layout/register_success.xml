@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/splashscreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_150"
+            android:layout_height="@dimen/_150"
             android:layout_gravity="center"
             android:src="@drawable/icon4" />
 
@@ -25,6 +25,7 @@
             android:layout_marginTop="@dimen/_40"
             android:layout_marginLeft="@dimen/_40"
             android:layout_marginRight="@dimen/_40"
+            android:textSize="@dimen/_14"
             android:text="@string/register_msg"/>
 
         <TextView
@@ -33,6 +34,7 @@
             android:layout_marginTop="@dimen/_40"
             android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginBottom="@dimen/_90"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2"

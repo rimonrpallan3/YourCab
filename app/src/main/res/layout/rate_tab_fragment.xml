@@ -2,13 +2,117 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rate" />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/_260"
+      android:layout_gravity="center"
+      android:orientation="vertical"
+      android:gravity="center">
+
+      <ImageView
+          android:id="@+id/splashscreen"
+          android:layout_width="@dimen/_180"
+          android:layout_height="@dimen/_180"
+          android:src="@drawable/icon4" />
+
+  </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/green">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_20">
+
+
+
+                <com.voyager.user.yourcab.costom.CircleImageView
+                    android:id="@+id/profileDriverImg"
+                    android:layout_width="@dimen/_80"
+                    android:layout_height="@dimen/_80"
+                    android:layout_marginLeft="@dimen/_80"
+                    android:src="@drawable/profile"
+                    android:transitionName="profile"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="1dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Robin"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/_20"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20"
+            android:text="4.0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_30"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20"
+            android:text="@string/star_rate_text"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_20"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_star"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_star"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_star"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_star"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_star"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
 </LinearLayout>

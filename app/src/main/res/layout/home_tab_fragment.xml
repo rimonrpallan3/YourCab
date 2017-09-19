@@ -38,7 +38,6 @@
                 android:layout_height="@dimen/_20"
                 android:layout_gravity="bottom|left"
                 android:layout_marginLeft="@dimen/_06"
-                android:src="@android:drawable/presence_busy"
                 android:visibility="visible" />
         </FrameLayout>
 

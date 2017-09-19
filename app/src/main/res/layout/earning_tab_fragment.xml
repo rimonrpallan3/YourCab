@@ -35,6 +35,7 @@
             android:layout_marginRight="@dimen/_10"
             android:layout_marginTop="@dimen/_08"
             android:gravity="right"
+            android:visibility="gone"
             android:src="@android:drawable/ic_media_next" />
 
 
@@ -74,6 +75,7 @@
                 android:layout_gravity="right|center"
                 android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
+                android:visibility="gone"
                 android:src="@android:drawable/ic_media_next" />
 
         </FrameLayout>
@@ -112,6 +114,7 @@
                 android:layout_gravity="right|center"
                 android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
+                android:visibility="gone"
                 android:src="@android:drawable/ic_media_next" />
         </FrameLayout>
 
@@ -127,9 +130,8 @@
             android:layout_height="@dimen/_80"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="EARN MORE"
+            android:text="Total Summery"
             android:textStyle="bold" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,13 +154,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_12"
-                    android:text="@string/earning_promotion_heading" />
+                    android:text="@string/earning_summery_heading" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_12"
-                    android:text="@string/earning_promotion_subheading" />
+                    android:text="@string/earning_summery_subheading" />
             </LinearLayout>
 
             <FrameLayout
@@ -171,10 +173,19 @@
                     android:layout_gravity="center|right"
                     android:layout_marginRight="@dimen/_08"
                     android:layout_marginTop="@dimen/_04"
+                    android:visibility="gone"
                     android:src="@android:drawable/ic_media_next" />
             </FrameLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="EARN MORE"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -220,6 +231,7 @@
                     android:layout_gravity="center|right"
                     android:layout_marginRight="@dimen/_08"
                     android:layout_marginTop="@dimen/_04"
+                    android:visibility="gone"
                     android:src="@android:drawable/ic_media_next" />
             </FrameLayout>
 
