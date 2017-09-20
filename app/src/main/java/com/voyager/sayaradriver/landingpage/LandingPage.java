@@ -4,8 +4,12 @@ package com.voyager.sayaradriver.landingpage;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
@@ -19,20 +23,37 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
  * Created by User on 8/30/2017.
  */
 
-public class LandingPage extends AppCompatActivity {
+public class LandingPage extends AppCompatActivity implements View.OnClickListener {
 
     Activity activity;
+
+   String online = "";
+   String offline = "";
+
+    SwitchCompat driverSwitch;
+    TextView onlineOfflineTxt;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
         activity = this;
+
+        onlineOfflineTxt = (TextView) findViewById(R.id.onlineOfflineTxt);
+        driverSwitch = (SwitchCompat) findViewById(R.id.driverSwitch);
+        online = getString(R.string.driver_online);
+        offline = getString(R.string.driver_offline);
+        onlineOfflineTxt.setText(offline);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new HomeTabFragment(activity))
                     .commit();
         }
+        driverSwitch.setOnClickListener(this);
+        onlineOfflineTxt.setOnClickListener(this);
     }
 
     public void homeTab(View v){
@@ -75,5 +96,21 @@ public class LandingPage extends AppCompatActivity {
     public void onBackPressed () {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.driverSwitch:
+                System.out.println("driverSwitch Clicked"+"yehhh!!");
+                if (driverSwitch.isChecked()){
+                    System.out.println("driverSwitch Clicked :"+" true!!");
+                    onlineOfflineTxt.setText(online);
+                }
+                else{
+                    System.out.println("driverSwitch Clicked :"+" false!!");
+                    onlineOfflineTxt.setText(offline);
+                }
+        }
     }
 }

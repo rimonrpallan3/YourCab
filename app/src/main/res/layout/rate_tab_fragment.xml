@@ -85,28 +85,28 @@
             android:layout_gravity="center">
 
             <ImageView
+                android:id="@+id/starImg1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_star"/>
+                android:layout_height="wrap_content"/>
 
             <ImageView
+                android:id="@+id/starImg2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_star"/>
+                android:layout_height="wrap_content"/>
 
             <ImageView
+                android:id="@+id/starImg3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_star"/>
+                android:layout_height="wrap_content"/>
 
             <ImageView
+                android:id="@+id/starImg4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_star"/>
+                android:layout_height="wrap_content"/>
             <ImageView
+                android:id="@+id/starImg5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_star"/>
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

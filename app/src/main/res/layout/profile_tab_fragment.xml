@@ -48,6 +48,7 @@
                 android:layout_marginBottom="@dimen/_04"
                 android:layout_marginTop="@dimen/_04"
                 android:text="EDIT "
+                android:visibility="gone"
                 android:textColor="@color/highLightText" />
 
 
@@ -86,6 +87,7 @@
                 android:layout_marginBottom="@dimen/_04"
                 android:layout_marginTop="@dimen/_04"
                 android:text="CHANGE "
+                android:visibility="gone"
                 android:textColor="@color/highLightText" />
 
         </LinearLayout>

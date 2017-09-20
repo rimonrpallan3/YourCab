@@ -65,6 +65,8 @@
     <string name="earning_invites_subheading">like driving? Invite a friend!</string>
     <string name="earning_ern_more">EARN MORE</string>
     <string name="star_rate_text">Your Star Rating</string>
+    <string name="driver_online">Online</string>
+    <string name="driver_offline">Offline</string>
 
 
 </resources>

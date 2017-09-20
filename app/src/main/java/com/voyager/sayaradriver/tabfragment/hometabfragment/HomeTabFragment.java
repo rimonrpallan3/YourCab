@@ -69,8 +69,6 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     View rootView;
     Activity activity;
 
-    SwitchCompat driverSwitch;
-    ImageView driverAvailableImg;
 
 
     public HomeTabFragment(Activity activity) {
@@ -93,9 +91,6 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         this.rootView =rootView;
         System.out.println("HomeTabFragment");
         mMapView =  rootView.findViewById(R.id.map);
-        driverSwitch =(SwitchCompat) rootView.findViewById(R.id.driverSwitch);
-        driverAvailableImg = (ImageView) rootView.findViewById(R.id.driverAvailableImg);
-        driverAvailableImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.presence_busy));
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
@@ -106,8 +101,6 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         MapsInitializer.initialize(this.getActivity());
 
-        driverSwitch.setOnClickListener(this);
-        driverAvailableImg.setOnClickListener(this);
 
         return rootView;
     }
@@ -274,16 +267,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.driverSwitch:
-               System.out.println("driverSwitch Clicked"+"yehhh!!");
-                if (driverSwitch.isChecked()){
-                    System.out.println("driverSwitch Clicked :"+" true!!");
-                    driverAvailableImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.presence_online));
-                }
-                else{
-                    System.out.println("driverSwitch Clicked :"+" false!!");
-                    driverAvailableImg.setImageDrawable(ContextCompat.getDrawable(getActivity(), android.R.drawable.presence_busy));
-                }
+            case R.id.map:
+            break;
         }
     }
 }

@@ -1,68 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="100">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="20"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_08"
-            android:layout_marginLeft="@dimen/_20"
-            android:layout_marginTop="@dimen/_08">
-
-            <com.voyager.sayaradriver.costom.CircleImageView
-                android:id="@+id/profileDriverImg"
-                android:layout_width="@dimen/_80"
-                android:layout_height="@dimen/_80"
-                android:layout_gravity="center"
-                android:src="@drawable/profile"
-                android:transitionName="profile"
-                app:civ_border="true"
-                app:civ_border_color="@color/black"
-                app:civ_border_width="1dp" />
-
-            <ImageView
-                android:id="@+id/driverAvailableImg"
-                android:layout_width="@dimen/_20"
-                android:layout_height="@dimen/_20"
-                android:layout_gravity="bottom|left"
-                android:layout_marginLeft="@dimen/_06"
-                android:visibility="visible" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/driverSwitch"
-                android:layout_width="@dimen/_50"
-                android:layout_height="@dimen/_50"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:switchMinWidth="@dimen/_50"
-                android:theme="@style/SCBSwitch"/>
-
-        </FrameLayout>
-
-    </LinearLayout>
+    android:orientation="vertical">
 
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="80" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
