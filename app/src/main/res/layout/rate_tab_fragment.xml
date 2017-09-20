@@ -31,15 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="@dimen/_20">
 
-
-
-                <com.voyager.user.yourcab.costom.CircleImageView
+                <com.voyager.sayaradriver.costom.CircleImageView
                     android:id="@+id/profileDriverImg"
                     android:layout_width="@dimen/_80"
                     android:layout_height="@dimen/_80"
-                    android:layout_marginLeft="@dimen/_80"
                     android:src="@drawable/profile"
                     android:transitionName="profile"
                     app:civ_border="true"
@@ -52,6 +50,7 @@
                 android:layout_gravity="center"
                 android:text="Robin"
                 android:textColor="@color/white"
+                android:layout_marginRight="@dimen/_80"
                 android:layout_marginLeft="@dimen/_20"/>
 
 

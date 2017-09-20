@@ -23,7 +23,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.voyager.user.yourcab.costom.CircleImageView
+            <com.voyager.sayaradriver.costom.CircleImageView
                 android:id="@+id/profileDriverImg"
                 android:layout_width="@dimen/_80"
                 android:layout_height="@dimen/_80"
@@ -61,7 +61,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.voyager.user.yourcab.costom.CircleImageView
+            <com.voyager.sayaradriver.costom.CircleImageView
                 android:id="@+id/profileDriverCarImg"
                 android:layout_width="@dimen/_80"
                 android:layout_height="@dimen/_80"

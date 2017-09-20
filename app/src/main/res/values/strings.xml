@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YourCab</string>
+    <string name="app_name">SayaraDriver</string>
 
     <!-- Sign and SignUp Page-->
     <string name="signUp_btn">New User</string>
