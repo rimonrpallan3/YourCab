@@ -1,8 +1,6 @@
 package com.voyager.sayaradriver.tabfragment.ratingstabfragment;
 
 import android.app.Activity;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +33,13 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
     ImageView starImg4;
     Drawable mDrawable;
 
+    Boolean imgCheck1 = false;
+    Boolean imgCheck2 = false;
+    Boolean imgCheck3 = false;
+    Boolean imgCheck4 = false;
+
+    int rgb =1;
+
 
     public RatingTabFragment() {
     }
@@ -64,6 +69,8 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         starImg2.setOnClickListener(this);
         starImg3.setOnClickListener(this);
         starImg4.setOnClickListener(this);
+
+        rgb = ContextCompat.getColor(getContext(), R.color.yellow);
 
 
 
@@ -122,24 +129,65 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.starImg1:
-                mDrawable.setColorFilter(new
-                PorterDuffColorFilter(0xffff00, PorterDuff.Mode.MULTIPLY));
-                starImg1.setImageDrawable(mDrawable);
+                if(imgCheck1 != true ){
+                    starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    imgCheck1 = true;
+                }else if(imgCheck1 != false){
+                starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                imgCheck1 = false;
+                imgCheck2 = false;
+                imgCheck3 = false;
+                imgCheck4 = false;
+
+                }
                 break;
             case R.id.starImg2:
-                mDrawable.setColorFilter(new
-                        PorterDuffColorFilter(0xffff00, PorterDuff.Mode.MULTIPLY));
-                starImg2.setImageDrawable(mDrawable);
+                if(imgCheck2 != true ){
+                    starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    imgCheck1 = true;
+                    imgCheck2 = true;
+                }else if(imgCheck2 != false){
+                    starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    imgCheck2 = false;
+                    imgCheck3 = false;
+                    imgCheck4 = false;
+                }
                 break;
             case R.id.starImg3:
-                mDrawable.setColorFilter(new
-                        PorterDuffColorFilter(0xffff00, PorterDuff.Mode.MULTIPLY));
-                starImg3.setImageDrawable(mDrawable);
+                if(imgCheck3 != true ){
+                    starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    imgCheck1 = true;
+                    imgCheck2 = true;
+                    imgCheck3 = true;
+                }else if(imgCheck3 != false){
+                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    imgCheck3 = false;
+                    imgCheck4 = false;
+                }
                 break;
             case R.id.starImg4:
-                mDrawable.setColorFilter(new
-                        PorterDuffColorFilter(0xffff00, PorterDuff.Mode.MULTIPLY));
-                starImg4.setImageDrawable(mDrawable);
+                if(imgCheck4 != true ){
+                    starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
+                    imgCheck1 = true;
+                    imgCheck2 = true;
+                    imgCheck3 = true;
+                    imgCheck4 = true;
+                }else if(imgCheck4 != false){
+                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    imgCheck4 = false;
+                }
                 break;
 
         }

@@ -11,6 +11,7 @@
     <color name="green">#00513f</color>
     <color name="black">#000000</color>
     <color name="red">#F44336</color>
+    <color name="yellow">#FFFF00</color>
     <color name="red_dull">#EF5350</color>
 
     <!-- Switch Color -->
