@@ -56,7 +56,7 @@
     <string name="setting_profile_txt">\u0020 Setting</string>
     <string name="about_profile_txt">\u0020 About</string>
     <string name="sign_out">Sign Out</string>
-    <string name="earning_heading">EARNING OF THIS WEEK</string>
+    <string name="earning_heading">TOTAL EARNING</string>
     <string name="earning_trip_heading">TRIPS</string>
     <string name="earning_balance_heading">BALANCE</string>
     <string name="earning_summery_heading">Summery</string>

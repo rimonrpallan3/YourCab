@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+
+    <!--Landing colors -->
+    <color name="toolbar_color">#191919</color>
     <!--Highlight Text Color-->
     <color name="highLightText">#90c602</color>
     <color name="white">#FFF</color>

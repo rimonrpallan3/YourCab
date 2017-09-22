@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,20 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         }
         driverSwitch.setOnClickListener(this);
         onlineOfflineTxt.setOnClickListener(this);
+
+        driverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                System.out.println("driverSwitch Clicked"+"yehhh!!");
+                if (isChecked){
+                    System.out.println("driverSwitch Clicked :"+" true!!");
+                    onlineOfflineTxt.setText(online);
+                }
+                else{
+                    System.out.println("driverSwitch Clicked :"+" false!!");
+                    onlineOfflineTxt.setText(offline);
+                }
+            }
+        });
     }
 
     public void homeTab(View v){
@@ -102,15 +117,8 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.driverSwitch:
-                System.out.println("driverSwitch Clicked"+"yehhh!!");
-                if (driverSwitch.isChecked()){
-                    System.out.println("driverSwitch Clicked :"+" true!!");
-                    onlineOfflineTxt.setText(online);
-                }
-                else{
-                    System.out.println("driverSwitch Clicked :"+" false!!");
-                    onlineOfflineTxt.setText(offline);
-                }
+                break;
         }
+
     }
 }

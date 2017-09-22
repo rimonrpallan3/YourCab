@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_30"
+        android:layout_marginTop="@dimen/_30"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20"
             android:text="@string/earning_heading"
             android:textColor="@color/black"
+            android:textSize="@dimen/_20"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/_15"
-            android:drawableLeft="@drawable/ic_attach_money_black"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_40"
+            android:layout_marginRight="@dimen/_15"
+            android:layout_marginTop="@dimen/_20"
+            android:drawableLeft="@drawable/ic_attach_money_black"
             android:text="0.00"
-            android:textColor="@color/black"
             android:textSize="@dimen/_22"
             android:textStyle="bold" />
 
@@ -35,11 +44,11 @@
             android:layout_marginRight="@dimen/_10"
             android:layout_marginTop="@dimen/_08"
             android:gravity="right"
-            android:visibility="gone"
-            android:src="@android:drawable/ic_media_next" />
+            android:src="@android:drawable/ic_media_next"
+            android:visibility="gone" />
 
 
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,14 +84,14 @@
                 android:layout_gravity="right|center"
                 android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
-                android:visibility="gone"
-                android:src="@android:drawable/ic_media_next" />
+                android:src="@android:drawable/ic_media_next"
+                android:visibility="gone" />
 
         </FrameLayout>
 
         <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight=".5"
             android:background="@android:color/black" />
 
@@ -114,8 +123,8 @@
                 android:layout_gravity="right|center"
                 android:layout_marginRight="@dimen/_10"
                 android:gravity="right"
-                android:visibility="gone"
-                android:src="@android:drawable/ic_media_next" />
+                android:src="@android:drawable/ic_media_next"
+                android:visibility="gone" />
         </FrameLayout>
 
     </LinearLayout>
@@ -131,6 +140,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Total Summery"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -173,8 +183,8 @@
                     android:layout_gravity="center|right"
                     android:layout_marginRight="@dimen/_08"
                     android:layout_marginTop="@dimen/_04"
-                    android:visibility="gone"
-                    android:src="@android:drawable/ic_media_next" />
+                    android:src="@android:drawable/ic_media_next"
+                    android:visibility="gone" />
             </FrameLayout>
 
         </LinearLayout>
@@ -185,13 +195,14 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="EARN MORE"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20"
             android:layout_marginLeft="@dimen/_15"
+            android:layout_marginBottom="@dimen/_40"
             android:orientation="horizontal">
 
 
@@ -231,8 +242,8 @@
                     android:layout_gravity="center|right"
                     android:layout_marginRight="@dimen/_08"
                     android:layout_marginTop="@dimen/_04"
-                    android:visibility="gone"
-                    android:src="@android:drawable/ic_media_next" />
+                    android:src="@android:drawable/ic_media_next"
+                    android:visibility="gone" />
             </FrameLayout>
 
 
@@ -241,3 +252,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+</ScrollView>

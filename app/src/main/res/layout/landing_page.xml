@@ -10,7 +10,7 @@
         android:id="@+id/toolbar_search"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/toolbar_color"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
@@ -24,15 +24,6 @@
             android:gravity="center">
 
 
-            <ImageView
-                android:id="@+id/drawerIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20"
-                android:layout_marginRight="@dimen/_20"
-                android:layout_gravity="center"
-                android:background="@drawable/ripple_effect"
-                android:src="@drawable/home" />
 
         </LinearLayout>
 
@@ -51,8 +42,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_12"
-                    android:textSize="@dimen/_24"
-                    android:textColor="@color/white"/>
+                    android:layout_marginLeft="@dimen/_40"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_24" />
 
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/driverSwitch"
@@ -61,7 +53,7 @@
                     android:layout_gravity="center|right"
                     android:layout_marginRight="@dimen/_30"
                     android:switchMinWidth="@dimen/_80"
-                    android:theme="@style/SCBSwitch"/>
+                    android:theme="@style/SCBSwitch" />
 
 
             </FrameLayout>

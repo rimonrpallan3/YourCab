@@ -26,12 +26,10 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
     List<MapDetails> mapDetailsList;
 
 
-    private Activity activity;
     ImageView starImg1;
     ImageView starImg2;
     ImageView starImg3;
     ImageView starImg4;
-    Drawable mDrawable;
 
     Boolean imgCheck1 = false;
     Boolean imgCheck2 = false;

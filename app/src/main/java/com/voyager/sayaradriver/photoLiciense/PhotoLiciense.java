@@ -73,7 +73,7 @@ public class PhotoLiciense extends AppCompatActivity {
             if (photoFile != null) {
                 try{
                     Uri photoURI = FileProvider.getUriForFile(this,
-                            "com.example.android.fileprovider",
+                            "com.voyager.sayaradriver.fileprovider",
                             photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
