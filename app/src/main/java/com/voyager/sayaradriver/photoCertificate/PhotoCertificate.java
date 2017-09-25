@@ -1,7 +1,11 @@
 package com.voyager.sayaradriver.photoCertificate;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by User on 9/6/2017.
@@ -55,6 +60,7 @@ public class PhotoCertificate extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        System.out.println("mCurrentPhotoPath--------------"+mCurrentPhotoPath);
         return image;
     }
 
@@ -73,12 +79,55 @@ public class PhotoCertificate extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
+
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.voyager.sayaradriver.fileprovider",
                         photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+                    List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resInfoList) {
+                        String packageName = resolveInfo.activityInfo.packageName;
+                        System.out.println("packageName--------------"+packageName);
+                        grantUriPermission(packageName, photoURI, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                }
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                }
+
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //revokeFileReadPermission(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //revokeFileReadPermission(this);
+    }
+
+    public static void revokeFileReadPermission(Context context) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            String dirpath = context.getFilesDir() + File.separator + "directory";
+            File file = new File(dirpath + File.separator + "file.txt");
+            Uri uri = FileProvider.getUriForFile(context, "com.voyager.sayaradriver.fileprovider", file);
+            context.revokeUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
     }
 
