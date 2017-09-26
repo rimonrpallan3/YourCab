@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -45,7 +46,23 @@ public class PhotoDoc extends AppCompatActivity {
     }
 
     public void tkPhoto(View v){
-        dispatchTakePictureIntent();
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            File photoFilePath = Environment
+                    .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));
+            File imageFile = new File(String.valueOf(photoFilePath));
+            Uri imageFileUri = Uri.fromFile(imageFile);
+            mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
+
+            // Continue only if the File was successfully created
+            if (imageFileUri != null) {
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
+            }
+        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            dispatchTakePictureIntent();
+        }
+
     }
 
     private File createImageFile() throws IOException {
