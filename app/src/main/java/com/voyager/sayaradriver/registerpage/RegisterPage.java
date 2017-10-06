@@ -55,7 +55,6 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
                 edtPhoneNo.getText().toString(),
                 edtCity.getText().toString(),
                 edtCPR.getText().toString());
-
     }
 
     public void LogIn(View v){
