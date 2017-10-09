@@ -46,7 +46,7 @@ public class PhotoDoc extends AppCompatActivity {
     }
 
     public void tkPhoto(View v){
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+       /* if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
             File photoFilePath = Environment
                     .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));
             File imageFile = new File(String.valueOf(photoFilePath));
@@ -59,10 +59,45 @@ public class PhotoDoc extends AppCompatActivity {
                 camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
                 startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
             }
-        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        } else*/ if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+            File imageFile = new File(String.valueOf(CameraClick()));
+            Uri imageFileUri = Uri.fromFile(imageFile);
+            mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
+            System.out.println("--------------KITKAT_imageFileUri" + mCurrentPhotoPath);
+            if (imageFileUri != null) {
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
+            }
+
+        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             dispatchTakePictureIntent();
         }
 
+    }
+
+    private File CameraClick() {
+        File storageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
+
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! storageDir.exists()){
+            if (! storageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(storageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 
     private File createImageFile() throws IOException {
@@ -142,8 +177,7 @@ public class PhotoDoc extends AppCompatActivity {
         try {
 
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-                System.out.println("mCurrentPhotoPath : "+mCurrentPhotoPath+" ,photoFile : "+photoFile);
-                if (mCurrentPhotoPath != null && photoFile != null) {
+                if (mCurrentPhotoPath != null ) {
                    // setPic();
                     galleryAddPic();
                     mCurrentPhotoPath = null;
@@ -156,7 +190,7 @@ public class PhotoDoc extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Please try again", Toast.LENGTH_LONG)
+            Toast.makeText(this, "Please try After SomeTimes", Toast.LENGTH_LONG)
                     .show();
         }
 

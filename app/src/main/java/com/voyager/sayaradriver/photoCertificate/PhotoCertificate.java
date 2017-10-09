@@ -1,15 +1,15 @@
 package com.voyager.sayaradriver.photoCertificate;
 
 import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -27,6 +27,7 @@ import java.util.Locale;
  * Created by User on 9/6/2017.
  */
 
+
 public class PhotoCertificate extends AppCompatActivity {
 
     String mCurrentPhotoPath;
@@ -40,12 +41,13 @@ public class PhotoCertificate extends AppCompatActivity {
     public Uri imageFileUri;
 
 
-
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "Driver Documents";
 
     public static String PACKAGE_NAME;
 
+    static int TAKE_PIC =1;
+    Uri outPutfileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,22 +60,22 @@ public class PhotoCertificate extends AppCompatActivity {
     }
 
     public void tkPhoto(View v) throws IOException {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT&&Build.VERSION.SDK_INT != Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && Build.VERSION.SDK_INT != Build.VERSION_CODES.JELLY_BEAN) {
            /* File photoFilePath = Environment
                     .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));*/
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
             File storageDir = new File(Environment.getExternalStorageDirectory()
-                    +File.separator
-                    +"SayaraDriver" //folder name
-                    +File.separator
-                    +imageFileName+".jpg");
+                    + File.separator
+                    + "SayaraDriver" //folder name
+                    + File.separator
+                    + imageFileName + ".jpg");
             //Uri imageFileUri = Uri.fromFile(imageFile);
             //mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
-           // System.out.println("imageFileUri--------------" + imageFileUri);
+            // System.out.println("imageFileUri--------------" + imageFileUri);
             ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE, imageFileName+".jpg");
-            values.put(MediaStore.Images.Media.DESCRIPTION,"Image capture by camera");
+            values.put(MediaStore.Images.Media.TITLE, imageFileName + ".jpg");
+            values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
             //imageUri is the current activity attribute, define and save it for later usage (also in onSaveInstanceState)
             imageFileUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             // Continue only if the File was successfully created
@@ -83,35 +85,71 @@ public class PhotoCertificate extends AppCompatActivity {
                 camera_intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
                 startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
             }
-            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
+        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
           /* File photoFilePath = Environment
                     .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));*/
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
             File storageDir = new File(Environment.getExternalStorageDirectory()
-                    +File.separator
-                    +"SayaraDriver" //folder name
-                    +File.separator
-                    +imageFileName+".jpg");
+                    + File.separator
+                    + "SayaraDriver" //folder name
+                    + File.separator
+                    + imageFileName + ".jpg");
 
 
             File imageFile = new File(String.valueOf(storageDir));
             Uri imageFileUri = Uri.fromFile(imageFile);
             mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
-            System.out.println("imageFileUri--------------" + imageFileUri);
-                // Continue only if the File was successfully created
-                if (imageFileUri != null) {
-                    Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
-                    startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
+            System.out.println("--------------Jelly been_imageFileUri" + imageFileUri);
+            // Continue only if the File was successfully created
+            if (imageFileUri != null) {
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
             }
+        } else if(Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            File imageFile = new File(String.valueOf(CameraClick()));
+            Uri imageFileUri = Uri.fromFile(imageFile);
+            mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
+            System.out.println("--------------KITKAT_imageFileUri" + mCurrentPhotoPath);
+            if (imageFileUri != null) {
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
+            }
+
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             dispatchTakePictureIntent();
         }
 
     }
+
+    private File CameraClick() {
+        File storageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
+
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! storageDir.exists()){
+            if (! storageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(storageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
+    }
+
     public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
+        String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         if (cursor != null) {
             // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
@@ -266,12 +304,13 @@ public class PhotoCertificate extends AppCompatActivity {
                     + "IMG_" + timeStamp + ".jpg");
             mCurrentPhotoPath = String.valueOf(mediaFile.getAbsoluteFile());
             System.out.println("MEDIA_TYPE_IMAGE---------------------" + mediaFile);
-        }  else {
+        } else {
             return null;
         }
 
         return mediaFile;
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -302,7 +341,7 @@ public class PhotoCertificate extends AppCompatActivity {
             Toast.makeText(this, "Please try After SomeTimes", Toast.LENGTH_LONG)
                     .show();
         }
-        if(selectedImageUri != null){
+        if (selectedImageUri != null) {
             try {
                 // OI FILE Manager
                 String filemanagerstring = selectedImageUri.getPath();
