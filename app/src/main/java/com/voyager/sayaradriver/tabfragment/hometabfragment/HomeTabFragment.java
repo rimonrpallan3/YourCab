@@ -61,8 +61,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
 
     private static final String TAG = HomeTabFragment.class.getSimpleName();
 
-    double lat = 0;
-    double log = 0;
+    double lat = 26.2285;
+    double log = 50.5860;
 
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
@@ -127,6 +127,10 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                 .addLocationRequest(mLocationRequest);
 
         map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
+        googleMap.moveCamera(center);
+        googleMap.animateCamera(zoom);
         if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             return;
@@ -136,13 +140,13 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                 new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                        lat=location.getLatitude();
+                      /*  lat=location.getLatitude();
                         log=location.getLongitude();
                         System.out.println("NETWORK_PROVIDER_CTL_lat-------" + lat + ",  CTL_log--------" + log);
                         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
                         CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
                         googleMap.moveCamera(center);
-                        googleMap.animateCamera(zoom);
+                        googleMap.animateCamera(zoom);*/
                     }
 
                     @Override
