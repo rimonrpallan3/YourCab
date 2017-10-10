@@ -46,20 +46,7 @@ public class PhotoDoc extends AppCompatActivity {
     }
 
     public void tkPhoto(View v){
-       /* if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            File photoFilePath = Environment
-                    .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));
-            File imageFile = new File(String.valueOf(photoFilePath));
-            Uri imageFileUri = Uri.fromFile(imageFile);
-            mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
-
-            // Continue only if the File was successfully created
-            if (imageFileUri != null) {
-                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
-                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
-            }
-        } else*/ if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+    if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
             File imageFile = new File(String.valueOf(CameraClick()));
             Uri imageFileUri = Uri.fromFile(imageFile);
             mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());

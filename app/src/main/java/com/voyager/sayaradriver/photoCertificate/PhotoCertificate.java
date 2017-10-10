@@ -60,54 +60,7 @@ public class PhotoCertificate extends AppCompatActivity {
     }
 
     public void tkPhoto(View v) throws IOException {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1 && Build.VERSION.SDK_INT != Build.VERSION_CODES.JELLY_BEAN) {
-           /* File photoFilePath = Environment
-                    .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));*/
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = new File(Environment.getExternalStorageDirectory()
-                    + File.separator
-                    + "SayaraDriver" //folder name
-                    + File.separator
-                    + imageFileName + ".jpg");
-            //Uri imageFileUri = Uri.fromFile(imageFile);
-            //mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
-            // System.out.println("imageFileUri--------------" + imageFileUri);
-            ContentValues values = new ContentValues();
-            values.put(MediaStore.Images.Media.TITLE, imageFileName + ".jpg");
-            values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
-            //imageUri is the current activity attribute, define and save it for later usage (also in onSaveInstanceState)
-            imageFileUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            // Continue only if the File was successfully created
-            if (imageFileUri != null) {
-                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
-                camera_intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
-            }
-        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
-          /* File photoFilePath = Environment
-                    .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.sayaradriver")));*/
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = new File(Environment.getExternalStorageDirectory()
-                    + File.separator
-                    + "SayaraDriver" //folder name
-                    + File.separator
-                    + imageFileName + ".jpg");
-
-
-            File imageFile = new File(String.valueOf(storageDir));
-            Uri imageFileUri = Uri.fromFile(imageFile);
-            mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
-            System.out.println("--------------Jelly been_imageFileUri" + imageFileUri);
-            // Continue only if the File was successfully created
-            if (imageFileUri != null) {
-                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
-                startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
-            }
-        } else if(Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+       if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
             File imageFile = new File(String.valueOf(CameraClick()));
             Uri imageFileUri = Uri.fromFile(imageFile);
             mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
