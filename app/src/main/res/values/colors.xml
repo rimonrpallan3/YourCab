@@ -6,7 +6,7 @@
 
 
     <!--Landing colors -->
-    <color name="toolbar_color">#191919</color>
+    <color name="toolbar_color">#ffa500</color>
     <!--Highlight Text Color-->
     <color name="highLightText">#ffa500</color>
     <color name="hintHighLightText">#a5a5a5</color>

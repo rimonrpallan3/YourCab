@@ -15,6 +15,7 @@ import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.TermsAndConduction.TermsAndConduction;
 import com.voyager.sayaradriver.otppagesubmit.presenter.OTPPresenter;
 import com.voyager.sayaradriver.otppagesubmit.view.IOTPView;
+import com.voyager.sayaradriver.registerpage.RegisterPage;
 
 /**
  * Created by User on 8/30/2017.
@@ -54,7 +55,7 @@ import com.voyager.sayaradriver.otppagesubmit.view.IOTPView;
         edtOPTNo.setEnabled(true);
         btnSubmit.setEnabled(true);
         if (result) {
-            Intent intent = new Intent(this, DocumentPage.class);
+            Intent intent = new Intent(this, RegisterPage.class);
             startActivity(intent);
             finish();
         } else {

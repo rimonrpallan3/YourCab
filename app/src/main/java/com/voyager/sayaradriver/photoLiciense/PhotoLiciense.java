@@ -1,11 +1,16 @@
 package com.voyager.sayaradriver.photoLiciense;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,8 +30,10 @@ import java.util.Date;
 public class PhotoLiciense extends AppCompatActivity {
     String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 2;
+    public final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1;
     Bundle bundle;
     int methodName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +58,27 @@ public class PhotoLiciense extends AppCompatActivity {
             }
 
         }   else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            dispatchTakePictureIntent();
+          dispatchTakePictureIntent();
+          if(Build.VERSION.SDK_INT ==Build.VERSION_CODES.M){
+
+
+
+          }else {
+
+          }
         }
 
+    }
+
+    private boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private File CameraClick() {

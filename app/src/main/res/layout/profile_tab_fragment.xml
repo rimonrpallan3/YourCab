@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:background="@color/green"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -87,8 +86,8 @@
                 android:layout_marginBottom="@dimen/_04"
                 android:layout_marginTop="@dimen/_04"
                 android:text="CHANGE "
-                android:visibility="gone"
-                android:textColor="@color/highLightText" />
+                android:textColor="@color/highLightText"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -117,10 +116,10 @@
                 android:id="@+id/driverProfile"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_20"
                 android:layout_weight="10"
-                android:background="@drawable/oval_shape_btn_4"
-                android:drawableLeft="@drawable/user_account_grey"
+                android:background="@drawable/rectangle_grey_button"
+                android:drawableLeft="@drawable/profile_avatar_new"
+                android:drawableRight="@drawable/ic_navigate_next"
                 android:gravity="center|left"
                 android:hint="@string/driver_profile_txt"
                 android:paddingLeft="@dimen/_20"
@@ -132,8 +131,9 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
                 android:layout_weight="10"
-                android:background="@drawable/oval_shape_btn_4"
-                android:drawableLeft="@drawable/question"
+                android:background="@drawable/rectangle_grey_button"
+                android:drawableLeft="@drawable/help_new"
+                android:drawableRight="@drawable/ic_navigate_next"
                 android:gravity="center|left"
                 android:hint="@string/help_profile_txt"
                 android:paddingLeft="@dimen/_20"
@@ -145,8 +145,9 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
                 android:layout_weight="10"
-                android:background="@drawable/oval_shape_btn_4"
-                android:drawableLeft="@drawable/documents"
+                android:background="@drawable/rectangle_grey_button"
+                android:drawableLeft="@drawable/document_new"
+                android:drawableRight="@drawable/ic_navigate_next"
                 android:gravity="center|left"
                 android:hint="@string/document_profile_txt"
                 android:paddingLeft="@dimen/_20"
@@ -158,8 +159,9 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
                 android:layout_weight="10"
-                android:background="@drawable/oval_shape_btn_4"
-                android:drawableLeft="@drawable/settings"
+                android:background="@drawable/rectangle_grey_button"
+                android:drawableLeft="@drawable/settings_new"
+                android:drawableRight="@drawable/ic_navigate_next"
                 android:gravity="center|left"
                 android:hint="@string/setting_profile_txt"
                 android:paddingLeft="@dimen/_20"
@@ -171,34 +173,32 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_10"
                 android:layout_weight="10"
-                android:background="@drawable/oval_shape_btn_4"
-                android:drawableLeft="@drawable/information"
+                android:background="@drawable/rectangle_grey_button"
+                android:drawableLeft="@drawable/information_new"
+                android:drawableRight="@drawable/ic_navigate_next"
                 android:gravity="center|left"
                 android:hint="@string/about_profile_txt"
                 android:paddingLeft="@dimen/_20"
                 android:paddingRight="@dimen/_20" />
 
-            <View
-                android:layout_width="match_parent"
+
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="10">
-
-            </View>
-
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_20"
+                android:layout_marginLeft="@dimen/_20"
+                android:layout_marginRight="@dimen/_20"
+                android:layout_marginTop="@dimen/_10"
+                android:layout_weight="10"
+                android:background="@drawable/rectangle_button"
+                android:text="@string/sign_out"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnSignOut"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/_20"
-            android:layout_marginLeft="@dimen/_20"
-            android:layout_marginRight="@dimen/_20"
-            android:layout_weight="10"
-            android:background="@drawable/oval_shape_btn_2"
-            android:text="@string/sign_out"
-            android:textColor="#FFFFFF" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
 import com.voyager.sayaradriver.registerpage.RegisterPage;
 import com.voyager.sayaradriver.signinpage.SignInPage;
 
@@ -23,7 +24,7 @@ public class LoginSignUpPage extends AppCompatActivity {
     }
 
     public  void btnSignUp(View v){
-        Intent intent = new Intent(this, RegisterPage.class);
+        Intent intent = new Intent(this, FirstOTPPage.class);
         startActivity(intent);
     }
     public  void btnTrack(View v){

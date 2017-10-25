@@ -24,11 +24,21 @@
     <string name="first_name">First Name</string>
     <!--Opt First page -->
     <string name="otp_no">OTP Number</string>
-    <string name="otp_country_code_hint">Select Country</string>
+    <string name="otp_spinner_country">Select Country</string>
     <string name="otp_zip_code_hint">Zip Code</string>
     <string name="otp_mobile_no_hint">Mobile Number</string>
     <string name="get_otp">Get OTP</string>
     <string name="otp_resend">Resend OTP</string>
+    <string-array name="country_names">
+        <item>India</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>Dubai</item>
+        <item>Bahrain</item>
+        <item>USA</item>
+        <item>UK</item>
+        <item>Canada</item>
+    </string-array>
 
 
     <string name="drivers_license">Driver Documents</string>

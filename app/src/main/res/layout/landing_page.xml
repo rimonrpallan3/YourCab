@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:background="@color/black"
+        android:background="@color/highLightText"
         android:orientation="horizontal"
         android:weightSum="80">
 
@@ -102,14 +102,14 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@null"
                 android:onClick="homeTab"
-                android:src="@drawable/home"/>
+                android:src="@drawable/home_new"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:text="@string/home"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:onClick="homeTab"
                 android:layout_marginBottom="@dimen/_04"
                 android:textSize="@dimen/_14"/>
@@ -130,17 +130,18 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@null"
                 android:onClick="earnTab"
-                android:src="@drawable/icon_money"/>
+                android:src="@drawable/money_new"/>
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:text="@string/earning"
-                android:onClick="earnTab"
                 android:layout_marginBottom="@dimen/_04"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14"/>
+                android:onClick="earnTab"
+                android:text="@string/earning"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14" />
         </FrameLayout>
 
         <FrameLayout
@@ -155,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
                 android:text="@string/rating"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:onClick="rateTab"
                 android:layout_marginBottom="@dimen/_04"
                 android:textSize="@dimen/_14"/>
@@ -167,7 +168,7 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@null"
                 android:onClick="rateTab"
-                android:src="@drawable/icon_star" />
+                android:src="@drawable/star_new" />
         </FrameLayout>
 
         <FrameLayout
@@ -184,7 +185,7 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@null"
                 android:onClick="profileTab"
-                android:src="@drawable/user_account"/>
+                android:src="@drawable/profile_avatar_new"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -193,7 +194,7 @@
                 android:text="@string/account"
                 android:onClick="profileTab"
                 android:layout_marginBottom="@dimen/_04"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_14"/>
         </FrameLayout>
 

@@ -24,21 +24,17 @@
             android:layout_margin="@dimen/_20"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edtSelectContry"
+            <Spinner
+                android:id="@+id/spinnerSelectCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/boder_black"
-                android:ellipsize="end"
-                android:hint="@string/otp_country_code_hint"
-                android:inputType="number"
-                android:maxLines="1"
+                android:prompt="@string/otp_spinner_country"
                 android:paddingLeft="@dimen/_10"
-                android:singleLine="true"
-                android:textColorHint="@color/hintHighLightText" />
+                android:spinnerMode="dropdown"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/_10"
                 android:layout_marginTop="@dimen/_15"
@@ -48,7 +44,7 @@
                 <EditText
                     android:id="@+id/edtZipCode"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/boder_black"
                     android:hint="@string/otp_zip_code_hint"
                     android:inputType="number"
@@ -57,23 +53,27 @@
                     android:paddingLeft="@dimen/_10"
                     android:singleLine="true"
                     android:textColorHint="@color/hintHighLightText"
-                    android:layout_weight="35"/>
+                    android:layout_weight="34"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"/>
 
 
                 <EditText
                     android:id="@+id/edtPhNo"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/boder_black"
                     android:textColorHint="@color/hintHighLightText"
                     android:ellipsize="end"
                     android:hint="@string/otp_mobile_no_hint"
                     android:inputType="number"
                     android:paddingLeft="@dimen/_10"
-                    android:layout_marginLeft="@dimen/_10"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:layout_weight="65"/>
+                    android:layout_weight="64"/>
 
             </LinearLayout>
 

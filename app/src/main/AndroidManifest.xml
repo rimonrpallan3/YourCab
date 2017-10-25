@@ -89,7 +89,12 @@
             android:value="AIzaSyAzQTyTsWMbYUvMgD0lqb6NV2BYV6PZ9Vs"/>
 
 
-
+        <uses-feature
+            android:name="android.hardware.camera.any"
+            android:required="true" />
+        <uses-feature
+            android:name="android.hardware.camera.autofocus"
+            android:required="false" />
     </application>
 
 </manifest>
