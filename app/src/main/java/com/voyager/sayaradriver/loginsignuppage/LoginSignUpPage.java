@@ -26,4 +26,8 @@ public class LoginSignUpPage extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterPage.class);
         startActivity(intent);
     }
+    public  void btnTrack(View v){
+        /*Intent intent = new Intent(this, RegisterPage.class);
+        startActivity(intent);*/
+    }
 }

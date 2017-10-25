@@ -10,7 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
-import com.voyager.sayaradriver.otppage.OTPPage;
+import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
+import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
 import com.voyager.sayaradriver.registerpage.presenter.RegisterPresenter;
 import com.voyager.sayaradriver.registerpage.view.IRegisterView;
 import com.voyager.sayaradriver.signinpage.SignInPage;
@@ -71,7 +72,7 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         edtCity.setEnabled(true);
         edtCPR.setEnabled(true);
         if (result) {
-            Intent intent = new Intent(this, OTPPage.class);
+            Intent intent = new Intent(this, FirstOTPPage.class);
             startActivity(intent);
             finish();
         } else {

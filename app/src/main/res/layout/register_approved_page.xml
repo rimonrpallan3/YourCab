@@ -7,8 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
 
         <ImageView
@@ -16,29 +16,29 @@
             android:layout_width="@dimen/_150"
             android:layout_height="@dimen/_150"
             android:layout_gravity="center"
-            android:src="@drawable/icon4" />
+            android:src="@drawable/logo_3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/_40"
             android:layout_marginLeft="@dimen/_40"
             android:layout_marginRight="@dimen/_40"
-            android:textSize="@dimen/_14"
-            android:text="@string/approval_msg"/>
+            android:layout_marginTop="@dimen/_40"
+            android:gravity="center"
+            android:text="@string/approval_msg"
+            android:textSize="@dimen/_14" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40"
+            android:layout_marginBottom="@dimen/_80"
             android:layout_marginLeft="@dimen/_20"
             android:layout_marginRight="@dimen/_20"
             android:layout_marginTop="@dimen/_40"
+            android:background="@drawable/rectangle_button"
             android:onClick="btnSignIn"
-            android:background="@drawable/oval_shape_btn_2"
-            android:textColor="@color/white"
-            android:layout_marginBottom="@dimen/_80"
-            android:text="@string/login_btn"/>
+            android:text="@string/login_btn"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

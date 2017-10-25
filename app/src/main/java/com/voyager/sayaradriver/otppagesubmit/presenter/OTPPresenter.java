@@ -1,4 +1,4 @@
-package com.voyager.sayaradriver.otppage.presenter;
+package com.voyager.sayaradriver.otppagesubmit.presenter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.voyager.sayaradriver.R;
-import com.voyager.sayaradriver.otppage.model.OTPModel;
-import com.voyager.sayaradriver.otppage.view.IOTPView;
+import com.voyager.sayaradriver.otppagesubmit.model.OTPModel;
+import com.voyager.sayaradriver.otppagesubmit.view.IOTPView;
 
 /**
  * Created by User on 8/30/2017.

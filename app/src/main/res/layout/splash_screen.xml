@@ -11,7 +11,7 @@
         android:layout_width="@dimen/_200"
         android:layout_height="@dimen/_200"
         android:layout_gravity="center"
-        android:src="@drawable/icon4" />
+        android:src="@drawable/logo_3" />
 
 
 </LinearLayout>

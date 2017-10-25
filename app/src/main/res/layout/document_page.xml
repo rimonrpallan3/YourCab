@@ -24,11 +24,12 @@
         android:layout_weight="9"
         android:gravity="center|left"
         android:textAlignment="gravity"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/driver_front"
         android:onClick="driverLicenseFront"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/driverLicenseBack"
@@ -37,11 +38,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/driver_back"
         android:onClick="driverLicenseBack"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/certificateRegister"
@@ -50,11 +52,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9.5"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/certificate_Register"
         android:onClick="certificateRegister"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/vehicleRegister"
@@ -63,11 +66,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/vehicle_Register"
         android:onClick="vehicleRegister"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/vehiclePermit"
@@ -76,11 +80,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/vehicle_Permit"
         android:onClick="vehiclePermit"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/commercialInsurance"
@@ -89,11 +94,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/commercial_Insurance"
         android:onClick="commercialInsurance"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40"/>
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20"/>
 
     <TextView
         android:id="@+id/taxReceipt"
@@ -102,11 +108,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/tax_Receipt"
         android:onClick="taxReceipt"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/contractCarriagePermit"
@@ -115,11 +122,12 @@
         android:layout_marginBottom="@dimen/_10"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/contract_Carriage_Permit"
         android:onClick="contractCarriagePermit"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
     <TextView
         android:id="@+id/insuranceCertification"
@@ -128,25 +136,25 @@
         android:layout_marginBottom="@dimen/_20"
         android:layout_weight="9"
         android:gravity="center|left"
-        android:background="@drawable/oval_shape_btn_1"
+        android:background="@drawable/rectangle_grey_button"
         android:hint="@string/insurance_Certification"
         android:onClick="insuranceCertification"
-        android:paddingRight="@dimen/_20"
-        android:paddingLeft="@dimen/_40" />
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"/>
+
 
     <Button
         android:id="@+id/contSubmit"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:background="@drawable/oval_shape_btn_2"
+        android:layout_gravity="center"
+        android:background="@drawable/rectangle_button"
         android:onClick="contSubmit"
         android:text="@string/cont"
-        android:textColor="#FFFF" />
+        android:textColor="@color/black"
+        android:textAllCaps="false" />
 
 </LinearLayout>

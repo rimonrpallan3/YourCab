@@ -30,13 +30,11 @@ public class TermsAndConduction extends AppCompatActivity {
         setContentView(R.layout.terms_conduction);
 
         conductionListRecycleView = (RecyclerView) findViewById(R.id.conductionListRecycleView);
-
         mAdapter = new ConductionListsRecycleAdapter(conductionList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         conductionListRecycleView.setLayoutManager(mLayoutManager);
         conductionListRecycleView.setItemAnimator(new DefaultItemAnimator());
         conductionListRecycleView.setAdapter(mAdapter);
-
         setConductionList();
 
     }

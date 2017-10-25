@@ -1,4 +1,4 @@
-package com.voyager.sayaradriver.otppage.model;
+package com.voyager.sayaradriver.firstotppage.model;
 
 
 /**

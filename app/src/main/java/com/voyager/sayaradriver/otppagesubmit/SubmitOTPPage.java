@@ -1,4 +1,4 @@
-package com.voyager.sayaradriver.otppage;
+package com.voyager.sayaradriver.otppagesubmit;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +13,14 @@ import android.widget.Toast;
 import com.voyager.sayaradriver.DocumentPage.DocumentPage;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.TermsAndConduction.TermsAndConduction;
-import com.voyager.sayaradriver.otppage.presenter.OTPPresenter;
-import com.voyager.sayaradriver.otppage.view.IOTPView;
+import com.voyager.sayaradriver.otppagesubmit.presenter.OTPPresenter;
+import com.voyager.sayaradriver.otppagesubmit.view.IOTPView;
 
 /**
  * Created by User on 8/30/2017.
  */
 
- public class OTPPage extends AppCompatActivity implements IOTPView{
+ public class SubmitOTPPage extends AppCompatActivity implements IOTPView{
 
     OTPPresenter otpPresenter;
     TextView optSecondMsg;
@@ -43,7 +43,7 @@ import com.voyager.sayaradriver.otppage.view.IOTPView;
 /*
     @Override
     public void moveToDocPage() {
-        Intent intent = new Intent(OTPPage.this, DocumentPage.class);
+        Intent intent = new Intent(FirstOTPPage.this, DocumentPage.class);
         startActivity(intent);
         finish();
     }
@@ -74,7 +74,7 @@ import com.voyager.sayaradriver.otppage.view.IOTPView;
 
     @Override
     public void moveToTermsAndConductionPage() {
-        Intent intent = new Intent(OTPPage.this, TermsAndConduction.class);
+        Intent intent = new Intent(SubmitOTPPage.this, TermsAndConduction.class);
         startActivity(intent);
     }
 

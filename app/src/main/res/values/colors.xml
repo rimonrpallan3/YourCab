@@ -8,7 +8,8 @@
     <!--Landing colors -->
     <color name="toolbar_color">#191919</color>
     <!--Highlight Text Color-->
-    <color name="highLightText">#90c602</color>
+    <color name="highLightText">#ffa500</color>
+    <color name="hintHighLightText">#a5a5a5</color>
     <color name="white">#FFF</color>
     <color name="Approval_pending">#eeaa00</color>
     <color name="green">#00513f</color>

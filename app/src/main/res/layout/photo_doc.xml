@@ -28,16 +28,18 @@
 
     <Button
         android:id="@+id/tkPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40"
+        android:layout_gravity="center"
         android:textAlignment="textStart"
         android:layout_marginTop="@dimen/_20"
-        android:paddingLeft="@dimen/_20"
-        android:textColor="#FFF"
-        android:drawableLeft="@android:drawable/ic_menu_camera"
+        android:paddingLeft="@dimen/_40"
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_action_camera"
         android:onClick="tkPhoto"
-        android:background="@drawable/oval_shape_btn_2"
-        android:text="@string/tk_photo" />
+        android:background="@drawable/rectangle_button"
+        android:text="@string/tk_photo"
+        android:textAllCaps="false"/>
 
 
 </LinearLayout>

@@ -10,7 +10,7 @@
         android:layout_height="@dimen/_15"
         android:layout_marginTop="@dimen/_04"
         android:layout_marginRight="@dimen/_06"
-        android:background="@color/green" />
+        android:background="@color/highLightText" />
 
     <TextView
         android:id="@+id/txtConduction"
