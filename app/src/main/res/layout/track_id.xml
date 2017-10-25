@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="@dimen/_20">
+
+
+    <EditText
+        android:id="@+id/edtTrackID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/boder_black"
+        android:ellipsize="end"
+        android:hint="@string/hint_ref_no"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/_10"
+        android:singleLine="true"
+        android:textColorHint="@color/hintHighLightText" />
+
+    <Button
+        android:id="@+id/btnTrackSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40"
+        android:background="@drawable/rectangle_button"
+        android:onClick="btnTrackSubmit"
+        android:layout_marginTop="@dimen/_20"
+        android:layout_gravity="center"
+        android:text="@string/submit"
+        android:textColor="@color/black"
+        android:textAllCaps="false"/>
+</LinearLayout>

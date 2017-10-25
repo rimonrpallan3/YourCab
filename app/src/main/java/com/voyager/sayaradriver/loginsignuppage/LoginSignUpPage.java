@@ -7,8 +7,8 @@ import android.view.View;
 
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
-import com.voyager.sayaradriver.registerpage.RegisterPage;
 import com.voyager.sayaradriver.signinpage.SignInPage;
+import com.voyager.sayaradriver.trackingid.TrackingID;
 
 public class LoginSignUpPage extends AppCompatActivity {
 
@@ -28,7 +28,7 @@ public class LoginSignUpPage extends AppCompatActivity {
         startActivity(intent);
     }
     public  void btnTrack(View v){
-        /*Intent intent = new Intent(this, RegisterPage.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, TrackingID.class);
+        startActivity(intent);
     }
 }

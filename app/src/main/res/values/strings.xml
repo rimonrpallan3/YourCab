@@ -41,6 +41,11 @@
     </string-array>
 
 
+    <!--track_id-->
+    <string name="hint_ref_no">Reference Number</string>
+
+
+
     <string name="drivers_license">Driver Documents</string>
     <string name="cont">\u0020 Continue</string>
     <string name="otp_firsttxt_msg">Enter the 4-digit code to your Mobile Number</string>

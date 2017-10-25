@@ -190,7 +190,7 @@
                 android:layout_marginBottom="@dimen/_20"
                 android:layout_marginLeft="@dimen/_20"
                 android:layout_marginRight="@dimen/_20"
-                android:layout_marginTop="@dimen/_10"
+                android:layout_marginTop="@dimen/_20"
                 android:layout_weight="10"
                 android:background="@drawable/rectangle_button"
                 android:text="@string/sign_out"
