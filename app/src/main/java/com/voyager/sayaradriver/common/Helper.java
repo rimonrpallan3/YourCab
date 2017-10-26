@@ -1,11 +1,13 @@
 package com.voyager.sayaradriver.common;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.LocationManager;
@@ -16,6 +18,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,7 +35,7 @@ import java.util.Locale;
  * Created by User on 8/28/2017.
  */
 
-public class Helper {
+public class Helper{
 
     public static int REQUEST_LOCATION_CHECK_SETTINGS = 1;
     public static int DRIVER_LICENSE_FRONT = 2;
@@ -54,6 +57,9 @@ public class Helper {
 
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "Driver Documents";
+
+    public final static int CAMERA_CAPTURE_PERMISSION = 77;
+    public final static int STORAGE_PERMISSION = 88;
 
 
     public static boolean isNetworkAvailable(Context context) {
@@ -254,6 +260,28 @@ public class Helper {
 
         return mediaFile;
     }
+
+    public static void storagePermissionCheck(Context context){
+        if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Log.v(context.getClass().getSimpleName(),"Permission is granted");
+            //File write logic here
+        }else{
+            ActivityCompat.requestPermissions((Activity) context.getApplicationContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
+
+        }
+    }
+
+    public static void cameraPermissionCheck(Context context){
+        if (context.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Log.v(context.getClass().getSimpleName(),"Permission is granted");
+            //File write logic here
+        }else{
+            ActivityCompat.requestPermissions((Activity) context.getApplicationContext(), new String[]{Manifest.permission.CAMERA}, CAMERA_CAPTURE_PERMISSION);
+
+        }
+    }
+
+
 
 
 }

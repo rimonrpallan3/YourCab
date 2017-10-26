@@ -1,9 +1,12 @@
 package com.voyager.sayaradriver.photoCertificate;
 
+import android.Manifest;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.Helper;
 
 
 import java.io.File;
@@ -45,9 +49,8 @@ public class PhotoCertificate extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY_NAME = "Driver Documents";
 
     public static String PACKAGE_NAME;
+    String TAG = "PhotoCertificate";
 
-    static int TAKE_PIC =1;
-    Uri outPutfileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +75,62 @@ public class PhotoCertificate extends AppCompatActivity {
             }
 
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            dispatchTakePictureIntent();
+
+           if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+               Helper.storagePermissionCheck(this);
+               Helper.cameraPermissionCheck(this);
+
+           }else{
+               dispatchTakePictureIntent();
+           }
+
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+            switch (requestCode) {
+                case Helper.CAMERA_CAPTURE_PERMISSION:
+
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        // permission was granted, yay! Do the
+                        // contacts-related task you need to do.
+                        dispatchTakePictureIntent();
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                        Toast.makeText(this, "Permission denied to Access your Camera", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case Helper.STORAGE_PERMISSION:
+
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        // permission was granted, yay! Do the
+                        // contacts-related task you need to do.
+                        dispatchTakePictureIntent();
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                        Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+            }
+        }
     }
 
     private File CameraClick() {
