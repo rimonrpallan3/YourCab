@@ -15,7 +15,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <!-- active thumb color and its ripple highlight -->
-        <item name="colorControlActivated">@color/highLightText</item>
+        <item name="colorControlActivated">@color/enable_thumb_grey</item>
         <item name="colorControlHighlight">@color/red_dull</item>
 
         <!-- inactive thumb color -->

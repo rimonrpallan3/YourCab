@@ -7,8 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/green">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Robin"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_marginRight="@dimen/_80"
                 android:layout_marginLeft="@dimen/_20"/>
 
@@ -46,7 +45,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20"
             android:text="4.0"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/_30"
             android:textStyle="bold" />
 
@@ -57,7 +56,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_20"
             android:text="@string/star_rate_text"
-            android:textColor="@color/white"/>
+            android:textColor="@color/black"/>
 
         <LinearLayout
             android:layout_width="match_parent"

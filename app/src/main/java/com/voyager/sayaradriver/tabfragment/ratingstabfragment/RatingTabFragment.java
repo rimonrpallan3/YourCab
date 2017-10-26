@@ -23,7 +23,6 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
 
     List<MapDetails> mapDetailsList;
 
-
     ImageView starImg1;
     ImageView starImg2;
     ImageView starImg3;
@@ -56,10 +55,10 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         starImg2 = (ImageView) rootView.findViewById(R.id.starImg2);
         starImg3 = (ImageView) rootView.findViewById(R.id.starImg3);
         starImg4 = (ImageView) rootView.findViewById(R.id.starImg4);
-        starImg1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.icon_star));
-        starImg2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.icon_star));
-        starImg3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.icon_star));
-        starImg4.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.icon_star));
+        starImg1.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.star_new));
+        starImg2.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.star_new));
+        starImg3.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.star_new));
+        starImg4.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.star_new));
 
         starImg1.setOnClickListener(this);
         starImg2.setOnClickListener(this);
@@ -67,9 +66,6 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         starImg4.setOnClickListener(this);
 
         rgb = ContextCompat.getColor(getContext(), R.color.yellow);
-
-
-
 
         return rootView;
     }
@@ -129,15 +125,14 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
                     starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.yellow));
                     imgCheck1 = true;
                 }else if(imgCheck1 != false){
-                starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
-                starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
-                starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
-                starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                starImg1.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+                starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+                starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+                starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
                 imgCheck1 = false;
                 imgCheck2 = false;
                 imgCheck3 = false;
                 imgCheck4 = false;
-
                 }
                 break;
             case R.id.starImg2:
@@ -147,9 +142,9 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
                     imgCheck1 = true;
                     imgCheck2 = true;
                 }else if(imgCheck2 != false){
-                    starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
-                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
-                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    starImg2.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
                     imgCheck2 = false;
                     imgCheck3 = false;
                     imgCheck4 = false;
@@ -164,8 +159,8 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
                     imgCheck2 = true;
                     imgCheck3 = true;
                 }else if(imgCheck3 != false){
-                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
-                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.white));
+                    starImg3.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
+                    starImg4.setColorFilter(ContextCompat.getColor(getContext(), R.color.black));
                     imgCheck3 = false;
                     imgCheck4 = false;
                 }

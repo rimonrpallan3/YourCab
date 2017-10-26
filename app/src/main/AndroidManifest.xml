@@ -55,6 +55,9 @@
         <activity android:name="com.voyager.sayaradriver.trackingid.TrackingID"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity android:name="com.voyager.sayaradriver.trackingdetails.TrackingDetail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name="com.voyager.sayaradriver.DocumentPage.DocumentPage"
             android:screenOrientation="portrait"/>
         <activity android:name="com.voyager.sayaradriver.TermsAndConduction.TermsAndConduction"

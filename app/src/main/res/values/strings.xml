@@ -43,6 +43,10 @@
 
     <!--track_id-->
     <string name="hint_ref_no">Reference Number</string>
+    <string name="track_first_txt">Thank You, Your application has been received and we are currently reviewing your application</string>
+    <string name="track_second_txt">Please reach our office on , for verifying the documents. </string>
+    <string name="track_third_txt">Congratulations! your application has been reviewed and accepted. Welcome on board</string>
+    <string name="track_fourth_txt">Kindly resubmit the documents.</string>
 
 
 

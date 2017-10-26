@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.registerpage.RegisterPage;
+import com.voyager.sayaradriver.trackingdetails.TrackingDetail;
 
 /**
  * Created by rimon on 26-10-2017.
@@ -32,6 +35,12 @@ public class TrackingID extends AppCompatActivity implements DialogInterface.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println("onActivityResult_requestCode : " + requestCode);
+
+    }
+
+    public void btnTrackSubmit(View v){
+        Intent intent = new Intent(this, TrackingDetail.class);
+        startActivity(intent);
 
     }
 
