@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.landingpage.LandingPage;
 import com.voyager.sayaradriver.registerpage.RegisterPage;
 import com.voyager.sayaradriver.signinpage.presenter.SignInPresenter;
@@ -46,6 +47,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
    }
 
    public void btnSubmit(View v){
+       Helper.hideKeyboard(this);
        signInPresenter.setProgressBarVisiblity(View.VISIBLE);
        btnSubmit.setEnabled(false);
        signInPresenter.doLogin(edtEmailPhno.getText().toString(), edtPswd.getText().toString());

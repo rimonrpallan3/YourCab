@@ -127,7 +127,7 @@ public class DocumentPage extends AppCompatActivity  {
     }
 
     public  void contSubmit(View v){
-        if(BdriverLicenseFront!=false&&
+        /*if(BdriverLicenseFront!=false&&
                 BdriverLicenseBack!=false&&
                 BcertificateRegister!=false&&
                 BvehicleRegister!=false&&
@@ -135,14 +135,14 @@ public class DocumentPage extends AppCompatActivity  {
                 BvehiclePermit!=false&&
                 BtaxReceipt!=false&&
                 BcontractCarriagePermit!=false&&
-                BinsuranceCertification!=false) {
+                BinsuranceCertification!=false) {*/
             Intent intent = new Intent(DocumentPage.this, RegisterSuccessPage.class);
             startActivity(intent);
             finish();
-        }else {
+      /*  }else {
             Toast.makeText(this, "Please Submit All Documents", Toast.LENGTH_LONG)
                     .show();
-        }
+        }*/
     }
 
     @Override

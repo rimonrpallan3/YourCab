@@ -1,7 +1,7 @@
 package com.voyager.sayaradriver.photoCertificate;
 
 import android.Manifest;
-import android.content.ContentValues;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -78,8 +78,17 @@ public class PhotoCertificate extends AppCompatActivity {
 
            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-               Helper.storagePermissionCheck(this);
-               Helper.cameraPermissionCheck(this);
+                   if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                       Log.v(TAG,"Permission is granted");
+                       //File write logic here
+                       dispatchTakePictureIntent();
+                   }else{
+                       //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
+                       requestPermissions(new String[]{
+                                       Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                       Manifest.permission.CAMERA},
+                               Helper.CAMERA_STORAGE_PERMISSION);
+                   }
 
            }else{
                dispatchTakePictureIntent();
@@ -89,13 +98,14 @@ public class PhotoCertificate extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+
             switch (requestCode) {
-                case Helper.CAMERA_CAPTURE_PERMISSION:
+                case Helper.CAMERA_STORAGE_PERMISSION:
 
                     // If request is cancelled, the result arrays are empty.
                     if (grantResults.length > 0
@@ -111,25 +121,6 @@ public class PhotoCertificate extends AppCompatActivity {
                         Toast.makeText(this, "Permission denied to Access your Camera", Toast.LENGTH_SHORT).show();
                     }
                     break;
-
-                case Helper.STORAGE_PERMISSION:
-
-                    // If request is cancelled, the result arrays are empty.
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                        // permission was granted, yay! Do the
-                        // contacts-related task you need to do.
-                        dispatchTakePictureIntent();
-                    } else {
-
-                        // permission denied, boo! Disable the
-                        // functionality that depends on this permission.
-                        Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
-                    }
-
-                    break;
-            }
         }
     }
 

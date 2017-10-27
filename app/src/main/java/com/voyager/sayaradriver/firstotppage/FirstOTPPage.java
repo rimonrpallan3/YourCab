@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
@@ -23,7 +24,7 @@ import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
  public class FirstOTPPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     OTPPresenter otpPresenter;
-    EditText edtZipCode;
+    TextView edtZipCode;
     EditText edtPhNo;
     Button btnGetOtp;
     Spinner spinnerSelectContry;
@@ -33,7 +34,7 @@ import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.otp_page_first);
-        edtZipCode = (EditText) findViewById(R.id.edtZipCode);
+        edtZipCode = (TextView) findViewById(R.id.edtZipCode);
         edtPhNo = (EditText) findViewById(R.id.edtPhNo);
         btnGetOtp = (Button) findViewById(R.id.btnGetOtp);
         //otpPresenter = new OTPPresenter(this,this);

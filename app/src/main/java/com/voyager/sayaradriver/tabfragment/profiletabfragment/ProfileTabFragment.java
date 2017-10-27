@@ -1,6 +1,7 @@
 package com.voyager.sayaradriver.tabfragment.profiletabfragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.voyager.sayaradriver.DocumentPage.DocumentPage;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.registersuccess.RegisterSuccessPage;
+import com.voyager.sayaradriver.signinpage.SignInPage;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
 
 import java.util.ArrayList;
@@ -134,6 +138,9 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
             case R.id.driverAbout:
                 break;
             case R.id.btnSignOut:
+                Intent intent = new Intent(getActivity(), SignInPage.class);
+                startActivity(intent);
+                getActivity().finish();
                 break;
             case R.id.editDriverCarImg:
                 break;

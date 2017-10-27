@@ -13,10 +13,12 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.Helper;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +35,7 @@ public class PhotoLiciense extends AppCompatActivity {
     public final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 1;
     Bundle bundle;
     int methodName;
+    String TAG = "PhotoLiciense";
 
 
     @Override
@@ -58,27 +61,51 @@ public class PhotoLiciense extends AppCompatActivity {
             }
 
         }   else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-          dispatchTakePictureIntent();
-          if(Build.VERSION.SDK_INT ==Build.VERSION_CODES.M){
+          if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+              if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                  Log.v(TAG,"Permission is granted");
+                  //File write logic here
+                  dispatchTakePictureIntent();
+              }else{
+                  //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
+                  requestPermissions(new String[]{
+                                  Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                  Manifest.permission.CAMERA},
+                          Helper.CAMERA_STORAGE_PERMISSION);
+              }
 
 
-
-          }else {
-
+          }else{
+              dispatchTakePictureIntent();
           }
         }
 
     }
 
-    private boolean hasPermissions(Context context, String... permissions) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            switch (requestCode) {
+                case Helper.CAMERA_STORAGE_PERMISSION:
+
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        // permission was granted, yay! Do the
+                        // contacts-related task you need to do.
+                        dispatchTakePictureIntent();
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                        Toast.makeText(this, "Permission denied to Access your Camera", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
         }
-        return true;
     }
 
     private File CameraClick() {

@@ -22,6 +22,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.voyager.sayaradriver.R;
 
@@ -60,6 +62,11 @@ public class Helper{
 
     public final static int CAMERA_CAPTURE_PERMISSION = 77;
     public final static int STORAGE_PERMISSION = 88;
+    public final static int CAMERA_STORAGE_PERMISSION = 73;
+
+    public final static int PERMISSION_ALL = 177;
+    public static final String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA};
+
 
 
     public static boolean isNetworkAvailable(Context context) {
@@ -224,6 +231,22 @@ public class Helper{
         }
     }
 
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.RESULT_HIDDEN,0);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        if (imm.isAcceptingText()) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        } else {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     /*
 	 * returning image / video
 	 */
@@ -261,26 +284,16 @@ public class Helper{
         return mediaFile;
     }
 
-    public static void storagePermissionCheck(Context context){
-        if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Log.v(context.getClass().getSimpleName(),"Permission is granted");
-            //File write logic here
-        }else{
-            ActivityCompat.requestPermissions((Activity) context.getApplicationContext(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
-
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
         }
+        return true;
     }
-
-    public static void cameraPermissionCheck(Context context){
-        if (context.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            Log.v(context.getClass().getSimpleName(),"Permission is granted");
-            //File write logic here
-        }else{
-            ActivityCompat.requestPermissions((Activity) context.getApplicationContext(), new String[]{Manifest.permission.CAMERA}, CAMERA_CAPTURE_PERMISSION);
-
-        }
-    }
-
 
 
 
