@@ -83,7 +83,7 @@ public class PhotoLiciense extends AppCompatActivity {
 
 
         //Typeface class specifies style of a font.
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/Aller_Lt.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Aller_Lt.ttf");
         //setting the font of some textviews and buttons
         galleryBtn.setTypeface(typeface);
         cameraBtn.setTypeface(typeface);
