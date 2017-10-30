@@ -44,6 +44,13 @@
     <string name="track_third_txt">Congratulations! your application has been reviewed and accepted. Welcome on board</string>
     <string name="track_fourth_txt">Kindly resubmit the documents.</string>
 
+    <!--Custom Dialog Box-->
+
+    <string name="gallery">\u0020 \u0020 \u0020 Gallery</string>
+    <string name="camera">\u0020 \u0020 \u0020 Camera</string>
+    <string name="cancel">Cancel</string>
+
+
 
 
     <string name="drivers_license">Driver Documents</string>

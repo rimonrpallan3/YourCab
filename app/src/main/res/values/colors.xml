@@ -22,4 +22,8 @@
     <color name="disable_forground_grey">#F44336</color>
     <color name="disable_thumb_grey">#EF5350</color>
     <color name="enable_thumb_grey">#c1fe1f</color>
+
+    <!--pop up Dialog Box-->
+    <color name="popup_inner_layer">#2a2a2a</color>
+    <color name="popup_outer">#a9a9a9</color>
 </resources>

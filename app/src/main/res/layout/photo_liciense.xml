@@ -29,7 +29,7 @@
         android:textColor="@color/black"
         android:layout_marginBottom="@dimen/_160"
         android:drawableLeft="@drawable/ic_action_camera"
-        android:onClick="tkPhoto"
+        android:onClick="choosePhoto"
         android:background="@drawable/rectangle_button"
         android:text="@string/tk_photo"
         android:textAllCaps="false"/>

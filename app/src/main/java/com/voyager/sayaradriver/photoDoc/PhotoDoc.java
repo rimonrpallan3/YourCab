@@ -52,7 +52,7 @@ public class PhotoDoc extends AppCompatActivity {
 
     }
 
-    public void tkPhoto(View v){
+    public void choosePhoto(View v){
     if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
             File imageFile = new File(String.valueOf(CameraClick()));
             Uri imageFileUri = Uri.fromFile(imageFile);
