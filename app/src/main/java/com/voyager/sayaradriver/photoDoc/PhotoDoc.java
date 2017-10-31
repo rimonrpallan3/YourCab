@@ -163,11 +163,9 @@ public class PhotoDoc extends AppCompatActivity {
     }
 
     public void choosePic(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,
-                "Select Picture"), SELECT_PICTURE);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/jpg");
+        startActivityForResult(intent, SELECT_PICTURE);
     }
 
 
@@ -259,29 +257,6 @@ public class PhotoDoc extends AppCompatActivity {
         }
     }
 
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = docImg.getWidth();
-        int targetH = docImg.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-       // docImg.setImageBitmap(bitmap);
-    }
 
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -290,6 +265,38 @@ public class PhotoDoc extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
+
+    /**
+     * helper to retrieve the path of an image URI
+     */
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if( uri == null ) {
+            // TODO perform some logging or show user feedback
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        try{
+            String[] projection = { MediaStore.Images.Media.DATA };
+            cursor = managedQuery(uri, projection, null, null, null);
+            if( cursor != null ){
+                int column_index = cursor
+                        .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToFirst();
+                String path = cursor.getString(column_index);
+                cursor.close();
+                return path;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        // this is our fallback here
+        return uri.getPath();
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -307,6 +314,41 @@ public class PhotoDoc extends AppCompatActivity {
                     setResult(methodName,intent);
                     finish();
                 }
+
+
+            }
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = data.getData();
+
+                //OI FILE Manager
+                filemanagerstring = selectedImageUri.getPath();
+
+                //MEDIA GALLERY
+                selectedImagePath = getPath(selectedImageUri);
+
+                //DEBUG PURPOSE - you can delete this if you want
+                if(selectedImagePath!=null)
+                    mCurrentPhotoPath = selectedImagePath;
+                else System.out.println("selectedImagePath is null");
+                if(filemanagerstring!=null)
+                    mCurrentPhotoPath = filemanagerstring;
+                else System.out.println("filemanagerstring is null");
+
+                //NOW WE HAVE OUR WANTED STRING
+                if(selectedImagePath!=null)
+                    System.out.println("selectedImagePath is the right one for you!");
+                else
+                    System.out.println("filemanagerstring is the right one for you!");
+
+                if(mCurrentPhotoPath!=null){
+                    mCurrentPhotoPath = null;
+                    System.out.println("onActivityResult_methodName : "+methodName);
+                    Intent intent=new Intent();
+                    intent.putExtra("METHOD_NAME",methodName);
+                    setResult(methodName,intent);
+                    finish();
+                }
+
             }
 
         } catch (Exception e) {

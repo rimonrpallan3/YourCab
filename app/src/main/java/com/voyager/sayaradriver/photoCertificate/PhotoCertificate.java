@@ -175,11 +175,9 @@ public class PhotoCertificate extends AppCompatActivity {
     }
 
     public void choosePic(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,
-                "Select Picture"), SELECT_PICTURE);
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/jpg");
+        startActivityForResult(intent, SELECT_PICTURE);
     }
 
 
@@ -336,65 +334,6 @@ public class PhotoCertificate extends AppCompatActivity {
         fileUri = savedInstanceState.getParcelable("file_uri");
     }
 
-    /*
-* Capturing Camera Image will lauch camera app requrest image capture
-*/
-    public void captureImage() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-        System.out.println("captureImage_fileUri---------------------" + fileUri);
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
-        // start the image capture Intent
-        startActivityForResult(intent, REQUEST_TAKE_PHOTO);
-    }
-
-    /*
-     * Creating file uri to store image/video
-	 */
-    public Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
-    }
-
-    /*
-     * returning image / video
-	 */
-    private File getOutputMediaFile(int type) {
-
-        // External sdcard location
-        File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory("com.voyager.user.pluginmethod"))),
-                IMAGE_DIRECTORY_NAME);
-
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-                        + IMAGE_DIRECTORY_NAME + " directory");
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date());
-        File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE) {
-
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "IMG_" + timeStamp + ".jpg");
-            mCurrentPhotoPath = String.valueOf(mediaFile.getAbsoluteFile());
-            System.out.println("MEDIA_TYPE_IMAGE---------------------" + mediaFile);
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -420,47 +359,45 @@ public class PhotoCertificate extends AppCompatActivity {
                     finish();
                 }
             }
+            if (requestCode == SELECT_PICTURE) {
+                selectedImageUri = data.getData();
+
+                //OI FILE Manager
+                filemanagerstring = selectedImageUri.getPath();
+
+                //MEDIA GALLERY
+                selectedImagePath = getPath(selectedImageUri);
+
+                //DEBUG PURPOSE - you can delete this if you want
+                if(selectedImagePath!=null)
+                    mCurrentPhotoPath = selectedImagePath;
+                else System.out.println("selectedImagePath is null");
+                if(filemanagerstring!=null)
+                    mCurrentPhotoPath = filemanagerstring;
+                else System.out.println("filemanagerstring is null");
+
+                //NOW WE HAVE OUR WANTED STRING
+                if(selectedImagePath!=null)
+                    System.out.println("selectedImagePath is the right one for you!");
+                else
+                    System.out.println("filemanagerstring is the right one for you!");
+
+                if(mCurrentPhotoPath!=null){
+                    mCurrentPhotoPath = null;
+                    System.out.println("onActivityResult_methodName : "+methodName);
+                    Intent intent=new Intent();
+                    intent.putExtra("METHOD_NAME",methodName);
+                    setResult(methodName,intent);
+                    finish();
+                }
+
+            }
+
 
         } catch (Exception e) {
             Toast.makeText(this, "Please try After SomeTimes", Toast.LENGTH_LONG)
                     .show();
         }
-        if (selectedImageUri != null) {
-            try {
-                // OI FILE Manager
-                String filemanagerstring = selectedImageUri.getPath();
-
-                // MEDIA GALLERY
-                String selectedImagePath = getPath(selectedImageUri);
-
-                if (selectedImagePath != null) {
-                    filePath = selectedImagePath;
-                } else if (filemanagerstring != null) {
-                    filePath = filemanagerstring;
-                } else {
-                    Toast.makeText(getApplicationContext(), "Unknown path",
-                            Toast.LENGTH_LONG).show();
-                    Log.e("Bitmap", "Unknown path");
-                }
-
-                if (filePath != null) {
-
-             /*       Toast.makeText(getApplicationContext(), " path" + filePath,
-                            Toast.LENGTH_LONG).show();
-
-                    Intent i = new Intent(getApplicationContext(), EditorActivity.class);
-                    // passing array index
-                    i.putExtra("id", filePath);
-                    startActivity(i);
-*/
-                }
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Internal error",
-                        Toast.LENGTH_LONG).show();
-                Log.e(e.getClass().getName(), e.getMessage(), e);
-            }
-        }
-
     }
 
 }
