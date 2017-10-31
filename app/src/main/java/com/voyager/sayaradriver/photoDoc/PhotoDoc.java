@@ -1,10 +1,15 @@
 package com.voyager.sayaradriver.photoDoc;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,11 +20,14 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.photoLiciense.PhotoLiciense;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +48,16 @@ public class PhotoDoc extends AppCompatActivity {
 
     String TAG = "PhotoDoc";
 
+    private static final int SELECT_PICTURE = 23;
+    private String selectedImagePath;
+
+    private String filemanagerstring;
+    Cursor cursor;
+
+    Button galleryBtn;
+    Button cameraBtn;
+    Button cancelBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +71,65 @@ public class PhotoDoc extends AppCompatActivity {
     }
 
     public void choosePhoto(View v){
-    if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+      showDialog();
+    }
+
+    void showDialog(){
+        final Dialog dialog = new Dialog(this);
+        //create dialog without title
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //set the custom dialog's layout to the dialog
+        dialog.setContentView(R.layout.custom_dialog);
+        //set the background of dialog box as transparent
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //display the dialog box
+        dialog.show();
+
+        //initializing views of custom dialog
+        galleryBtn = (Button)dialog.findViewById(R.id.galleryBtn);
+        cameraBtn = (Button)dialog.findViewById(R.id.cameraBtn);
+        cancelBtn = (Button)dialog.findViewById(R.id.cancelBtn);
+
+
+        //Typeface class specifies style of a font.
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Aller_Lt.ttf");
+        //setting the font of some textviews and buttons
+        galleryBtn.setTypeface(typeface);
+        cameraBtn.setTypeface(typeface);
+        cancelBtn.setTypeface(typeface);
+
+        //dismiss the dialog and show toast on pressing the Login button
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePic();
+                dialog.dismiss();
+              //  Toast.makeText(PhotoDoc.this,"You pressed galleryBtn button",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //dismiss the dialog and show toast on pressing the Login button
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tkPhoto();
+                dialog.dismiss();
+             //   Toast.makeText(PhotoDoc.this,"You pressed cameraBtn button",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //dismiss the dialog and show toast on pressing the Login button
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+              //  Toast.makeText(PhotoDoc.this,"You pressed cancelBtn button",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void tkPhoto(){
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
             File imageFile = new File(String.valueOf(CameraClick()));
             Uri imageFileUri = Uri.fromFile(imageFile);
             mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
@@ -64,28 +140,36 @@ public class PhotoDoc extends AppCompatActivity {
                 startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
             }
 
-        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        }   else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG,"Permission is granted");
-                //File write logic here
-                dispatchTakePictureIntent();
+                if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Log.v(TAG,"Permission is granted");
+                    //File write logic here
+                    dispatchTakePictureIntent();
+                }else{
+                    //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
+                    requestPermissions(new String[]{
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.CAMERA},
+                            Helper.CAMERA_STORAGE_PERMISSION);
+                }
+
+
             }else{
-                //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
-                requestPermissions(new String[]{
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA},
-                        Helper.CAMERA_STORAGE_PERMISSION);
+                dispatchTakePictureIntent();
             }
-
-
-        }else{
-            dispatchTakePictureIntent();
         }
-        }
-
     }
+
+    public void choosePic(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECT_PICTURE);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

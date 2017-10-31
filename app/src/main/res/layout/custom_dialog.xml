@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10"
             android:background="@drawable/rectangle_button"
-            android:drawableLeft="@drawable/ic_action_camera"
+            android:drawableLeft="@drawable/gallery"
             android:paddingLeft="@dimen/_10"
             android:text="@string/gallery"
             android:textAllCaps="false" />

@@ -2,7 +2,11 @@ package com.voyager.sayaradriver.photoCertificate;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,10 +19,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.photoDoc.PhotoDoc;
 
 
 import java.io.File;
@@ -51,6 +58,16 @@ public class PhotoCertificate extends AppCompatActivity {
     public static String PACKAGE_NAME;
     String TAG = "PhotoCertificate";
 
+    private static final int SELECT_PICTURE = 23;
+    private String selectedImagePath;
+
+    private String filemanagerstring;
+    Cursor cursor;
+
+    Button galleryBtn;
+    Button cameraBtn;
+    Button cancelBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +79,69 @@ public class PhotoCertificate extends AppCompatActivity {
         System.out.println("onCreate_methodName : " + methodName);
     }
 
-    public void choosePhoto(View v) throws IOException {
-       if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+
+    public void choosePhoto(View v){
+
+        showDialog();
+
+    }
+
+    void showDialog(){
+        final Dialog dialog = new Dialog(this);
+        //create dialog without title
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //set the custom dialog's layout to the dialog
+        dialog.setContentView(R.layout.custom_dialog);
+        //set the background of dialog box as transparent
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //display the dialog box
+        dialog.show();
+
+        //initializing views of custom dialog
+        galleryBtn = (Button)dialog.findViewById(R.id.galleryBtn);
+        cameraBtn = (Button)dialog.findViewById(R.id.cameraBtn);
+        cancelBtn = (Button)dialog.findViewById(R.id.cancelBtn);
+
+
+        //Typeface class specifies style of a font.
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Aller_Lt.ttf");
+        //setting the font of some textviews and buttons
+        galleryBtn.setTypeface(typeface);
+        cameraBtn.setTypeface(typeface);
+        cancelBtn.setTypeface(typeface);
+
+        //dismiss the dialog and show toast on pressing the Login button
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePic();
+                dialog.dismiss();
+              //  Toast.makeText(PhotoCertificate.this,"You pressed galleryBtn button",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //dismiss the dialog and show toast on pressing the Login button
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tkPhoto();
+                dialog.dismiss();
+               // Toast.makeText(PhotoCertificate.this,"You pressed cameraBtn button",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //dismiss the dialog and show toast on pressing the Login button
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+              //  Toast.makeText(PhotoCertificate.this,"You pressed cancelBtn button",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void tkPhoto(){
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
             File imageFile = new File(String.valueOf(CameraClick()));
             Uri imageFileUri = Uri.fromFile(imageFile);
             mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
@@ -74,28 +152,34 @@ public class PhotoCertificate extends AppCompatActivity {
                 startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
             }
 
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        }   else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
 
-           if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Log.v(TAG,"Permission is granted");
+                    //File write logic here
+                    dispatchTakePictureIntent();
+                }else{
+                    //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
+                    requestPermissions(new String[]{
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.CAMERA},
+                            Helper.CAMERA_STORAGE_PERMISSION);
+                }
 
-                   if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                       Log.v(TAG,"Permission is granted");
-                       //File write logic here
-                       dispatchTakePictureIntent();
-                   }else{
-                       //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
-                       requestPermissions(new String[]{
-                                       Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                       Manifest.permission.CAMERA},
-                               Helper.CAMERA_STORAGE_PERMISSION);
-                   }
 
-           }else{
-               dispatchTakePictureIntent();
-           }
-
+            }else{
+                dispatchTakePictureIntent();
+            }
         }
+    }
 
+    public void choosePic(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECT_PICTURE);
     }
 
 

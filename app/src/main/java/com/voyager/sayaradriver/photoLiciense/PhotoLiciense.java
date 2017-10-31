@@ -95,7 +95,7 @@ public class PhotoLiciense extends AppCompatActivity {
             public void onClick(View v) {
                 choosePic();
                 dialog.dismiss();
-                Toast.makeText(PhotoLiciense.this,"You pressed galleryBtn button",Toast.LENGTH_LONG).show();
+               // Toast.makeText(PhotoLiciense.this,"You pressed galleryBtn button",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -105,7 +105,7 @@ public class PhotoLiciense extends AppCompatActivity {
             public void onClick(View v) {
                 tkPhoto();
                 dialog.dismiss();
-                Toast.makeText(PhotoLiciense.this,"You pressed cameraBtn button",Toast.LENGTH_LONG).show();
+              //  Toast.makeText(PhotoLiciense.this,"You pressed cameraBtn button",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -114,7 +114,7 @@ public class PhotoLiciense extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(PhotoLiciense.this,"You pressed cancelBtn button",Toast.LENGTH_LONG).show();
+               // Toast.makeText(PhotoLiciense.this,"You pressed cancelBtn button",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -145,8 +145,6 @@ public class PhotoLiciense extends AppCompatActivity {
                                     Manifest.permission.CAMERA},
                             Helper.CAMERA_STORAGE_PERMISSION);
                 }
-
-
             }else{
                 dispatchTakePictureIntent();
             }
@@ -182,7 +180,6 @@ public class PhotoLiciense extends AppCompatActivity {
                         Toast.makeText(this, "Permission denied to Access your Camera", Toast.LENGTH_SHORT).show();
                     }
                     break;
-
         }
     }
 
