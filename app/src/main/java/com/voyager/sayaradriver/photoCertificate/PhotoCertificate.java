@@ -58,7 +58,7 @@ public class PhotoCertificate extends AppCompatActivity {
     public static String PACKAGE_NAME;
     String TAG = "PhotoCertificate";
 
-    private static final int SELECT_PICTURE = 23;
+
     private String selectedImagePath;
 
     private String filemanagerstring;
@@ -177,7 +177,7 @@ public class PhotoCertificate extends AppCompatActivity {
     public void choosePic(){
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/jpg");
-        startActivityForResult(intent, SELECT_PICTURE);
+        startActivityForResult(intent, Helper.SELECT_PICTURE);
     }
 
 
@@ -359,7 +359,7 @@ public class PhotoCertificate extends AppCompatActivity {
                     finish();
                 }
             }
-            if (requestCode == SELECT_PICTURE) {
+            if (requestCode == Helper.SELECT_PICTURE) {
                 selectedImageUri = data.getData();
 
                 //OI FILE Manager

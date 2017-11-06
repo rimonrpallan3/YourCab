@@ -1,6 +1,7 @@
 package com.voyager.sayaradriver.photoLiciense;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,7 +41,7 @@ public class PhotoLiciense extends AppCompatActivity {
     Bundle bundle;
     int methodName;
     String TAG = "PhotoLiciense";
-    private static final int SELECT_PICTURE = 23;
+
     private String selectedImagePath;
 
     private String filemanagerstring;
@@ -49,13 +50,14 @@ public class PhotoLiciense extends AppCompatActivity {
     Button galleryBtn;
     Button cameraBtn;
     Button cancelBtn;
+    Activity activity;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_liciense);
-
+        activity =getParent();
         bundle = getIntent().getExtras();
         methodName = bundle.getInt("METHOD_NAME");
         System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
@@ -103,7 +105,7 @@ public class PhotoLiciense extends AppCompatActivity {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tkPhoto();
+                Helper.takePhoto(getParent());
                 dialog.dismiss();
               //  Toast.makeText(PhotoLiciense.this,"You pressed cameraBtn button",Toast.LENGTH_LONG).show();
             }
@@ -154,7 +156,7 @@ public class PhotoLiciense extends AppCompatActivity {
     public void choosePic(){
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/jpg");
-        startActivityForResult(intent, SELECT_PICTURE);
+        startActivityForResult(intent, Helper.SELECT_PICTURE);
     }
 
     @Override
@@ -309,7 +311,7 @@ public class PhotoLiciense extends AppCompatActivity {
                 }
             }
 
-            if (requestCode == SELECT_PICTURE) {
+            if (requestCode == Helper.SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
 
                 //OI FILE Manager

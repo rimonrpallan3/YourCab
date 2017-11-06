@@ -59,12 +59,6 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
                 edtCPR.getText().toString());
     }
 
-    public void LogIn(View v){
-        Intent intent = new Intent(this, SignInPage.class);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     public void onRegister(Boolean result, int code) {
         edtFirstName.setEnabled(true);

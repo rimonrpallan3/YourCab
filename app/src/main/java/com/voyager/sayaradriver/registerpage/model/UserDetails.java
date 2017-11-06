@@ -20,12 +20,51 @@ public class UserDetails  implements  IUserValidate{
     }
 
 
+    public String getFName() {
+        return FName;
+    }
+
+    public void setFName(String FName) {
+        this.FName = FName;
+    }
+
+    public String getLName() {
+        return LName;
+    }
+
+    public void setLName(String LName) {
+        this.LName = LName;
+    }
+
+    public String getPhno() {
+        return phno;
+    }
+
+    public void setPhno(String phno) {
+        this.phno = phno;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCPR() {
+        return CPR;
+    }
+
+    public void setCPR(String CPR) {
+        this.CPR = CPR;
+    }
 
     @Override
     public int validateUserDetails(String FName, String LName, String phno, String city, String CPR) {
         if (FName.trim().length()==0||LName.trim().length()==0||phno.trim().length()==0||city.trim().length()==0||LName.trim().length()==0||CPR.trim().length()==0){
             {
-                    return -1;
+                    return -1;// if the field is null
                 }
         }else {
             for (int i = 0; i < FName.trim().length(); i++) {
@@ -59,6 +98,6 @@ public class UserDetails  implements  IUserValidate{
                 }
             }
         }
-        return 0;
+        return 0;// Validation is successful
     }
 }

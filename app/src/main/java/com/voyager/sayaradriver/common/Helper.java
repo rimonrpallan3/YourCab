@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -31,7 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by User on 8/28/2017.
@@ -63,11 +60,12 @@ public class Helper{
     public final static int CAMERA_CAPTURE_PERMISSION = 77;
     public final static int STORAGE_PERMISSION = 88;
     public final static int CAMERA_STORAGE_PERMISSION = 73;
+    public final static int SELECT_PICTURE = 23;
 
     public final static int PERMISSION_ALL = 177;
     public static final String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA};
 
-
+    public static String mCurrentPhotoPath;
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
@@ -76,7 +74,7 @@ public class Helper{
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private File createImageFile(Activity activity) throws IOException {
+    private static File createImageFile(Activity activity) throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -92,8 +90,24 @@ public class Helper{
         return image;
     }
 
+    private File createImageFile(Context context) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
 
-    private void dispatchTakePictureIntent(Activity activity) {
+        // Save a file: path for use with ACTION_VIEW intents
+       // mCurrentPhotoPath = image.getAbsolutePath();
+
+        return image;
+    }
+
+    private static void dispatchTakePictureIntent(Activity activity) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -107,19 +121,75 @@ public class Helper{
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                try{
-                    Uri photoURI = FileProvider.getUriForFile(activity,
-                            "com.voyager.sayaradriver.fileprovider",
-                            photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    activity.startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+
+                Uri photoURI = FileProvider.getUriForFile(activity,
+                        "com.voyager.sayaradriver.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                activity.startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
             }
         }
     }
+
+    public static String takePhoto(Activity activity){
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT_WATCH) {
+            File imageFile = new File(String.valueOf(CameraClick(activity)));
+            Uri imageFileUri = Uri.fromFile(imageFile);
+            mCurrentPhotoPath = String.valueOf(imageFile.getAbsoluteFile());
+            System.out.println("--------------KITKAT_imageFileUri" + mCurrentPhotoPath);
+            if (imageFileUri != null) {
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                camera_intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageFileUri);
+                activity.startActivityForResult(camera_intent, REQUEST_TAKE_PHOTO);
+            }
+
+        }   else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+                if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)  == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Log.v(String.valueOf(activity),"Permission is granted");
+                    //File write logic here
+                    dispatchTakePictureIntent(activity);
+                }else{
+                    //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Helper.STORAGE_PERMISSION);
+                    ActivityCompat.requestPermissions(activity, new String[]{
+                                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    android.Manifest.permission.CAMERA
+                            }, Helper.CAMERA_STORAGE_PERMISSION);
+                }
+
+            }else{
+                dispatchTakePictureIntent(activity);
+            }
+        }
+        return mCurrentPhotoPath;
+    }
+
+    private static File CameraClick(Activity activity) {
+        File storageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + activity.getApplicationContext().getPackageName()
+                + "/Files");
+
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! storageDir.exists()){
+            if (! storageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(storageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
+    }
+
 
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
@@ -184,52 +254,6 @@ public class Helper{
 
     }
 
-    /*
-* Capturing Camera Image will lauch camera app requrest image capture
-*/
-    public void captureImage( Uri fileUri, Activity activity) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE,activity);
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
-        // start the image capture Intent
-        activity.startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
-    }
-
-    /*
-	 * Creating file uri to store image/video
-	 */
-    public Uri getOutputMediaFileUri(int type, Activity activity) {
-        return Uri.fromFile(getOutputMediaFile(type,activity));
-    }
-
-
-    /*
-	 * Display image from a path to ImageView
-	 */
-    private void previewCapturedImage( Uri fileUri) {
-        try {
-            // hide video preview
-
-
-            // bimatp factory
-            BitmapFactory.Options options = new BitmapFactory.Options();
-
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
-            options.inSampleSize = 8;
-
-            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
-                    options);
-            System.out.println("previewCapturedImage_file path--------------"+fileUri.getPath());
-
-            //imgPreview.setImageBitmap(bitmap);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -247,53 +271,8 @@ public class Helper{
         }
     }
 
-    /*
-	 * returning image / video
-	 */
-    private static File getOutputMediaFile(int type, Activity activity) {
 
-        // External sdcard location
-        File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(String.valueOf(Environment.getExternalStoragePublicDirectory(activity.getPackageName()))),
-                IMAGE_DIRECTORY_NAME);
 
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-                        + IMAGE_DIRECTORY_NAME + " directory");
-                return null;
-            }
-        }
-
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date());
-        File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "IMG_" + timeStamp + ".jpg");
-        } else if (type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + "VID_" + timeStamp + ".mp4");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
-    }
-
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
 
 

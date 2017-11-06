@@ -111,34 +111,13 @@
 
             <Button
                 android:id="@+id/btnRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/rectangle_button"
-                android:onClick="btnRegister"
-                android:text="@string/btn_register"
-                android:textAllCaps="false" />
-
-            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20"
-                android:layout_marginTop="@dimen/_10"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/create_acnt" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="LogIn"
-                    android:text="@string/Login"
-                    android:textColor="@color/highLightText" />
-
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:onClick="btnRegister"
+                android:text="@string/btn_register"
+                android:textAllCaps="false"
+                android:background="@drawable/rectangle_button" />
 
         </LinearLayout>
 

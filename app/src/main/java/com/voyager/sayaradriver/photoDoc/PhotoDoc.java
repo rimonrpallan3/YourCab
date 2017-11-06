@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +24,6 @@ import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
-import com.voyager.sayaradriver.photoLiciense.PhotoLiciense;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +44,6 @@ public class PhotoDoc extends AppCompatActivity {
 
     String TAG = "PhotoDoc";
 
-    private static final int SELECT_PICTURE = 23;
     private String selectedImagePath;
 
     private String filemanagerstring;
@@ -165,7 +160,7 @@ public class PhotoDoc extends AppCompatActivity {
     public void choosePic(){
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/jpg");
-        startActivityForResult(intent, SELECT_PICTURE);
+        startActivityForResult(intent, Helper.SELECT_PICTURE);
     }
 
 
@@ -317,7 +312,7 @@ public class PhotoDoc extends AppCompatActivity {
 
 
             }
-            if (requestCode == SELECT_PICTURE) {
+            if (requestCode == Helper.SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
 
                 //OI FILE Manager

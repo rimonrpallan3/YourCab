@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
 import com.voyager.sayaradriver.landingpage.LandingPage;
 import com.voyager.sayaradriver.registerpage.RegisterPage;
 import com.voyager.sayaradriver.signinpage.presenter.SignInPresenter;
@@ -54,7 +55,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
    }
 
     public void SignUp(View v){
-        Intent intent = new Intent(this, RegisterPage.class);
+        Intent intent = new Intent(this, FirstOTPPage.class);
         startActivity(intent);
         finish();
     }

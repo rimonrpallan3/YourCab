@@ -26,17 +26,19 @@ public class RegisterPresenter implements IRegisterFetcher{
     @Override
     public void doRegister(String FName, String LName, String phno, String city, String CPR) {
         System.out.println("FName : "+FName+" LName : "+LName+" phno : "+phno+" city : "+city+" CPR : "+CPR);
-        this.FName = FName;
-        this.LName = LName;
-        this.phno = phno;
-        this.city = city;
-        this.CPR = CPR;
         Boolean isLoginSuccess = true;
         final int code = user.validateUserDetails(FName,LName,phno,city,CPR);
-        if (code!=0) isLoginSuccess = false;
+        if (code!=0) {
+            isLoginSuccess = false;
+        }else {
+            this.FName = FName;
+            this.LName = LName;
+            this.phno = phno;
+            this.city = city;
+            this.CPR = CPR;
+        }
         final Boolean result = isLoginSuccess;
         iRegisterView.onRegister(result, code);
-
     }
 
     private void initUser(){
