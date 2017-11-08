@@ -1,19 +1,17 @@
 package com.voyager.sayaradriver.webservices;
 
-import java.util.List;
+import com.voyager.sayaradriver.test.MainClass;
 
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface WebServices {
+    @GET("list/")
+    Call<MainClass> doGetUserList(@Query("page") String page);
+
+
    /* @Multipart
     @POST("DriverRegisterServlet")
     Call<UserModel> uploadFile(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);
