@@ -18,7 +18,7 @@ public class ApiClient {
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();
-            retrofit = new Retrofit.Builder().baseUrl("http://10.1.1.11/sayara/")
+            retrofit = new Retrofit.Builder().baseUrl("http://10.1.1.14/sayara/")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson)).build();
         }

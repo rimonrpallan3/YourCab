@@ -1,17 +1,28 @@
 package com.voyager.sayaradriver.registerpage.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by User on 8/30/2017.
  */
 
-public class UserDetails  implements  IUserValidate{
+public class DriverDetails implements  IUserValidate{
+    String id;
+    @SerializedName("driver_first_name")
     String FName;
+    @SerializedName("driver_last_name")
     String LName;
+    @SerializedName("driver_phone")
     String phno;
+    @SerializedName("driver_city")
     String city;
+    @SerializedName("cpr")
     String CPR;
+    String response = "";
+    Boolean status;
+    String date;
 
-    public UserDetails(String FName, String LName, String phno, String city, String CPR) {
+    public DriverDetails(String FName, String LName, String phno, String city, String CPR) {
         this.FName = FName;
         this.LName = LName;
         this.phno = phno;
@@ -19,6 +30,29 @@ public class UserDetails  implements  IUserValidate{
         this.CPR = CPR;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getFName() {
         return FName;
@@ -58,6 +92,14 @@ public class UserDetails  implements  IUserValidate{
 
     public void setCPR(String CPR) {
         this.CPR = CPR;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 
     @Override
