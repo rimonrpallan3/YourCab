@@ -1,21 +1,37 @@
 package com.voyager.sayaradriver.webservices;
 
+import android.support.annotation.Nullable;
+
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
+import com.voyager.sayaradriver.registerpage.model.ResponseError;
+import com.voyager.sayaradriver.registerpage.model.ResponseError2;
 import com.voyager.sayaradriver.test.MainClass;
 
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface WebServices {
     @GET("list/")
     Call<MainClass> doGetUserList(@Query("page") String page);
 
-    @POST("test/register/")
-    public Call<DriverDetails> registerUser(@Body DriverDetails userDetails);
+    @POST("test/register.php")
+    public Call<ResponseError> registerUser(@Nullable @Field("driver_first_name") String FName,
+                                            @Nullable @Field("driver_last_name") String LName,
+                                            @Nullable @Field("driver_phone") String phno,
+                                            @Nullable @Field("driver_city") String city,
+                                            @Nullable @Field("cpr") String CPR);
+    @POST("test/register.php")
+    public Call<ResponseError2> registerUser2( @Query("driver_first_name") String FName,
+                                              @Query("driver_last_name") String LName,
+                                              @Query("driver_phone") String phno,
+                                              @Query("driver_city") String city,
+                                              @Query("cpr") String CPR);
    /* @Multipart
     @POST("DriverRegisterServlet")
     Call<UserModel> uploadFile(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);

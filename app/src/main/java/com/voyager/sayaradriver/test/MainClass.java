@@ -1,6 +1,5 @@
 package com.voyager.sayaradriver.test;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

@@ -3,11 +3,17 @@ package com.voyager.sayaradriver.registerpage.presenter;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.registerpage.model.IUserValidate;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
+import com.voyager.sayaradriver.registerpage.model.ResponseError2;
 import com.voyager.sayaradriver.registerpage.view.IRegisterView;
+import com.voyager.sayaradriver.test.MainClass;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
+
+import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,23 +56,24 @@ public class RegisterPresenter implements IRegisterFetcher{
             initUser();
             Retrofit retrofit = new ApiClient().getRetrofitClient();
             WebServices webServices = retrofit.create(WebServices.class);
-            Call<DriverDetails> call = webServices.registerUser(userDetails);
-            call.enqueue(new Callback<DriverDetails>() {
+            Call<ResponseError2> call = webServices.registerUser2(FName,LName,phno,city,CPR);
+            call.enqueue(new Callback<ResponseError2>() {
                 @Override
-                public void onResponse(Call<DriverDetails> call, Response<DriverDetails> response) {
-                    String res = response.body().getResponse();
-                    Toast.makeText((Context) iRegisterView, "registerUser: "+res, Toast.LENGTH_SHORT).show();
-                    if (res.trim().equals("success")) {
-                        Toast.makeText((Context) iRegisterView, "Successfully registered", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText((Context) iRegisterView, res, Toast.LENGTH_SHORT).show();
+                public void onResponse(Call<ResponseError2> call, Response<ResponseError2> response) {
+                    ResponseError2 errorModel  = (ResponseError2) response.body();
+
+                    System.out.println("errorModel: "+response.body());
+
+                    if(errorModel!=null){
+                        Toast.makeText((Context) iRegisterView, "error"+errorModel.error+"driver_id"+errorModel.driver_id+"created_at"+errorModel.created_at, Toast.LENGTH_SHORT).show();
+                        System.out.println("error:   "+errorModel.error+" driver_id:   "+errorModel.driver_id+" created_at:  "+errorModel.created_at);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<DriverDetails> call, Throwable t) {
+                public void onFailure(Call<ResponseError2> call, Throwable t) {
                     t.printStackTrace();
-                    Toast.makeText((Context) iRegisterView, "Network error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

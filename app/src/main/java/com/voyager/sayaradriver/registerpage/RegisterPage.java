@@ -67,9 +67,9 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         edtCity.setEnabled(true);
         edtCPR.setEnabled(true);
         if (result) {
-            Intent intent = new Intent(this, DocumentPage.class);
-            startActivity(intent);
-            finish();
+           // Intent intent = new Intent(this, DocumentPage.class);
+           // startActivity(intent);
+          //  finish();
         } else {
             btnRegister.setEnabled(true);
             switch (code) {
