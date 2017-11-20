@@ -22,6 +22,8 @@ public class MainClass {
         public String fname;
         @SerializedName("driver_last_name")
         public String lname;
+        @SerializedName("driver_email")
+        public String email;
         @SerializedName("driver_phone")
         public String phone;
         @SerializedName("driver_city")

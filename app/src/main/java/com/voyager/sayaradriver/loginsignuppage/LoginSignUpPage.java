@@ -54,7 +54,7 @@ public class LoginSignUpPage extends AppCompatActivity {
                         List<MainClass.SubClass> subList = model.output;
 
                         for (MainClass.SubClass subClass : subList) {
-                            Toast.makeText(getApplicationContext(), "id : " + subClass.id + " name: " + subClass.fname + " lastName:  " + subClass.lname + " PHone: " + subClass.phone, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "id : " + subClass.id + " name: " + subClass.fname + " lastName:  " + subClass.lname + " PHone: " + " Email Address:  " + subClass.email + " PHone: " + subClass.phone + " city: " + subClass.city + " country: " + subClass.country + " cpr: " + subClass.cpr + " status: " + subClass.status + " date: " + subClass.date, Toast.LENGTH_SHORT).show();
                         }
 
                     }

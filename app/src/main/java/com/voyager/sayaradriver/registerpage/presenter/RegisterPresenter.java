@@ -3,17 +3,14 @@ package com.voyager.sayaradriver.registerpage.presenter;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.voyager.sayaradriver.registerpage.model.IUserValidate;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
-import com.voyager.sayaradriver.registerpage.model.ResponseError2;
 import com.voyager.sayaradriver.registerpage.view.IRegisterView;
-import com.voyager.sayaradriver.test.MainClass;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,10 +27,12 @@ public class RegisterPresenter implements IRegisterFetcher{
     IUserValidate user;
     String FName;
     String LName;
+    String email;
     String phno;
     String city;
     String CPR;
     DriverDetails userDetails;
+    Map<String,String> getRegisterParamenters = new HashMap<String ,String>();
 
     public RegisterPresenter(IRegisterView iRegisterView) {
         this.iRegisterView =iRegisterView;
@@ -41,26 +40,35 @@ public class RegisterPresenter implements IRegisterFetcher{
     }
 
     @Override
-    public void doRegister(String FName, String LName, String phno, String city, String CPR) {
+    public void doRegister(String FName, String LName,String email, String phno, String city, String CPR) {
         System.out.println("FName : "+FName+" LName : "+LName+" phno : "+phno+" city : "+city+" CPR : "+CPR);
         Boolean isLoginSuccess = true;
-        final int code = user.validateUserDetails(FName,LName,phno,city,CPR);
+        final int code = user.validateUserDetails(FName,LName,email,phno,city,CPR);
         if (code!=0) {
             isLoginSuccess = false;
         }else {
             this.FName = FName;
             this.LName = LName;
+            this.email = email;
             this.phno = phno;
             this.city = city;
             this.CPR = CPR;
             initUser();
             Retrofit retrofit = new ApiClient().getRetrofitClient();
             WebServices webServices = retrofit.create(WebServices.class);
-            Call<ResponseError2> call = webServices.registerUser2(FName,LName,phno,city,CPR);
-            call.enqueue(new Callback<ResponseError2>() {
+            getRegisterParamenters.put("driver_first_name",FName);
+            getRegisterParamenters.put("driver_last_name",LName);
+            getRegisterParamenters.put("driver_last_name",email);
+            getRegisterParamenters.put("driver_phone",phno);
+            getRegisterParamenters.put("driver_city",city);
+            getRegisterParamenters.put("cpr",CPR);
+
+            //Call<RegisterResult> call = webServices.getRegisterResult((HashMap<String, String>) getRegisterParamenters);
+            Call<DriverDetails> call = webServices.registerUser(FName,LName,email,phno,city,CPR);
+            call.enqueue(new Callback<DriverDetails>() {
                 @Override
-                public void onResponse(Call<ResponseError2> call, Response<ResponseError2> response) {
-                    ResponseError2 errorModel  = (ResponseError2) response.body();
+                public void onResponse(Call<DriverDetails> call, Response<DriverDetails> response) {
+                    DriverDetails errorModel  = (DriverDetails) response.body();
 
                     System.out.println("errorModel: "+response.body());
 
@@ -71,7 +79,7 @@ public class RegisterPresenter implements IRegisterFetcher{
                 }
 
                 @Override
-                public void onFailure(Call<ResponseError2> call, Throwable t) {
+                public void onFailure(Call<DriverDetails> call, Throwable t) {
                     t.printStackTrace();
                     Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -82,6 +90,6 @@ public class RegisterPresenter implements IRegisterFetcher{
     }
 
     private void initUser(){
-        user = new DriverDetails(FName,LName,phno,city,CPR);
+        user = new DriverDetails(FName,LName,email,phno,city,CPR);
     }
 }

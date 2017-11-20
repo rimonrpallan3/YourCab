@@ -21,6 +21,7 @@
     <string name="fill_txt">Fill the details below</string>
     <string name="Login">\u0020 Log In.</string>
     <string name="last_name">Last Name</string>
+    <string name="emil_address">Email Address</string>
     <string name="first_name">First Name</string>
     <!--Opt First page -->
     <string name="otp_no">OTP Number</string>

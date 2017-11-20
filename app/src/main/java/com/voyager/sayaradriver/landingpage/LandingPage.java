@@ -26,13 +26,11 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
 
     Activity activity;
 
-   String online = "";
-   String offline = "";
+    String online = "";
+    String offline = "";
 
     SwitchCompat driverSwitch;
     TextView onlineOfflineTxt;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

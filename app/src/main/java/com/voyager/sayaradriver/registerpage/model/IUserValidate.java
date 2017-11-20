@@ -5,5 +5,5 @@ package com.voyager.sayaradriver.registerpage.model;
  */
 
 public interface IUserValidate {
-    int validateUserDetails(String FName, String LName, String phno, String city, String CPR);
+    int validateUserDetails(String FName, String LName,String email, String phno, String city, String CPR);
 }

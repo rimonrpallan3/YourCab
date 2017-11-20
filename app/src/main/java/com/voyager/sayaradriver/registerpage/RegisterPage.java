@@ -25,6 +25,7 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
 
     private EditText edtFirstName;
     private EditText edtLastName;
+    private EditText edtEmailAddress;
     private EditText edtPhoneNo;
     private EditText edtCity;
     private EditText edtCPR;
@@ -39,6 +40,7 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         //find view
         edtFirstName = (EditText) this.findViewById(R.id.edtFirstName);
         edtLastName = (EditText) this.findViewById(R.id.edtLastName);
+        edtEmailAddress = (EditText) this.findViewById(R.id.edtEmailAddress);
         edtPhoneNo = (EditText) this.findViewById(R.id.edtPhoneNo);
         edtCity = (EditText) this.findViewById(R.id.edtCity);
         edtCPR = (EditText) this.findViewById(R.id.edtCPR);
@@ -54,6 +56,7 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         btnRegister.setEnabled(false);
         registerPresenter.doRegister(edtFirstName.getText().toString(),
                 edtLastName.getText().toString(),
+                edtEmailAddress.getText().toString(),
                 edtPhoneNo.getText().toString(),
                 edtCity.getText().toString(),
                 edtCPR.getText().toString());
@@ -63,13 +66,14 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
     public void onRegister(Boolean result, int code) {
         edtFirstName.setEnabled(true);
         edtLastName.setEnabled(true);
+        edtEmailAddress.setEnabled(true);
         edtPhoneNo.setEnabled(true);
         edtCity.setEnabled(true);
         edtCPR.setEnabled(true);
         if (result) {
-           // Intent intent = new Intent(this, DocumentPage.class);
-           // startActivity(intent);
-          //  finish();
+            Intent intent = new Intent(this, DocumentPage.class);
+            startActivity(intent);
+            finish();
         } else {
             btnRegister.setEnabled(true);
             switch (code) {

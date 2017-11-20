@@ -7,51 +7,64 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class DriverDetails implements  IUserValidate{
-    String id;
     @SerializedName("driver_first_name")
     String FName;
     @SerializedName("driver_last_name")
     String LName;
+    @SerializedName("driver_email")
+    String email;
     @SerializedName("driver_phone")
     String phno;
     @SerializedName("driver_city")
     String city;
     @SerializedName("cpr")
     String CPR;
-    String response = "";
-    Boolean status;
-    String date;
+    @SerializedName("error")
+    public boolean error= Boolean.parseBoolean("");
+    @SerializedName("driver_id")
+    public String driver_id="";
+    @SerializedName("created_at")
+    public String created_at="";
 
-    public DriverDetails(String FName, String LName, String phno, String city, String CPR) {
+    public DriverDetails(String FName, String LName,String email, String phno, String city, String CPR) {
         this.FName = FName;
         this.LName = LName;
+        this.email = email;
         this.phno = phno;
         this.city = city;
         this.CPR = CPR;
     }
 
-    public String getId() {
-        return id;
+    public boolean isError() {
+        return error;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setError(boolean error) {
+        this.error = error;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public String getDriver_id() {
+        return driver_id;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setDriver_id(String driver_id) {
+        this.driver_id = driver_id;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFName() {
@@ -94,17 +107,10 @@ public class DriverDetails implements  IUserValidate{
         this.CPR = CPR;
     }
 
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
 
     @Override
-    public int validateUserDetails(String FName, String LName, String phno, String city, String CPR) {
-        if (FName.trim().length()==0||LName.trim().length()==0||phno.trim().length()==0||city.trim().length()==0||LName.trim().length()==0||CPR.trim().length()==0){
+    public int validateUserDetails(String FName, String LName,String email, String phno, String city, String CPR) {
+        if (FName.trim().length()==0||LName.trim().length()==0||email.trim().length()==0||phno.trim().length()==0||city.trim().length()==0||CPR.trim().length()==0){
             {
                     return -1;// if the field is null
                 }
