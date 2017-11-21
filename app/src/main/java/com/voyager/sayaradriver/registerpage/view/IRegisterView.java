@@ -6,4 +6,5 @@ package com.voyager.sayaradriver.registerpage.view;
 
 public interface IRegisterView {
     void onRegister(Boolean result, int code);
+    void onRegistered(Boolean result, int code);
 }

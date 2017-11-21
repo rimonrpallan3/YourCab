@@ -48,6 +48,8 @@ public class Helper{
     public static int INSURANCE_CERTIFICATION = 10;
     public static int REQUEST_TAKE_PHOTO = 11;
 
+    public static final String MyPREFERENCES = "UserDetails" ;
+
     // Activity request codes
     public static int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     public static int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;

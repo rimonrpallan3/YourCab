@@ -6,4 +6,5 @@ package com.voyager.sayaradriver.registerpage.presenter;
 
 public interface IRegisterFetcher {
     void doRegister(String FName, String LName,String email, String phno, String city, String CPR);
+
 }

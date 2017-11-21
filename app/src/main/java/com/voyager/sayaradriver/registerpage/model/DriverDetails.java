@@ -19,12 +19,14 @@ public class DriverDetails implements  IUserValidate{
     String city;
     @SerializedName("cpr")
     String CPR;
-    @SerializedName("error")
-    public boolean error= Boolean.parseBoolean("");
+    @SerializedName("success")
+    public boolean isError   = Boolean.parseBoolean("");
     @SerializedName("driver_id")
     public String driver_id="";
     @SerializedName("created_at")
     public String created_at="";
+    @SerializedName("error_msg")
+    public String error_msg="";
 
     public DriverDetails(String FName, String LName,String email, String phno, String city, String CPR) {
         this.FName = FName;
@@ -35,12 +37,20 @@ public class DriverDetails implements  IUserValidate{
         this.CPR = CPR;
     }
 
+    public String getError_msg() {
+        return error_msg;
+    }
+
+    public void setError_msg(String error_msg) {
+        this.error_msg = error_msg;
+    }
+
     public boolean isError() {
-        return error;
+        return isError;
     }
 
     public void setError(boolean error) {
-        this.error = error;
+        this.isError = error;
     }
 
     public String getDriver_id() {
@@ -147,5 +157,13 @@ public class DriverDetails implements  IUserValidate{
             }
         }
         return 0;// Validation is successful
+    }
+
+    @Override
+    public int validateRegisterResponseError(String errorMsg) {
+        if(errorMsg.trim().length()==0){
+            return 0;
+        }
+        return -7;
     }
 }

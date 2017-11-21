@@ -1,6 +1,8 @@
 package com.voyager.sayaradriver.registerpage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.voyager.sayaradriver.DocumentPage.DocumentPage;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
 import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
 import com.voyager.sayaradriver.registerpage.presenter.RegisterPresenter;
@@ -32,10 +35,17 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
     private Button btnRegister;
     RegisterPresenter registerPresenter;
 
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
+
+        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+                Context.MODE_PRIVATE);
+        editor = sharedPrefs.edit();
 
         //find view
         edtFirstName = (EditText) this.findViewById(R.id.edtFirstName);
@@ -47,7 +57,7 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         btnRegister = (Button) this.findViewById(R.id.btnRegister);
 
         //init
-        registerPresenter = new RegisterPresenter(this);
+        registerPresenter = new RegisterPresenter(this,this,sharedPrefs,editor);
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
@@ -70,10 +80,10 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
         edtPhoneNo.setEnabled(true);
         edtCity.setEnabled(true);
         edtCPR.setEnabled(true);
+        Toast.makeText(this, " code = " + code + " result = " + result, Toast.LENGTH_SHORT).show();
+
         if (result) {
-            Intent intent = new Intent(this, DocumentPage.class);
-            startActivity(intent);
-            finish();
+            // please put loader if u need to show that you are posting and validating the response.
         } else {
             btnRegister.setEnabled(true);
             switch (code) {
@@ -98,6 +108,18 @@ public class RegisterPage  extends AppCompatActivity implements IRegisterView{
                 default:
                     Toast.makeText(this, "Please try Again Later, code = " + code, Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @Override
+    public void onRegistered(Boolean result, int code) {
+        if (result) {
+            btnRegister.setEnabled(true);
+            Intent intent = new Intent(RegisterPage.this, DocumentPage.class);
+            startActivity(intent);
+            finish();
+        }else{
+            btnRegister.setEnabled(true);
         }
     }
 }
