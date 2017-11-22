@@ -28,6 +28,9 @@ import com.voyager.sayaradriver.registerpage.RegisterPage;
     EditText edtOPTNo;
     CheckBox checkTermsAndConductionBox;
     Button btnSubmit;
+    String country ="";
+    String zipCode ="";
+    String PhoneNo ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +42,13 @@ import com.voyager.sayaradriver.registerpage.RegisterPage;
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
         otpPresenter = new OTPPresenter(this,this);
         otpPresenter.setOPTSecondMsg(optSecondMsg);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            country = bundle.getString("Country");
+            zipCode = bundle.getString("ZipCode");
+            PhoneNo = bundle.getString("PhoneNo");
+        }
     }
-
-/*
-    @Override
-    public void moveToDocPage() {
-        Intent intent = new Intent(FirstOTPPage.this, DocumentPage.class);
-        startActivity(intent);
-        finish();
-    }
-*/
 
     @Override
     public void onSubmit(Boolean result, int code) {
@@ -56,6 +56,9 @@ import com.voyager.sayaradriver.registerpage.RegisterPage;
         btnSubmit.setEnabled(true);
         if (result) {
             Intent intent = new Intent(this, RegisterPage.class);
+            intent.putExtra("Country",country);
+            intent.putExtra("ZipCode",zipCode);
+            intent.putExtra("PhoneNo",PhoneNo);
             startActivity(intent);
             finish();
         } else {

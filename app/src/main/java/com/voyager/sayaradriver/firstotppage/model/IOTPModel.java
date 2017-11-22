@@ -5,5 +5,5 @@ package com.voyager.sayaradriver.firstotppage.model;
  */
 
 public interface IOTPModel {
-    int validateCheckBoxAndOtp(String optNumber, Boolean checkTermsAndConductionBox);
+    int validateFirstOTPpage(String contry, String zipCode, String phno);
 }

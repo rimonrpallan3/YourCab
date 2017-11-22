@@ -18,14 +18,14 @@
             android:layout_marginBottom="@dimen/_10"
             android:layout_marginTop="@dimen/_20"
             android:src="@drawable/icon4"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:onClick="LogIn"
-            android:text="@string/fill_txt"
-            android:gravity="center" />
+            android:text="@string/fill_txt" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,11 +44,11 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@drawable/boder_black"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:hint="@string/first_name"
                 android:maxLines="1"
-                android:textColorHint="@color/hintHighLightText"
-                android:paddingLeft="@dimen/_20" />
+                android:paddingLeft="@dimen/_20"
+                android:singleLine="true"
+                android:textColorHint="@color/hintHighLightText" />
 
             <EditText
                 android:id="@+id/edtLastName"
@@ -58,11 +58,12 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@drawable/boder_black"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:hint="@string/last_name"
                 android:maxLines="1"
-                android:textColorHint="@color/hintHighLightText"
-                android:paddingLeft="@dimen/_20" />
+                android:paddingLeft="@dimen/_20"
+                android:singleLine="true"
+                android:textColorHint="@color/hintHighLightText" />
+
             <EditText
                 android:id="@+id/edtEmailAddress"
                 android:layout_width="match_parent"
@@ -71,26 +72,26 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@drawable/boder_black"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:hint="@string/emil_address"
                 android:maxLines="1"
-                android:textColorHint="@color/hintHighLightText"
-                android:paddingLeft="@dimen/_20" />
+                android:paddingLeft="@dimen/_20"
+                android:singleLine="true"
+                android:textColorHint="@color/hintHighLightText" />
 
-            <EditText
-                android:id="@+id/edtPhoneNo"
+            <TextView
+                android:id="@+id/txtViewPhoneNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@drawable/boder_black"
                 android:ellipsize="end"
-                android:singleLine="true"
+                android:gravity="left|center"
                 android:hint="@string/phno"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textColorHint="@color/hintHighLightText"
-                android:paddingLeft="@dimen/_20" />
+                android:paddingLeft="@dimen/_20"
+                android:singleLine="true"
+                android:textColorHint="@color/hintHighLightText" />
 
             <EditText
                 android:id="@+id/edtCity"
@@ -100,11 +101,11 @@
                 android:layout_marginBottom="@dimen/_10"
                 android:background="@drawable/boder_black"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:hint="@string/address"
                 android:maxLines="1"
-                android:textColorHint="@color/hintHighLightText"
-                android:paddingLeft="@dimen/_20" />
+                android:paddingLeft="@dimen/_20"
+                android:singleLine="true"
+                android:textColorHint="@color/hintHighLightText" />
 
             <EditText
                 android:id="@+id/edtCPR"
@@ -112,14 +113,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10"
-                 android:background="@drawable/boder_black"
+                android:background="@drawable/boder_black"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:hint="@string/cpr_no"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textColorHint="@color/hintHighLightText"
-                android:paddingLeft="@dimen/_20" />
+                android:paddingLeft="@dimen/_20"
+                android:singleLine="true"
+                android:textColorHint="@color/hintHighLightText" />
 
 
             <Button
@@ -127,10 +128,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/rectangle_button"
                 android:onClick="btnRegister"
                 android:text="@string/btn_register"
-                android:textAllCaps="false"
-                android:background="@drawable/rectangle_button" />
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

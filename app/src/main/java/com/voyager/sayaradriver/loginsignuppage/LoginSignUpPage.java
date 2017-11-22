@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.view.View;
-import android.widget.Toast;
-
 
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
@@ -16,7 +14,6 @@ import com.voyager.sayaradriver.test.MainClass;
 import com.voyager.sayaradriver.trackingid.TrackingID;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
-
 
 import java.util.List;
 
@@ -59,16 +56,6 @@ public class LoginSignUpPage extends AppCompatActivity {
 
                     }
 
-                /*    UserList userList = response.body();
-                    Integer text = userList.page;
-                    Integer total = userList.total;
-                    Integer totalPages = userList.totalPages;
-                    List datumList = userList.data;
-                    Toast.makeText(getApplicationContext(), text + " page\n" + total + " total\n" + totalPages + " totalPages\n", Toast.LENGTH_SHORT).show();
-
-                    for (UserList.Datum datum : datumList) {
-                        Toast.makeText(getApplicationContext(), "id : " + datum.id + " name: " + datum.first_name + " " + datum.last_name + " avatar: " + datum.avatar, Toast.LENGTH_SHORT).show();
-                    }*/
 
 
                 }

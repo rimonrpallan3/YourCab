@@ -7,23 +7,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
-import com.voyager.sayaradriver.firstotppage.presenter.OTPPresenter;
+import com.voyager.sayaradriver.firstotppage.presenter.FirstOTPPresenter;
+import com.voyager.sayaradriver.firstotppage.view.IFirstOTPView;
 import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
 
 /**
  * Created by User on 8/30/2017.
  */
 
- public class FirstOTPPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+ public class FirstOTPPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener,IFirstOTPView {
 
-    OTPPresenter otpPresenter;
+    FirstOTPPresenter otpPresenter;
     TextView edtZipCode;
     EditText edtPhNo;
     Button btnGetOtp;
@@ -37,24 +37,18 @@ import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
         edtZipCode = (TextView) findViewById(R.id.edtZipCode);
         edtPhNo = (EditText) findViewById(R.id.edtPhNo);
         btnGetOtp = (Button) findViewById(R.id.btnGetOtp);
-        //otpPresenter = new OTPPresenter(this,this);
-        //otpPresenter.setOPTSecondMsg(optSecondMsg);
+        otpPresenter = new FirstOTPPresenter(this,this);
 
         spinnerSelectContry = (Spinner) findViewById(R.id.spinnerSelectCountry);
         spinnerSelectContry.setOnItemSelectedListener(this);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         adapter = ArrayAdapter.createFromResource(this,
                 R.array.country_names, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Apply the adapter to the spinner
         spinnerSelectContry.setAdapter(adapter);
         spinnerSelectContry.setPrompt(getString(R.string.otp_spinner_country));
 
     }
-
-
 
     @Override
     public void onItemSelected(AdapterView parent, View view, int position, long id) {
@@ -69,16 +63,49 @@ import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
     public void onNothingSelected(AdapterView arg0) {
         // TODO Auto-generated method stub
         spinnerSelectContry.setPrompt(getString(R.string.otp_spinner_country));
-       /* arg0.setAdapter(new NothingSelectedSpinnerAdapter(
-                adapter,
-                R.layout.contact_spinner_row_nothing_selected,
-                // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
-                this));*/
     }
 
     public void btnGetOtp(View v){
-        Intent intent = new Intent(FirstOTPPage.this, SubmitOTPPage.class);
-        startActivity(intent);
-        finish();
+        btnGetOtp.setEnabled(false);
+        otpPresenter.doGetData(spinnerSelectContry.getSelectedItem().toString(),
+                edtZipCode.getText().toString(),
+                edtPhNo.getText().toString());
+    }
+
+    @Override
+    public void validatedSendData(Boolean result, int code) {
+        edtZipCode.setEnabled(true);
+        edtPhNo.setEnabled(true);
+        btnGetOtp.setEnabled(true);
+        if (result) {
+            Intent intent = new Intent(FirstOTPPage.this, SubmitOTPPage.class);
+            intent.putExtra("Country",spinnerSelectContry.getSelectedItem().toString());
+            intent.putExtra("ZipCode",edtZipCode.getText().toString());
+            intent.putExtra("PhoneNo",edtPhNo.getText().toString());
+            startActivity(intent);
+            finish();
+        } else {
+            btnGetOtp.setEnabled(true);
+            switch (code) {
+                case -1:
+                    Toast.makeText(this, "Please fill all the fields, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -2:
+                    Toast.makeText(this, "Please fill a valid Country Name, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -3:
+                    Toast.makeText(this, "Please fill a valid Zip Code, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -4:
+                    Toast.makeText(this, "Please fill a valid Phone No, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+                case -5:
+                    Toast.makeText(this, "Phone number Should be Eight Digit, code = " + code, Toast.LENGTH_SHORT).show();
+                    break;
+
+                default:
+                    Toast.makeText(this, "Please try Again Later, ", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
  }

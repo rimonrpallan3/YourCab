@@ -137,22 +137,28 @@ public class DriverDetails implements  IUserValidate{
                     return -3;
                 }
             }
-            for (int i = 0; i < phno.trim().length(); i++) {
-                char charAt2 = phno.trim().charAt(i);
-                if (!Character.isDigit(charAt2)) {
+            for (int i = 0; i < email.trim().length(); i++) {
+                char charAt2 = email.trim().charAt(i);
+                if (!Character.isLetter(charAt2)) {
                     return -4;
+                }
+            }
+            for (int i = 0; i < phno.trim().length(); i++) {
+                String charAt2 = phno.trim().toString();
+                if (charAt2==null) {
+                    return -5;
                 }
             }
             for (int i = 0; i < city.trim().length(); i++) {
                 char charAt2 = city.trim().charAt(i);
                 if (!Character.isLetter(charAt2)) {
-                    return -5;
+                    return -6;
                 }
             }
             for (int i = 0; i < CPR.trim().length(); i++) {
                 char charAt2 = CPR.trim().charAt(i);
                 if (!Character.isDigit(charAt2)) {
-                    return -6;
+                    return -7;
                 }
             }
         }
@@ -164,6 +170,6 @@ public class DriverDetails implements  IUserValidate{
         if(errorMsg.trim().length()==0){
             return 0;
         }
-        return -7;
+        return -8;
     }
 }

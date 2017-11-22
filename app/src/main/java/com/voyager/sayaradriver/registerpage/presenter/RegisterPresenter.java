@@ -47,7 +47,7 @@ public class RegisterPresenter implements IRegisterFetcher{
 
     @Override
     public void doRegister(String FName, String LName,String email, String phno, String city, String CPR) {
-        System.out.println("FName : " + FName + " LName : " + LName + " phno : " + phno + " city : " + city + " CPR : " + CPR);
+        System.out.println("FName : " + FName + " LName : " + LName +" email Address : " + email + " phno : " + phno + " city : " + city + " CPR : " + CPR);
         Boolean isLoginSuccess =true;
         final int code = user.validateUserDetails(FName, LName, email, phno, city, CPR);
         int resultCode = 0;
@@ -61,7 +61,7 @@ public class RegisterPresenter implements IRegisterFetcher{
             this.city = city;
             this.CPR = CPR;
             initUser();
-            dataRegisteredValidation();
+            sendRegisteredDataAndValidateResponse();
         }
         Boolean result = isLoginSuccess;
         iRegisterView.onRegister(result, code);
@@ -69,7 +69,7 @@ public class RegisterPresenter implements IRegisterFetcher{
     }
 
 
-    public void dataRegisteredValidation(){
+    public void sendRegisteredDataAndValidateResponse(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
         Call<DriverDetails> call = webServices.registerUser(FName,LName,email,phno,city,CPR);
