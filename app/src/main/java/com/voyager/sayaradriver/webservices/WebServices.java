@@ -24,6 +24,7 @@ public interface WebServices {
                                             @Nullable @Field("driver_last_name") String LName,
                                             @Nullable @Field("driver_email") String email,
                                             @Nullable @Field("driver_phone") String phno,
+                                            @Nullable @Field("driver_country") String country,
                                             @Nullable @Field("driver_city") String city,
                                             @Nullable @Field("driver_cpr") String CPR);
 

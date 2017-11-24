@@ -31,6 +31,7 @@ public class RegisterPresenter implements IRegisterFetcher{
     String LName;
     String email;
     String phno;
+    String country;
     String city;
     String CPR;
     DriverDetails driverDetail;
@@ -60,6 +61,7 @@ public class RegisterPresenter implements IRegisterFetcher{
         this.LName = LName;
         this.email = email;
         this.phno = phno;
+        this.country = country;
         this.city = city;
         this.CPR = CPR;
         initUser();
@@ -79,7 +81,7 @@ public class RegisterPresenter implements IRegisterFetcher{
     public void sendRegisteredDataAndValidateResponse(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<DriverDetails> call = webServices.registerUser(FName,LName,email,phno,city,CPR);
+        Call<DriverDetails> call = webServices.registerUser(FName,LName,email,phno,country,city,CPR);
         call.enqueue(new Callback<DriverDetails>() {
             @Override
             public void onResponse(Call<DriverDetails> call, Response<DriverDetails> response) {

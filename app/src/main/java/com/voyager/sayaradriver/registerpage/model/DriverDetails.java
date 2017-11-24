@@ -148,12 +148,12 @@ public class DriverDetails implements  IUserValidate{
                                    String country,
                                    String city,
                                    String CPR) {
-        if (FName.trim().length()==2||
-                LName.trim().length()==2||
-                email.trim().length()==2||
-                phno.trim().length()==2||
-                city.trim().length()==2||
-                CPR.trim().length()==2){
+        if (FName.trim().length()==0||
+                LName.trim().length()==0||
+                email.trim().length()==0||
+                phno.trim().length()==0||
+                city.trim().length()==0||
+                CPR.trim().length()==0){
             {
                     return -1;// if the field is null
                 }
