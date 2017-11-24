@@ -50,6 +50,12 @@ import com.voyager.sayaradriver.registerpage.RegisterPage;
         }
     }
 
+    public void btnSubmit(View v){
+        edtOPTNo.setEnabled(false);
+        btnSubmit.setEnabled(false);
+        otpPresenter.doOTPValidationAndCheck(edtOPTNo.getText().toString(),checkTermsAndConductionBox.isChecked());
+    }
+
     @Override
     public void onSubmit(Boolean result, int code) {
         edtOPTNo.setEnabled(true);
@@ -82,9 +88,5 @@ import com.voyager.sayaradriver.registerpage.RegisterPage;
         startActivity(intent);
     }
 
-    public void btnSubmit(View v){
-        edtOPTNo.setEnabled(false);
-        btnSubmit.setEnabled(false);
-        otpPresenter.doOTPValidationAndCheck(edtOPTNo.getText().toString(),checkTermsAndConductionBox.isChecked());
-    }
+
  }

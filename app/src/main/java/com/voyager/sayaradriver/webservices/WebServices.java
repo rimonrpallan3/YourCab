@@ -25,7 +25,7 @@ public interface WebServices {
                                             @Nullable @Field("driver_email") String email,
                                             @Nullable @Field("driver_phone") String phno,
                                             @Nullable @Field("driver_city") String city,
-                                            @Nullable @Field("cpr") String CPR);
+                                            @Nullable @Field("driver_cpr") String CPR);
 
     @FormUrlEncoded
     @POST("register.php")

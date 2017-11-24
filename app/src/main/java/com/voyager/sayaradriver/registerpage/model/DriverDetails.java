@@ -1,6 +1,10 @@
 package com.voyager.sayaradriver.registerpage.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.voyager.sayaradriver.test.MainClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 8/30/2017.
@@ -17,9 +21,9 @@ public class DriverDetails implements  IUserValidate{
     String phno;
     @SerializedName("driver_city")
     String city;
-    @SerializedName("cpr")
+    @SerializedName("driver_cpr")
     String CPR;
-    @SerializedName("success")
+    @SerializedName("error")
     public boolean isError   = Boolean.parseBoolean("");
     @SerializedName("driver_id")
     public String driver_id="";
@@ -27,6 +31,8 @@ public class DriverDetails implements  IUserValidate{
     public String created_at="";
     @SerializedName("error_msg")
     public String error_msg="";
+    @SerializedName("errorList")
+    public List<DriverDetails.ErrorClass> errorList = new ArrayList();
 
     public DriverDetails(String FName, String LName,String email, String phno, String city, String CPR) {
         this.FName = FName;
@@ -35,6 +41,22 @@ public class DriverDetails implements  IUserValidate{
         this.phno = phno;
         this.city = city;
         this.CPR = CPR;
+    }
+
+    public static class ErrorClass {
+
+        @SerializedName("driver_first_name")
+        public String fname;
+        @SerializedName("driver_last_name")
+        public String lname;
+        @SerializedName("driver_email")
+        public String email;
+        @SerializedName("driver_phone")
+        public String phone;
+        @SerializedName("driver_city")
+        public String city;
+        @SerializedName("driver_cpr")
+        public String cpr;
     }
 
     public String getError_msg() {
@@ -119,8 +141,19 @@ public class DriverDetails implements  IUserValidate{
 
 
     @Override
-    public int validateUserDetails(String FName, String LName,String email, String phno, String city, String CPR) {
-        if (FName.trim().length()==0||LName.trim().length()==0||email.trim().length()==0||phno.trim().length()==0||city.trim().length()==0||CPR.trim().length()==0){
+    public int validateUserDetails(String FName,
+                                   String LName,
+                                   String email,
+                                   String phno,
+                                   String country,
+                                   String city,
+                                   String CPR) {
+        if (FName.trim().length()==2||
+                LName.trim().length()==2||
+                email.trim().length()==2||
+                phno.trim().length()==2||
+                city.trim().length()==2||
+                CPR.trim().length()==2){
             {
                     return -1;// if the field is null
                 }
@@ -138,8 +171,8 @@ public class DriverDetails implements  IUserValidate{
                 }
             }
             for (int i = 0; i < email.trim().length(); i++) {
-                char charAt2 = email.trim().charAt(i);
-                if (!Character.isLetter(charAt2)) {
+                String charAt2 = email.trim().toString();
+                if (!charAt2.contains("@")&&!charAt2.contains(".")) {
                     return -4;
                 }
             }
@@ -149,16 +182,22 @@ public class DriverDetails implements  IUserValidate{
                     return -5;
                 }
             }
+            for (int i = 0; i < country.trim().length(); i++) {
+                char charAt2 = country.trim().charAt(i);
+                if (!Character.isLetter(charAt2)) {
+                    return -6;
+                }
+            }
             for (int i = 0; i < city.trim().length(); i++) {
                 char charAt2 = city.trim().charAt(i);
                 if (!Character.isLetter(charAt2)) {
-                    return -6;
+                    return -7;
                 }
             }
             for (int i = 0; i < CPR.trim().length(); i++) {
                 char charAt2 = CPR.trim().charAt(i);
                 if (!Character.isDigit(charAt2)) {
-                    return -7;
+                    return -8;
                 }
             }
         }
@@ -167,9 +206,10 @@ public class DriverDetails implements  IUserValidate{
 
     @Override
     public int validateRegisterResponseError(String errorMsg) {
-        if(errorMsg.trim().length()==0){
-            return 0;
+        if(errorMsg!=null){
+            //if there is no error message then it means that data response is correct.
+            return -9;
         }
-        return -8;
+        return 0;
     }
 }

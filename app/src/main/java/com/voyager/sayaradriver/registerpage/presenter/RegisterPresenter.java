@@ -8,8 +8,11 @@ import com.google.gson.Gson;
 import com.voyager.sayaradriver.registerpage.model.IUserValidate;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
 import com.voyager.sayaradriver.registerpage.view.IRegisterView;
+import com.voyager.sayaradriver.test.MainClass;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,26 +49,30 @@ public class RegisterPresenter implements IRegisterFetcher{
     }
 
     @Override
-    public void doRegister(String FName, String LName,String email, String phno, String city, String CPR) {
-        System.out.println("FName : " + FName + " LName : " + LName +" email Address : " + email + " phno : " + phno + " city : " + city + " CPR : " + CPR);
+    public void doRegister(String FName, String LName,String email, String phno,String country, String city, String CPR) {
+        System.out.println("FName : " + FName +
+                " LName : " + LName +
+                " email Address : " + email +
+                " phno : " + phno +
+                " city : " + city +
+                " CPR : " + CPR);
+        this.FName = FName;
+        this.LName = LName;
+        this.email = email;
+        this.phno = phno;
+        this.city = city;
+        this.CPR = CPR;
+        initUser();
         Boolean isLoginSuccess =true;
-        final int code = user.validateUserDetails(FName, LName, email, phno, city, CPR);
+        final int code = user.validateUserDetails(FName, LName, email, phno,country, city, CPR);
         int resultCode = 0;
         if (code != 0) {
             isLoginSuccess = false;
         } else {
-            this.FName = FName;
-            this.LName = LName;
-            this.email = email;
-            this.phno = phno;
-            this.city = city;
-            this.CPR = CPR;
-            initUser();
             sendRegisteredDataAndValidateResponse();
         }
         Boolean result = isLoginSuccess;
         iRegisterView.onRegister(result, code);
-        iRegisterView.onRegistered(result, resultCode);
     }
 
 
@@ -77,25 +84,39 @@ public class RegisterPresenter implements IRegisterFetcher{
             @Override
             public void onResponse(Call<DriverDetails> call, Response<DriverDetails> response) {
                 DriverDetails driverDetails  = (DriverDetails) response.body();
-                System.out.println("isError: "+driverDetails.isError +" driver_id: "+driverDetails.driver_id+" created_at: "+driverDetails.created_at);
-                    System.out.println("isError: "+driverDetails.isError +" Error message: "+driverDetails.error_msg);
+                System.out.println("-------sendRegisteredDataAndValidateResponse  FName : " + FName +
+                        " LName : " + LName +
+                        " email Address : " + email +
+                        " phno : " + phno +
+                        " city : " + city +
+                        " CPR : " + CPR);
+                System.out.println("----- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" driver_id: "+driverDetails.driver_id+" created_at: "+driverDetails.created_at);
+                    System.out.println("--------- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" Error message: "+driverDetails.error_msg);
                     final int code =user.validateRegisterResponseError(driverDetails.error_msg);
                     Boolean isLoginSuccess =true;
                     if (code != 0) {
                         isLoginSuccess = false;
                         Toast.makeText((Context) iRegisterView, driverDetails.getError_msg(), Toast.LENGTH_SHORT).show();
+                        System.out.println("-----sendRegisteredDataAndValidateResponse  data unSuccess ");
                     } else {
                         Toast.makeText((Context) iRegisterView, "Register Successful", Toast.LENGTH_SHORT).show();
                         addUserGsonInSharedPrefrences();
+
+                        System.out.println("----- sendRegisteredDataAndValidateResponse data Successful ");
                     }
                     Boolean result = isLoginSuccess;
-                    iRegisterView.onRegistered(result, code);
+                System.out.println("----- sendRegisteredDataAndValidateResponse second Data Please see, code = " + code + ", result: " + result);
+                iRegisterView.onRegistered(result, code);
             }
 
             @Override
             public void onFailure(Call<DriverDetails> call, Throwable t) {
+                Boolean isLoginSuccess =false;
+                Boolean result = isLoginSuccess;
+                int code = -77;
+                iRegisterView.onRegistered(result, code);
                 t.printStackTrace();
-                Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
