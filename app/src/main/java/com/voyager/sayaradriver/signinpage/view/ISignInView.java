@@ -7,5 +7,6 @@ package com.voyager.sayaradriver.signinpage.view;
 public interface ISignInView {
     public void onClearText();
     public void onLoginResult(Boolean result, int code);
+    public void onLoginResponse(Boolean result, int code);
     public void onSetProgressBarVisibility(int visibility);
 }

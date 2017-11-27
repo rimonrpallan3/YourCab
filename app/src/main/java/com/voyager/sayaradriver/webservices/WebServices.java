@@ -3,6 +3,7 @@ package com.voyager.sayaradriver.webservices;
 import android.support.annotation.Nullable;
 
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
+import com.voyager.sayaradriver.signinpage.model.UserModel;
 import com.voyager.sayaradriver.test.MainClass;
 
 import java.util.HashMap;
@@ -27,6 +28,10 @@ public interface WebServices {
                                             @Nullable @Field("driver_country") String country,
                                             @Nullable @Field("driver_city") String city,
                                             @Nullable @Field("driver_cpr") String CPR);
+    @FormUrlEncoded
+    @POST("driver/login/")
+    public Call<UserModel> loginUser(@Nullable @Field("username") String name,
+                                     @Nullable @Field("password") String passwd);
 
     @FormUrlEncoded
     @POST("register.php")

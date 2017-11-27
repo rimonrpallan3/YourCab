@@ -1,6 +1,8 @@
 package com.voyager.sayaradriver.signinpage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +30,8 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
     private Button   btnSubmit;
 
     private ProgressBar progressBar;
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
 
     SignInPresenter signInPresenter;
 
@@ -36,6 +40,10 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_page);
 
+        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+                Context.MODE_PRIVATE);
+        editor = sharedPrefs.edit();
+
         //find view
         edtEmailPhno = (EditText) this.findViewById(R.id.edtEmailPhno);
         edtPswd = (EditText) this.findViewById(R.id.edtPswd);
@@ -43,7 +51,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
         progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
 
         //init
-        signInPresenter = new SignInPresenter(this);
+        signInPresenter = new SignInPresenter(this,sharedPrefs,editor);
         signInPresenter.setProgressBarVisiblity(View.INVISIBLE);
    }
 
@@ -68,6 +76,20 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
 
     @Override
     public void onLoginResult(Boolean result, int code) {
+        signInPresenter.setProgressBarVisiblity(View.INVISIBLE);
+        edtEmailPhno.setEnabled(true);
+        edtPswd.setEnabled(true);
+        if (result){
+        }
+        else {
+            Toast.makeText(this, "Please input Values, code = " + code, Toast.LENGTH_SHORT).show();
+            btnSubmit.setEnabled(true);
+            signInPresenter.clear();
+        }
+    }
+
+    @Override
+    public void onLoginResponse(Boolean result, int code) {
         signInPresenter.setProgressBarVisiblity(View.INVISIBLE);
         edtEmailPhno.setEnabled(true);
         edtPswd.setEnabled(true);
