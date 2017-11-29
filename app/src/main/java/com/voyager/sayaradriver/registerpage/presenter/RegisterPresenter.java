@@ -67,7 +67,6 @@ public class RegisterPresenter implements IRegisterFetcher{
         initUser();
         Boolean isLoginSuccess =true;
         final int code = user.validateUserDetails(FName, LName, email, phno,country, city, CPR);
-        int resultCode = 0;
         if (code != 0) {
             isLoginSuccess = false;
         } else {

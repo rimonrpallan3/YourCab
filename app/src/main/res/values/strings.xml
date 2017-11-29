@@ -8,7 +8,7 @@
     <string name="gps_network_not_enabled">Please Enable Location</string>
     <string name="open_location_settings">Location Settings</string>
     <string name="Cancel">Cancel</string>
-    <string name="email_number">Email/Mobile Number</string>
+    <string name="email_number">Username</string>
     <string name="paswd">Password</string>
     <string name="account_create">Create an account?</string>
     <string name="SignUp">\u0020 Sign Up</string>

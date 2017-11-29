@@ -96,6 +96,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
         if (result){
             Intent intent = new Intent(this, LandingPage.class);
             startActivity(intent);
+            setResult(1);
             finish();
         }
         else {

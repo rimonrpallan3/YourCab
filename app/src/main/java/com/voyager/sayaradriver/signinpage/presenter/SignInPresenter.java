@@ -68,7 +68,8 @@ public class SignInPresenter implements ILoginPresenter {
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 UserModel userModel  = (UserModel) response.body();
                 System.out.println("-------validateLoginDataBaseApi  userName : " + name +
-                        " Password : " + passwd+" FName : " + userModel.getFName() +
+                        " Password : " + passwd+
+                        " FName : " + userModel.getFName() +
                         " LName : " + userModel.getLName()+
                         " email Address : " + userModel.getEmail() +
                         " phno : " + userModel.getPhno() +
