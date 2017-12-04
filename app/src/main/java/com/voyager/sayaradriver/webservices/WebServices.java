@@ -7,12 +7,16 @@ import com.voyager.sayaradriver.signinpage.model.UserModel;
 import com.voyager.sayaradriver.test.MainClass;
 
 import java.util.HashMap;
+
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface WebServices {
@@ -36,6 +40,15 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("register.php")
     Call<DriverDetails> getRegisterResult(@FieldMap HashMap<String, String> authData);
+
+    @Multipart
+    @POST("DriverRegisterServlet")
+    Call<UserModel> uploadFile(@Part MultipartBody.Part licenseFile);
+    @Multipart
+    @POST("DriverProfileUpdateServlet")
+    Call<UserModel> driverProfileUpdate(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile);
+
+
    /* @Multipart
     @POST("DriverRegisterServlet")
     Call<UserModel> uploadFile(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);

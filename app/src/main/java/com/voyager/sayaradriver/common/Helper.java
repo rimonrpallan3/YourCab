@@ -76,7 +76,7 @@ public class Helper{
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private static File createImageFile(Activity activity) throws IOException {
+    public static File createImageFile(Activity activity) throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
