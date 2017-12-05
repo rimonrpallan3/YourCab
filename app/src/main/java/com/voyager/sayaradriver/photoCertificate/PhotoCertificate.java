@@ -67,6 +67,7 @@ public class PhotoCertificate extends AppCompatActivity {
     Button galleryBtn;
     Button cameraBtn;
     Button cancelBtn;
+    String driverId="";
 
 
     @Override
@@ -74,9 +75,11 @@ public class PhotoCertificate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_certificate);
         PACKAGE_NAME = getApplicationContext().getPackageName();
-        bundle = getIntent().getExtras();
-        methodName = bundle.getInt("METHOD_NAME");
-        System.out.println("onCreate_methodName : " + methodName);
+        if(bundle!=null){
+            driverId = bundle.getString("driverId");
+            methodName = bundle.getInt("METHOD_NAME");
+            System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
+        }
     }
 
 

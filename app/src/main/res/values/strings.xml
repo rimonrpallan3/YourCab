@@ -101,5 +101,8 @@
     <string name="driver_online">Online</string>
     <string name="driver_offline">Offline</string>
 
+    <string name="internal_storage">Internal storage</string>
+
+
 
 </resources>

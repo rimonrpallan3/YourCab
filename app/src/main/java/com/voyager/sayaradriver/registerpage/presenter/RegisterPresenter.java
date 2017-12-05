@@ -92,7 +92,7 @@ public class RegisterPresenter implements IRegisterFetcher{
                         " city : " + city +
                         " CPR : " + CPR);
                 System.out.println("----- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" driver_id: "+driverDetails.driver_id+" created_at: "+driverDetails.created_at);
-                    System.out.println("--------- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" Error message: "+driverDetails.error_msg);
+                System.out.println("--------- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" Error message: "+driverDetails.error_msg);
                     final int code =user.validateRegisterResponseError(driverDetails.error_msg);
                     Boolean isLoginSuccess =true;
                     if (code != 0) {
@@ -107,7 +107,7 @@ public class RegisterPresenter implements IRegisterFetcher{
                     }
                     Boolean result = isLoginSuccess;
                 System.out.println("----- sendRegisteredDataAndValidateResponse second Data Please see, code = " + code + ", result: " + result);
-                iRegisterView.onRegistered(result, code);
+                iRegisterView.onRegistered(result, code, driverDetails.driver_id);
             }
 
             @Override
@@ -115,7 +115,7 @@ public class RegisterPresenter implements IRegisterFetcher{
                 Boolean isLoginSuccess =false;
                 Boolean result = isLoginSuccess;
                 int code = -77;
-                iRegisterView.onRegistered(result, code);
+                iRegisterView.onRegistered(result, code, "nill");
                 t.printStackTrace();
                 //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
             }

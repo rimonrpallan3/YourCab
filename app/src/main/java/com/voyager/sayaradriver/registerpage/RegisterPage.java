@@ -136,7 +136,7 @@ public class RegisterPage extends AppCompatActivity implements IRegisterView {
     }
 
     @Override
-    public void onRegistered(final Boolean result, int code) {
+    public void onRegistered(final Boolean result, int code, String driverId) {
         System.out.println("-----onRegistered second Please see, code = " + code + ", result: " + result);
         if (result) {
             System.out.println("------- inside onRegistered first Please see, code = " + code + ", result: " + result);
@@ -150,6 +150,7 @@ public class RegisterPage extends AppCompatActivity implements IRegisterView {
                 }
             }, 4000);
                 Intent intent = new Intent(RegisterPage.this, DocumentPage.class);
+                intent.putExtra("driverId",driverId);
                 startActivity(intent);
                 finish();
         } else {

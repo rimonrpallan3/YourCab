@@ -22,13 +22,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.FileUtils;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.webservices.ApiClient;
+import com.voyager.sayaradriver.webservices.WebServices;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by User on 9/6/2017.
@@ -52,6 +65,8 @@ public class PhotoDoc extends AppCompatActivity {
     Button galleryBtn;
     Button cameraBtn;
     Button cancelBtn;
+    String driverId="";
+    String docName="";
 
 
     @Override
@@ -59,9 +74,13 @@ public class PhotoDoc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_doc);
         docImg =(ImageView) this.findViewById(R.id.docImg);
-        bundle = getIntent().getExtras();
-        methodName = bundle.getInt("METHOD_NAME");
-        System.out.println("onCreate_methodName : "+methodName);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            driverId = bundle.getString("driverId");
+            docName = bundle.getString("DocName");
+            methodName = bundle.getInt("METHOD_NAME");
+            System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
+        }
 
     }
 
@@ -299,21 +318,68 @@ public class PhotoDoc extends AppCompatActivity {
         try {
 
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                File file = FileUtils.getFile(this, selectedImageUri);
+                System.out.println("-------onActivityResult :selectedImageUri - "+selectedImageUri);
+                RequestBody requestDriverId =
+                        RequestBody.create(MediaType.parse("text/plain"), driverId);
+                RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImageUri)), file);
+               /* MultipartBody.Part filePart =
+                        MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("picture", file.getName(), requestFile);*/
+
+              /*  String descriptionString = "hello, this is description speaking";
+                RequestBody description =
+                        RequestBody.create(
+                                okhttp3.MultipartBody.FORM, descriptionString);*/
+                Retrofit retrofit = new ApiClient().getRetrofitClient();
+                WebServices webServices = retrofit.create(WebServices.class);
+
                 if (mCurrentPhotoPath != null ) {
-                   // setPic();
+                    Call<DocModel> call = webServices.uploadFile(requestFile,requestDriverId);
+                    call.enqueue(new Callback<DocModel>() {
+                        @Override
+                        public void onResponse(Call<DocModel> call,
+                                               Response<DocModel> response) {
+                            if (!response.body().error) {
+                                Toast.makeText(getApplicationContext(), "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                                mCurrentPhotoPath = null;
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Some error occurred...", Toast.LENGTH_LONG).show();
+                            }
+
+                            Log.v("Upload", "success");
+                        }
+
+                        @Override
+                        public void onFailure(Call<DocModel> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.e("Upload error:", t.getMessage());
+                            mCurrentPhotoPath = null;
+                        }
+                    });
+
                     galleryAddPic();
-                    mCurrentPhotoPath = null;
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();
                     intent.putExtra("METHOD_NAME",methodName);
                     setResult(methodName,intent);
-                    finish();
+                    //finish();
                 }
 
 
             }
             if (requestCode == Helper.SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
+                File file = FileUtils.getFile(this, selectedImageUri);
+                System.out.println("-------onActivityResult :selectedImageUri - "+selectedImageUri);
+                RequestBody requestDriverId =
+                        RequestBody.create(MultipartBody.FORM, driverId);
+                RequestBody requestFile = RequestBody.create(MediaType.parse(getContentResolver().getType(selectedImageUri)), file);
+                Retrofit retrofit = new ApiClient().getRetrofitClient();
+                WebServices webServices = retrofit.create(WebServices.class);
+
 
                 //OI FILE Manager
                 filemanagerstring = selectedImageUri.getPath();
@@ -336,17 +402,40 @@ public class PhotoDoc extends AppCompatActivity {
                     System.out.println("filemanagerstring is the right one for you!");
 
                 if(mCurrentPhotoPath!=null){
-                    mCurrentPhotoPath = null;
+
+                    // finally, execute the request
+                    System.out.println("-------onActivityResult: "+selectedImageUri);
+
+                    Call<DocModel> call = webServices.uploadFile(requestFile,requestDriverId);
+                    call.enqueue(new Callback<DocModel>() {
+                        @Override
+                        public void onResponse(Call<DocModel> call,
+                                               Response<DocModel> response) {
+                            if (!response.body().error) {
+                                Toast.makeText(getApplicationContext(), "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Some error occurred...", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<DocModel> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.e("Upload error:", t.getMessage());
+                        }
+                    });
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();
                     intent.putExtra("METHOD_NAME",methodName);
                     setResult(methodName,intent);
-                    finish();
+                    //finish();
                 }
 
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(this, "Please try After SomeTimes", Toast.LENGTH_LONG)
                     .show();
         }

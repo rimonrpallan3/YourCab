@@ -48,7 +48,6 @@ import retrofit2.Retrofit;
 public class PhotoLiciense extends AppCompatActivity {
     String mCurrentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 2;
-    Bundle bundle;
     int methodName;
     String TAG = "PhotoLiciense";
 
@@ -62,6 +61,7 @@ public class PhotoLiciense extends AppCompatActivity {
     Button cancelBtn;
     Activity activity;
     File Liciance;
+    String driverId="";
 
 
     @Override
@@ -69,9 +69,12 @@ public class PhotoLiciense extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_liciense);
         activity =getParent();
-        bundle = getIntent().getExtras();
-        methodName = bundle.getInt("METHOD_NAME");
-        System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            driverId = bundle.getString("driverId");
+            methodName = bundle.getInt("METHOD_NAME");
+            System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
+        }
     }
 
     public void choosePhoto(View v){
@@ -346,39 +349,13 @@ public class PhotoLiciense extends AppCompatActivity {
                     System.out.println("filemanagerstring is the right one for you!");
 
                 if(mCurrentPhotoPath!=null){
-
+                    mCurrentPhotoPath = null;
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();
                     intent.putExtra("METHOD_NAME",methodName);
                     setResult(methodName,intent);
-                   /* RequestBody rcFileBody = RequestBody.create(MediaType.parse("image*//*"), mCurrentPhotoPath);
-                    MultipartBody.Part fileToUpload1 = MultipartBody.Part.createFormData("file2", mCurrentPhotoPath, rcFileBody);
-                    Retrofit retrofit = new ApiClient().getRetrofitClient();
-                    WebServices webServices = retrofit.create(WebServices.class);
-                    Call<UserModel> fileUpload = webServices.uploadFile(mCurrentPhotoPath);
-                    fileUpload.enqueue(new Callback<UserModel>() {
-                        @Override
-                        public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                            UserModel userModel = response.body();
-
-                            if (userModel != null) {
-                                Toast.makeText(PhotoLiciense.this, "", Toast.LENGTH_LONG).show();
-                               *//* if (responseMsg.equals("success")) {
-                                    Intent intent = new Intent(DriverRegisterActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }*//*
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<UserModel> call, Throwable t) {
-                            t.printStackTrace();
-                            Log.e("Error: ", "Error " + t.getMessage());
-                        }
-                    });*/
                     finish();
-                    mCurrentPhotoPath = null;
+
                 }
 
             }

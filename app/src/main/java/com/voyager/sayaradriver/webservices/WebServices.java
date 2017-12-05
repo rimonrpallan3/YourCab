@@ -2,6 +2,7 @@ package com.voyager.sayaradriver.webservices;
 
 import android.support.annotation.Nullable;
 
+import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
 import com.voyager.sayaradriver.signinpage.model.UserModel;
 import com.voyager.sayaradriver.test.MainClass;
@@ -9,6 +10,7 @@ import com.voyager.sayaradriver.test.MainClass;
 import java.util.HashMap;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -42,11 +44,11 @@ public interface WebServices {
     Call<DriverDetails> getRegisterResult(@FieldMap HashMap<String, String> authData);
 
     @Multipart
-    @POST("DriverRegisterServlet")
-    Call<UserModel> uploadFile(@Part MultipartBody.Part licenseFile);
+    @POST("driver/documents/")
+    public Call<DocModel> uploadFile(@Part("driving_license") RequestBody  driving_license, @Part("driver_id") RequestBody driverId);
     @Multipart
     @POST("DriverProfileUpdateServlet")
-    Call<UserModel> driverProfileUpdate(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile);
+    Call<UserModel> driverProfileUpdate(@Part() RequestBody licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile);
 
 
    /* @Multipart
