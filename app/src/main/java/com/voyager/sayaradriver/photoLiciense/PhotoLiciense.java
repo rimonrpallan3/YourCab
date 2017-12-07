@@ -22,7 +22,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.FileUtils;
 import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.signinpage.model.UserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
@@ -93,7 +95,7 @@ public class PhotoLiciense extends AppCompatActivity {
         dialog.show();
 
         //initializing views of custom dialog
-        galleryBtn = (Button)dialog.findViewById(R.id.galleryBtn);
+        galleryBtn=(Button)dialog.findViewById(R.id.galleryBtn);
         cameraBtn = (Button)dialog.findViewById(R.id.cameraBtn);
         cancelBtn = (Button)dialog.findViewById(R.id.cancelBtn);
 
@@ -305,6 +307,45 @@ public class PhotoLiciense extends AppCompatActivity {
         this.sendBroadcast(mediaScanIntent);
     }
 
+    public void uploadDoc(File file) {
+        System.out.println("------- onActivityResult : mCurrentPhotoPath - " + mCurrentPhotoPath);
+        RequestBody requestDriverId =
+                RequestBody.create(MediaType.parse("text/plain"), driverId);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("driving_license", file.getName(), requestFile);
+
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        WebServices webServices = retrofit.create(WebServices.class);
+
+        if (mCurrentPhotoPath != null) {
+            Call<DocModel> call = webServices.uploadFile(body, requestDriverId);
+            call.enqueue(new Callback<DocModel>() {
+                @Override
+                public void onResponse(Call<DocModel> call,
+                                       Response<DocModel> response) {
+                    if (!response.body().error) {
+                        Toast.makeText(getApplicationContext(), "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                        mCurrentPhotoPath = null;
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Some error occurred...", Toast.LENGTH_LONG).show();
+                    }
+
+                    Log.v("Upload", "success");
+                }
+
+                @Override
+                public void onFailure(Call<DocModel> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("Upload error:", t.getMessage());
+                    mCurrentPhotoPath = null;
+                }
+            });
+
+        }
+    }
 
 
     @Override
@@ -315,6 +356,8 @@ public class PhotoLiciense extends AppCompatActivity {
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
                 if (mCurrentPhotoPath != null) {
                     // setPic();
+                    File file = new File(mCurrentPhotoPath);
+                    uploadDoc(file);
                     galleryAddPic();
                     mCurrentPhotoPath = null;
                     System.out.println("onActivityResult_methodName : "+methodName);
@@ -327,6 +370,7 @@ public class PhotoLiciense extends AppCompatActivity {
 
             if (requestCode == Helper.SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
+                File file = FileUtils.getFile(this, selectedImageUri);
 
                 //OI FILE Manager
                 filemanagerstring = selectedImageUri.getPath();
@@ -349,12 +393,12 @@ public class PhotoLiciense extends AppCompatActivity {
                     System.out.println("filemanagerstring is the right one for you!");
 
                 if(mCurrentPhotoPath!=null){
-                    mCurrentPhotoPath = null;
+                    uploadDoc(file);
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();
                     intent.putExtra("METHOD_NAME",methodName);
                     setResult(methodName,intent);
-                    finish();
+                    mCurrentPhotoPath = null;
 
                 }
 

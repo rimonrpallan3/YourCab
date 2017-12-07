@@ -23,9 +23,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.FileUtils;
 import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.photoDoc.PhotoDoc;
+import com.voyager.sayaradriver.webservices.ApiClient;
+import com.voyager.sayaradriver.webservices.WebServices;
 
 
 import java.io.File;
@@ -33,6 +37,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by User on 9/6/2017.
@@ -338,6 +350,47 @@ public class PhotoCertificate extends AppCompatActivity {
     }
 
 
+    public void uploadDoc(File file) {
+        System.out.println("------- onActivityResult : mCurrentPhotoPath - " + mCurrentPhotoPath);
+        RequestBody requestDriverId =
+                RequestBody.create(MediaType.parse("text/plain"), driverId);
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("driving_license", file.getName(), requestFile);
+
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        WebServices webServices = retrofit.create(WebServices.class);
+
+        if (mCurrentPhotoPath != null) {
+            Call<DocModel> call = webServices.uploadFile(body, requestDriverId);
+            call.enqueue(new Callback<DocModel>() {
+                @Override
+                public void onResponse(Call<DocModel> call,
+                                       Response<DocModel> response) {
+                    if (!response.body().error) {
+                        Toast.makeText(getApplicationContext(), "File Uploaded Successfully...", Toast.LENGTH_LONG).show();
+                        mCurrentPhotoPath = null;
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Some error occurred...", Toast.LENGTH_LONG).show();
+                    }
+
+                    Log.v("Upload", "success");
+                }
+
+                @Override
+                public void onFailure(Call<DocModel> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("Upload error:", t.getMessage());
+                    mCurrentPhotoPath = null;
+                }
+            });
+
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -350,8 +403,8 @@ public class PhotoCertificate extends AppCompatActivity {
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
                 if (mCurrentPhotoPath != null) {
                     // setPic();
-                    selectedImageUri = imageFileUri;
-
+                    File file = new File(mCurrentPhotoPath);
+                    uploadDoc(file);
                     System.out.println("onActivityResult---------------------" + mCurrentPhotoPath);
                     galleryAddPic();
                     mCurrentPhotoPath = null;
@@ -359,11 +412,11 @@ public class PhotoCertificate extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.putExtra("METHOD_NAME", methodName);
                     setResult(methodName, intent);
-                    finish();
                 }
             }
             if (requestCode == Helper.SELECT_PICTURE) {
                 selectedImageUri = data.getData();
+                File file = FileUtils.getFile(this, selectedImageUri);
 
                 //OI FILE Manager
                 filemanagerstring = selectedImageUri.getPath();
@@ -386,12 +439,12 @@ public class PhotoCertificate extends AppCompatActivity {
                     System.out.println("filemanagerstring is the right one for you!");
 
                 if(mCurrentPhotoPath!=null){
-                    mCurrentPhotoPath = null;
+                    uploadDoc(file);
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();
                     intent.putExtra("METHOD_NAME",methodName);
                     setResult(methodName,intent);
-                    finish();
+                    mCurrentPhotoPath = null;
                 }
 
             }
