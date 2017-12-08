@@ -68,6 +68,7 @@ public class PhotoDoc extends AppCompatActivity {
     Button cancelBtn;
     String driverId="";
     String docName="";
+    String docType="";
 
     Uri photoURI;
 
@@ -82,6 +83,7 @@ public class PhotoDoc extends AppCompatActivity {
             driverId = bundle.getString("driverId");
             docName = bundle.getString("DocName");
             methodName = bundle.getInt("METHOD_NAME");
+            docType = bundle.getString("DocType");
             System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
         }
 
@@ -228,17 +230,18 @@ public class PhotoDoc extends AppCompatActivity {
             }
         }
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp +".jpg";
+        String mImageName=docName+driverId+".jpg";
         mediaFile = new File(storageDir.getPath() + File.separator + mImageName);
+
         return mediaFile;
     }
 
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = docName+driverId;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -248,6 +251,7 @@ public class PhotoDoc extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        System.out.println("createImageFile : "+image.getName());
         return image;
     }
 
@@ -319,14 +323,16 @@ public class PhotoDoc extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), driverId);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestDocType =
+                RequestBody.create(MediaType.parse("text/plain"), docType);
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("driving_license", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("document_name", file.getName(), requestFile);
 
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
 
         if (mCurrentPhotoPath != null) {
-            Call<DocModel> call = webServices.uploadFile(body, requestDriverId);
+            Call<DocModel> call = webServices.uploadFile(body, requestDriverId, requestDocType);
             call.enqueue(new Callback<DocModel>() {
                 @Override
                 public void onResponse(Call<DocModel> call,
@@ -361,6 +367,7 @@ public class PhotoDoc extends AppCompatActivity {
 
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
                 File file = new File(mCurrentPhotoPath);
+                System.out.println("onActivityResult_fileNmae : "+file.getName());
                     uploadDoc(file);
                     galleryAddPic();
                     System.out.println("onActivityResult_methodName : "+methodName);
@@ -373,6 +380,8 @@ public class PhotoDoc extends AppCompatActivity {
             if (requestCode == Helper.SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
                 File file = FileUtils.getFile(this, selectedImageUri);
+                File newFile = new File(docName+driverId);
+                file.renameTo(newFile);
                 //OI FILE Manager
                 filemanagerstring = selectedImageUri.getPath();
 
@@ -394,6 +403,7 @@ public class PhotoDoc extends AppCompatActivity {
                     System.out.println("filemanagerstring is the right one for you!");
 
                 if(mCurrentPhotoPath!=null){
+                    System.out.println("onActivityResult_fileNmae : "+file.getName());
                     uploadDoc(file);
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();

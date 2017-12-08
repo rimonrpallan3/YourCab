@@ -80,6 +80,8 @@ public class PhotoCertificate extends AppCompatActivity {
     Button cameraBtn;
     Button cancelBtn;
     String driverId="";
+    String docName="";
+    String docType="";
 
 
     @Override
@@ -90,13 +92,14 @@ public class PhotoCertificate extends AppCompatActivity {
         if(bundle!=null){
             driverId = bundle.getString("driverId");
             methodName = bundle.getInt("METHOD_NAME");
+            docName = bundle.getString("DocName");
+            docType = bundle.getString("DocType");
             System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
         }
     }
 
 
     public void choosePhoto(View v){
-
         showDialog();
 
     }
@@ -240,7 +243,7 @@ public class PhotoCertificate extends AppCompatActivity {
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp +".jpg";
+        String mImageName=docName+ driverId+".jpg";
         mediaFile = new File(storageDir.getPath() + File.separator + mImageName);
         return mediaFile;
     }
@@ -262,8 +265,8 @@ public class PhotoCertificate extends AppCompatActivity {
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = docName+ driverId;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -273,7 +276,7 @@ public class PhotoCertificate extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
-        System.out.println("mCurrentPhotoPath--------------" + mCurrentPhotoPath);
+        System.out.println("createImageFile : "+image.getName());
         return image;
     }
 
@@ -354,16 +357,18 @@ public class PhotoCertificate extends AppCompatActivity {
         System.out.println("------- onActivityResult : mCurrentPhotoPath - " + mCurrentPhotoPath);
         RequestBody requestDriverId =
                 RequestBody.create(MediaType.parse("text/plain"), driverId);
+        RequestBody requestDocType =
+                RequestBody.create(MediaType.parse("text/plain"), docType);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("driving_license", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("document_name", file.getName(), requestFile);
 
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
 
         if (mCurrentPhotoPath != null) {
-            Call<DocModel> call = webServices.uploadFile(body, requestDriverId);
+            Call<DocModel> call = webServices.uploadFile(body, requestDriverId,requestDocType);
             call.enqueue(new Callback<DocModel>() {
                 @Override
                 public void onResponse(Call<DocModel> call,
@@ -417,6 +422,8 @@ public class PhotoCertificate extends AppCompatActivity {
             if (requestCode == Helper.SELECT_PICTURE) {
                 selectedImageUri = data.getData();
                 File file = FileUtils.getFile(this, selectedImageUri);
+                File newFile = new File(docName+driverId);
+                file.renameTo(newFile);
 
                 //OI FILE Manager
                 filemanagerstring = selectedImageUri.getPath();

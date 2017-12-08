@@ -74,7 +74,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoLiciense.class);
         bundle.putInt("METHOD_NAME",  Helper.DRIVER_LICENSE_FRONT);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","driverLicenseFront");
+        intent.putExtra("DocName","DriverLicenseFront");
+        intent.putExtra("DocType","License");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.DRIVER_LICENSE_FRONT);
     }
@@ -83,7 +84,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoLiciense.class);
         bundle.putInt("METHOD_NAME", Helper.DRIVER_LICENSE_BACK);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","driverLicenseBack");
+        intent.putExtra("DocName","DriverLicenseBack");
+        intent.putExtra("DocType","License");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.DRIVER_LICENSE_BACK);
     }
@@ -92,7 +94,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoCertificate.class);
         bundle.putInt("METHOD_NAME", Helper.CERTIFICATE_REGISTER);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","certificateRegister");
+        intent.putExtra("DocName","CertificateOfRegister");
+        intent.putExtra("DocType","Certification");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.CERTIFICATE_REGISTER);
     }
@@ -101,7 +104,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoDoc.class);
         bundle.putInt("METHOD_NAME", Helper.VEHICLE_REGISTER);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","vehicleRegister");
+        intent.putExtra("DocName","VehicleRegister");
+        intent.putExtra("DocType","License");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.VEHICLE_REGISTER);
     }
@@ -110,7 +114,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoLiciense.class);
         bundle.putInt("METHOD_NAME", Helper.VEHICLE_PERMIT);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","vehiclePermit");
+        intent.putExtra("DocName","VehiclePermit");
+        intent.putExtra("DocType","Permit");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.VEHICLE_PERMIT);
     }
@@ -119,7 +124,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoDoc.class);
         bundle.putInt("METHOD_NAME", Helper.COMMERCIAL_INSURANCE);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","commercialInsurance");
+        intent.putExtra("DocName","CommercialInsurance");
+        intent.putExtra("DocType","Insurance");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.COMMERCIAL_INSURANCE);
     }
@@ -128,7 +134,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoLiciense.class);
         bundle.putInt("METHOD_NAME", Helper.TAX_RECEPIT);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","taxReceipt");
+        intent.putExtra("DocName","TaxReceipt");
+        intent.putExtra("DocType","Receipt");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.TAX_RECEPIT);
     }
@@ -137,7 +144,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoDoc.class);
         bundle.putInt("METHOD_NAME", Helper.CONTACT_CARRIAGE_PERMIT);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","contractCarriagePermit");
+        intent.putExtra("DocName","ContractCarriagePermit");
+        intent.putExtra("DocType","Permit");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.CONTACT_CARRIAGE_PERMIT);
     }
@@ -146,7 +154,8 @@ public class DocumentPage extends AppCompatActivity  {
         Intent intent = new Intent(DocumentPage.this, PhotoCertificate.class);
         bundle.putInt("METHOD_NAME", Helper.INSURANCE_CERTIFICATION);
         intent.putExtra("driverId",driverId);
-        intent.putExtra("DocName","insuranceCertification");
+        intent.putExtra("DocName","InsuranceCertification");
+        intent.putExtra("DocType","Certification");
         intent.putExtras(bundle);
         startActivityForResult(intent, Helper.INSURANCE_CERTIFICATION);
     }

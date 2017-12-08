@@ -45,7 +45,7 @@ public interface WebServices {
 
     @Multipart
     @POST("driver/documents/")
-    public Call<DocModel> uploadFile(@Part MultipartBody.Part  driving_license, @Part("driver_id") RequestBody driverId);
+    public Call<DocModel> uploadFile(@Part MultipartBody.Part  driving_license, @Part("driver_id") RequestBody driverId,@Part("document_type") RequestBody docType);
 
     @Multipart
     @POST("DriverProfileUpdateServlet")

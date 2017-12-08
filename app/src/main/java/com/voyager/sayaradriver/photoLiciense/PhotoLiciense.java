@@ -64,6 +64,8 @@ public class PhotoLiciense extends AppCompatActivity {
     Activity activity;
     File Liciance;
     String driverId="";
+    String docName="";
+    String docType="";
 
 
     @Override
@@ -74,7 +76,9 @@ public class PhotoLiciense extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             driverId = bundle.getString("driverId");
+            docName = bundle.getString("DocName");
             methodName = bundle.getInt("METHOD_NAME");
+            docType = bundle.getString("DocType");
             System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
         }
     }
@@ -121,7 +125,7 @@ public class PhotoLiciense extends AppCompatActivity {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Helper.takePhoto(getParent());
+                tkPhoto();
                 dialog.dismiss();
               //  Toast.makeText(PhotoLiciense.this,"You pressed cameraBtn button",Toast.LENGTH_LONG).show();
             }
@@ -247,17 +251,17 @@ public class PhotoLiciense extends AppCompatActivity {
             }
         }
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp +".jpg";
+        String mImageName=docName+ driverId +".jpg";
         mediaFile = new File(storageDir.getPath() + File.separator + mImageName);
         return mediaFile;
     }
 
     private File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = docName + driverId;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
@@ -267,6 +271,7 @@ public class PhotoLiciense extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        System.out.println("createImageFile : "+image.getName());
         return image;
     }
 
@@ -313,14 +318,16 @@ public class PhotoLiciense extends AppCompatActivity {
                 RequestBody.create(MediaType.parse("text/plain"), driverId);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestDocType =
+                RequestBody.create(MediaType.parse("text/plain"), docType);
         MultipartBody.Part body =
-                MultipartBody.Part.createFormData("driving_license", file.getName(), requestFile);
+                MultipartBody.Part.createFormData("document_name", file.getName(), requestFile);
 
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
 
         if (mCurrentPhotoPath != null) {
-            Call<DocModel> call = webServices.uploadFile(body, requestDriverId);
+            Call<DocModel> call = webServices.uploadFile(body, requestDriverId, requestDocType);
             call.enqueue(new Callback<DocModel>() {
                 @Override
                 public void onResponse(Call<DocModel> call,
@@ -357,6 +364,9 @@ public class PhotoLiciense extends AppCompatActivity {
                 if (mCurrentPhotoPath != null) {
                     // setPic();
                     File file = new File(mCurrentPhotoPath);
+                    File newFile = new File(mCurrentPhotoPath,docName+driverId+".jpg");
+                    file.renameTo(newFile);
+                    System.out.println("onActivityResult_fileNmae : "+file.getName());
                     uploadDoc(file);
                     galleryAddPic();
                     mCurrentPhotoPath = null;
@@ -371,6 +381,9 @@ public class PhotoLiciense extends AppCompatActivity {
             if (requestCode == Helper.SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
                 File file = FileUtils.getFile(this, selectedImageUri);
+                File newFile = new File(file.getAbsoluteFile(),docName+driverId+".jpg");
+                file.renameTo(newFile);
+                System.out.println("onActivityResult_fileNmae : "+file.getName());
 
                 //OI FILE Manager
                 filemanagerstring = selectedImageUri.getPath();
@@ -405,6 +418,7 @@ public class PhotoLiciense extends AppCompatActivity {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(this, "Please try After SomeTimes", Toast.LENGTH_LONG)
                     .show();
         }
