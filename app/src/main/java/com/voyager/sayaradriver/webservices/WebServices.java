@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
-import com.voyager.sayaradriver.signinpage.model.UserModel;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.test.MainClass;
 
 import java.util.HashMap;
@@ -36,8 +36,8 @@ public interface WebServices {
                                             @Nullable @Field("driver_cpr") String CPR);
     @FormUrlEncoded
     @POST("driver/login/")
-    public Call<UserModel> loginUser(@Nullable @Field("username") String name,
-                                     @Nullable @Field("password") String passwd);
+    public Call<DriverUserModel> loginUser(@Nullable @Field("username") String name,
+                                           @Nullable @Field("password") String passwd);
 
     @FormUrlEncoded
     @POST("register.php")
@@ -49,26 +49,26 @@ public interface WebServices {
 
     @Multipart
     @POST("driver/update/")
-    Call<UserModel> driverProfileUpdate(@Nullable @Field("driver_id") int driverID,
-                                        @Nullable @Field("status") String status);
+    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
+                                              @Nullable @Field("status") String status);
 
 
    /* @Multipart
     @POST("DriverRegisterServlet")
-    Call<UserModel> uploadFile(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);
+    Call<DriverUserModel> uploadFile(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);
     @Multipart
     @POST("DriverProfileUpdateServlet")
-    Call<UserModel> driverProfileUpdate(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);
+    Call<DriverUserModel> driverProfileUpdate(@Part MultipartBody.Part licenseFile, @Part MultipartBody.Part rcFile, @Part MultipartBody.Part profileFile, @Part("name") RequestBody name);
 
     @POST("AndroidLoginServlet")
 //    @FormUrlEncoded
-    public Call<UserModel> loginUser(@Body UserModel userModel);
+    public Call<DriverUserModel> loginUser(@Body DriverUserModel userModel);
 
     @POST("AndroidRegisterServlet")
-    public Call<UserModel> registerUser(@Body UserModel userModel);
+    public Call<DriverUserModel> registerUser(@Body DriverUserModel userModel);
 
     @POST("AndroidUpdateProfileServlet")
-    public Call<UserModel> updateProfile(@Body UserModel userModel);
+    public Call<DriverUserModel> updateProfile(@Body DriverUserModel userModel);
 
     @POST("TripServlet")
     public Call<TripDetailsModel> userRequestTrip(@Body TripDetailsModel tripModel);
@@ -80,13 +80,13 @@ public interface WebServices {
     public Call<List<TripDetailsModel>> getDriverHistory(@Query("user_name") String userName);
 
     @GET("AndroidGetProfileServlet")
-    public Call<UserModel> getUserInfo(@Query("user_name") String userName);
+    public Call<DriverUserModel> getUserInfo(@Query("user_name") String userName);
 
     @GET("DriverAcceptRejectServlet")
-    public Call<UserModel> acceptRejectTrip(@Query("id") String id, @Query("status") String status);
+    public Call<DriverUserModel> acceptRejectTrip(@Query("id") String id, @Query("status") String status);
 
     @POST("FCMUpdateServlet")
-    public Call<UserModel> updateFCMId(@Body UserModel userModel);
+    public Call<DriverUserModel> updateFCMId(@Body DriverUserModel userModel);
 
 
     @GET("json")
@@ -96,19 +96,19 @@ public interface WebServices {
     Call<RechargeModel> userWalletRecharge(@Body RechargeModel rechargeModel);
 
     @POST("LocationUpdateServlet")
-    Call<UserModel> driverLocationUpdate(@Body UserModel userModel);
+    Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel userModel);
 
     @GET("GetPriceInfoServlet")
     Call<AutoChargeModel> updateFee();
 
     @GET("DriverProfileServlet")
-    Call<UserModel> getDriverInfo(@Query("user_name") String userName);
+    Call<DriverUserModel> getDriverInfo(@Query("user_name") String userName);
 
     @GET("StartStopTripServlet")
-    Call<UserModel> startStopTrip(@Query("id") String id, @Query("status") String status, @Query("payment_mode") String paymentMode);
+    Call<DriverUserModel> startStopTrip(@Query("id") String id, @Query("status") String status, @Query("payment_mode") String paymentMode);
 
     @GET("UserFeedbackServlet")
-    Call<UserModel> userFeedBack(@Query("id") String id, @Query("rating") String userRating);
+    Call<DriverUserModel> userFeedBack(@Query("id") String id, @Query("rating") String userRating);
     @GET("DriverLocationServlet")
-    Call<UserModel> getDriverLocation(@Query("user_name") String username);*/
+    Call<DriverUserModel> getDriverLocation(@Query("user_name") String username);*/
 }

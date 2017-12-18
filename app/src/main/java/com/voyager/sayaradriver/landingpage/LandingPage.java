@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.landingpage.presenter.LandingPresenter;
+import com.voyager.sayaradriver.landingpage.view.ILandingView;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.EarningTabFragment;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabFragment;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.ProfileTabFragment;
@@ -22,7 +24,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
  * Created by User on 8/30/2017.
  */
 
-public class LandingPage extends AppCompatActivity implements View.OnClickListener {
+ public class LandingPage extends AppCompatActivity implements View.OnClickListener, ILandingView {
 
     Activity activity;
 
@@ -31,6 +33,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
 
     SwitchCompat driverSwitch;
     TextView onlineOfflineTxt;
+    LandingPresenter landingPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,9 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
         offline = getString(R.string.driver_offline);
         onlineOfflineTxt.setText(offline);
 
+        landingPresenter = new LandingPresenter(this, this);
+
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new HomeTabFragment(activity))
@@ -54,15 +60,7 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
 
         driverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                System.out.println("driverSwitch Clicked"+"yehhh!!");
-                if (isChecked){
-                    System.out.println("driverSwitch Clicked :"+" true!!");
-                    onlineOfflineTxt.setText(online);
-                }
-                else{
-                    System.out.println("driverSwitch Clicked :"+" false!!");
-                    onlineOfflineTxt.setText(offline);
-                }
+                landingPresenter.checkOfflineOnline(isChecked);
             }
         });
     }
@@ -116,5 +114,10 @@ public class LandingPage extends AppCompatActivity implements View.OnClickListen
                 break;
         }
 
+    }
+
+    @Override
+    public void getOfflineOnlineState(String setText) {
+        onlineOfflineTxt.setText(setText);
     }
 }

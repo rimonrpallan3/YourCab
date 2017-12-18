@@ -26,14 +26,11 @@ import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.FileUtils;
 import com.voyager.sayaradriver.common.Helper;
-import com.voyager.sayaradriver.signinpage.model.UserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

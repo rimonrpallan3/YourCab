@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by kaede on 2015/5/18.
  */
-public class UserModel implements IUser {
+public class DriverUserModel implements IUser {
 	@SerializedName("username")
 	public String userName;
 	@SerializedName("password")
@@ -119,7 +119,7 @@ public class UserModel implements IUser {
 		this.error_msg = error_msg;
 	}
 
-	public UserModel(String userName, String passwd) {
+	public DriverUserModel(String userName, String passwd) {
 		this.userName = userName;
 		this.passwd = passwd;
 	}

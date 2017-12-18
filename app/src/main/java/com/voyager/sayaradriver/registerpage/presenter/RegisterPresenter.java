@@ -128,7 +128,7 @@ public class RegisterPresenter implements IRegisterFetcher{
     private void addUserGsonInSharedPrefrences(){
         Gson gson = new Gson();
         String jsonString = gson.toJson(user);
-        //UserModel user1 = gson.fromJson(jsonString,UserModel.class);
+        //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
         if(jsonString!=null) {
             editor.putString("json", jsonString);
             editor.commit();

@@ -7,8 +7,8 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.signinpage.model.IUser;
-import com.voyager.sayaradriver.signinpage.model.UserModel;
 import com.voyager.sayaradriver.signinpage.view.ISignInView;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -62,26 +62,26 @@ public class SignInPresenter implements ILoginPresenter {
     public void validateLoginDataBaseApi(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<UserModel> call = webServices.loginUser(name,passwd);
-        call.enqueue(new Callback<UserModel>() {
+        Call<DriverUserModel> call = webServices.loginUser(name,passwd);
+        call.enqueue(new Callback<DriverUserModel>() {
             @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                UserModel userModel  = (UserModel) response.body();
+            public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {
+                DriverUserModel driverUserModel = (DriverUserModel) response.body();
                 System.out.println("-------validateLoginDataBaseApi  userName : " + name +
                         " Password : " + passwd+
-                        " FName : " + userModel.getFName() +
-                        " LName : " + userModel.getLName()+
-                        " email Address : " + userModel.getEmail() +
-                        " phno : " + userModel.getPhno() +
-                        " city : " + userModel.getCity() +
-                        " CPR : " + userModel.getCPR());
-                System.out.println("----- validateLoginDataBaseApi isError: "+userModel.isError +" driver_id: "+userModel.driver_id);
-                System.out.println("--------- validateLoginDataBaseApi isError: "+userModel.isError +" Error message: "+userModel.error_msg);
-                final int code =user.validateLoginResponseError(userModel.error_msg);
+                        " FName : " + driverUserModel.getFName() +
+                        " LName : " + driverUserModel.getLName()+
+                        " email Address : " + driverUserModel.getEmail() +
+                        " phno : " + driverUserModel.getPhno() +
+                        " city : " + driverUserModel.getCity() +
+                        " CPR : " + driverUserModel.getCPR());
+                System.out.println("----- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" driver_id: "+ driverUserModel.driver_id);
+                System.out.println("--------- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" Error message: "+ driverUserModel.error_msg);
+                final int code =user.validateLoginResponseError(driverUserModel.error_msg);
                 Boolean isLoginSuccess =true;
                 if (code != 0) {
                     isLoginSuccess = false;
-                    Toast.makeText((Context) iSignInView, userModel.getError_msg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText((Context) iSignInView, driverUserModel.getError_msg(), Toast.LENGTH_SHORT).show();
                     System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
                 } else {
                     Toast.makeText((Context) iSignInView, "Register Successful", Toast.LENGTH_SHORT).show();
@@ -94,7 +94,7 @@ public class SignInPresenter implements ILoginPresenter {
             }
 
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
+            public void onFailure(Call<DriverUserModel> call, Throwable t) {
                 Boolean isLoginSuccess =false;
                 Boolean result = isLoginSuccess;
                 int code = -77;
@@ -110,7 +110,7 @@ public class SignInPresenter implements ILoginPresenter {
     private void addUserGsonInSharedPrefrences(){
         Gson gson = new Gson();
         String jsonString = gson.toJson(user);
-        //UserModel user1 = gson.fromJson(jsonString,UserModel.class);
+        //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
         if(jsonString!=null) {
             editor.putString("DriverDetails", jsonString);
             editor.commit();
@@ -125,6 +125,6 @@ public class SignInPresenter implements ILoginPresenter {
     }
 
     private void initUser(){
-        user = new UserModel(name,passwd);
+        user = new DriverUserModel(name,passwd);
     }
 }
