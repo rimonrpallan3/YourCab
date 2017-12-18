@@ -27,6 +27,7 @@ import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.FileUtils;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.common.ImageFilePath;
 import com.voyager.sayaradriver.photoDoc.PhotoDoc;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -94,7 +95,7 @@ public class PhotoCertificate extends AppCompatActivity {
             methodName = bundle.getInt("METHOD_NAME");
             docName = bundle.getString("DocName");
             docType = bundle.getString("DocType");
-            System.out.println("PhotoLiciense_onCreate_methodName : "+methodName);
+            System.out.println("PhotoLiciense_onCreate_DocName: "+docName+", docType: "+docType+", driverId: "+driverId);
         }
     }
 
@@ -266,19 +267,23 @@ public class PhotoCertificate extends AppCompatActivity {
     private File createImageFile() throws IOException {
         // Create an image file name
         //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = docName+ driverId;
+        String imageFileName = docName + driverId+".jpg";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+        File image = new File(storageDir.getPath() + File.separator + imageFileName);
+
+            /*    File.createTempFile(
+                imageFileName,  *//* prefix *//*
+                ".jpg",         *//* suffix *//*
+                storageDir      *//* directory *//*
+        );*/
+
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         System.out.println("createImageFile : "+image.getName());
         return image;
     }
+
 
 
     private void dispatchTakePictureIntent() {
@@ -304,26 +309,6 @@ public class PhotoCertificate extends AppCompatActivity {
 
             }
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     private void galleryAddPic() {
@@ -399,8 +384,7 @@ public class PhotoCertificate extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri selectedImageUri = null;
-        String filePath = null;
+        Uri selectedImageUri;
         try {
             System.out.println("onActivityResult_Enter--resultCode-------------------" + requestCode);
             System.out.println("onActivityResult_Enter----data-----------------" + data);
@@ -421,6 +405,10 @@ public class PhotoCertificate extends AppCompatActivity {
             }
             if (requestCode == Helper.SELECT_PICTURE) {
                 selectedImageUri = data.getData();
+                String realPath ="";
+                realPath = ImageFilePath.getPath(PhotoCertificate.this, data.getData());
+                System.out.println("--------- realPath : "+realPath);
+
                 File file = FileUtils.getFile(this, selectedImageUri);
                 File newFile = new File(docName+driverId);
                 file.renameTo(newFile);
@@ -446,6 +434,8 @@ public class PhotoCertificate extends AppCompatActivity {
                     System.out.println("filemanagerstring is the right one for you!");
 
                 if(mCurrentPhotoPath!=null){
+
+
                     uploadDoc(file);
                     System.out.println("onActivityResult_methodName : "+methodName);
                     Intent intent=new Intent();

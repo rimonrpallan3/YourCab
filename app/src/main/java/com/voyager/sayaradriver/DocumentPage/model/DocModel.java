@@ -11,7 +11,7 @@ public class DocModel {
     public Boolean error;
     @SerializedName("driver_id")
     public String driverId;
-    @SerializedName("error_msg")
+    @SerializedName("success_msg")
     public String errorMsg;
 
     public String getErrorMsg() {
