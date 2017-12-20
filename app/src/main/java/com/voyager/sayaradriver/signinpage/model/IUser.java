@@ -9,5 +9,5 @@ public interface IUser {
 	String getPasswd();
 
 	int checkUserValidity(String name, String passwd);
-	int validateLoginResponseError(String errorMsg);
+	int validateLoginResponseError(Boolean isError);
 }

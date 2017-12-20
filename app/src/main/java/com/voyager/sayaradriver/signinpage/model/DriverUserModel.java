@@ -11,7 +11,7 @@ public class DriverUserModel implements IUser {
 	@SerializedName("password")
 	public String passwd;
 	@SerializedName("driver_id")
-	public String driver_id="";
+	public int driver_id;
 	@SerializedName("driver_first_name")
 	public String FName;
 	@SerializedName("driver_last_name")
@@ -30,6 +30,37 @@ public class DriverUserModel implements IUser {
 	public boolean isError   = Boolean.parseBoolean("");
 	@SerializedName("error_msg")
 	public String error_msg="";
+	@SerializedName("driver_online")
+	public String driverStatus="";
+	@SerializedName("driver_online_change")
+	public String adiminDriverStatus="";
+
+	public DriverUserModel() {
+	}
+
+	public String getDriverStatus() {
+		return driverStatus;
+	}
+
+	public void setDriverStatus(String driverStatus) {
+		this.driverStatus = driverStatus;
+	}
+
+	public String getAdiminDriverStatus() {
+		return adiminDriverStatus;
+	}
+
+	public void setAdiminDriverStatus(String adiminDriverStatus) {
+		this.adiminDriverStatus = adiminDriverStatus;
+	}
+
+	public int getDriver_id() {
+		return driver_id;
+	}
+
+	public void setDriver_id(int driver_id) {
+		this.driver_id = driver_id;
+	}
 
 	public String getCountry() {
 		return country;
@@ -39,13 +70,6 @@ public class DriverUserModel implements IUser {
 		this.country = country;
 	}
 
-	public String getDriver_id() {
-		return driver_id;
-	}
-
-	public void setDriver_id(String driver_id) {
-		this.driver_id = driver_id;
-	}
 
 	public String getFName() {
 		return FName;
@@ -143,8 +167,8 @@ public class DriverUserModel implements IUser {
 	}
 
 	@Override
-	public int validateLoginResponseError(String errorMsg) {
-		if(errorMsg!=null){
+	public int validateLoginResponseError(Boolean isError) {
+		if(isError==true){
 			//if there is no error message then it means that data response is correct.
 			return -2;
 		}

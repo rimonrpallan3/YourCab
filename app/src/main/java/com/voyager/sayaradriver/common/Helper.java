@@ -48,8 +48,6 @@ public class Helper{
     public static int INSURANCE_CERTIFICATION = 10;
     public static int REQUEST_TAKE_PHOTO = 11;
 
-    public static final String MyPREFERENCES = "UserDetails" ;
-
     // Activity request codes
     public static int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     public static int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;
@@ -63,6 +61,7 @@ public class Helper{
     public final static int STORAGE_PERMISSION = 88;
     public final static int CAMERA_STORAGE_PERMISSION = 73;
     public final static int SELECT_PICTURE = 23;
+    public static final String MyPREFERENCES = "DriverUserDetails" ;
 
     public final static int PERMISSION_ALL = 177;
     public static final String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA};

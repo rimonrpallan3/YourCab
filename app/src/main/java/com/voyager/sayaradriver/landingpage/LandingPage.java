@@ -2,6 +2,8 @@ package com.voyager.sayaradriver.landingpage;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.landingpage.presenter.LandingPresenter;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.EarningTabFragment;
@@ -34,6 +37,9 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     SwitchCompat driverSwitch;
     TextView onlineOfflineTxt;
     LandingPresenter landingPresenter;
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,11 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         offline = getString(R.string.driver_offline);
         onlineOfflineTxt.setText(offline);
 
-        landingPresenter = new LandingPresenter(this, this);
+        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+                Context.MODE_PRIVATE);
+        editor = sharedPrefs.edit();
+
+        landingPresenter = new LandingPresenter(this, this,sharedPrefs,editor);
 
 
         if (savedInstanceState == null) {
@@ -60,7 +70,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
 
         driverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                landingPresenter.checkOfflineOnline(isChecked);
+                landingPresenter.checkOfflineOnline(isChecked,buttonView);
             }
         });
     }

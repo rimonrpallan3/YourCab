@@ -1,11 +1,15 @@
 package com.voyager.sayaradriver.landingpage.presenter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
 
@@ -22,72 +26,113 @@ import retrofit2.Retrofit;
 
     ILandingView iLandingView;
     Context context;
+
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
     String online = "";
     String offline = "";
+    DriverUserModel user;
+
+    String fNmae ="";
+    String pnoneNo ="";
+    String pswd ="";
+    String city ="";
+    String country ="";
+    String email ="";
+    int userID;
+    String driverStatus = "";
+    String AdminDriverStatus = "";
 
 
-    public LandingPresenter(ILandingView iLandingView, Context context) {
+
+    public LandingPresenter(ILandingView iLandingView, Context context, SharedPreferences sharedPrefs, SharedPreferences.Editor editor) {
         this.iLandingView = iLandingView;
-        this.context = context;
+        this.sharedPrefs = sharedPrefs;
+        this.context =context;
+        this.editor = editor;
+        initUser();
+        getDriverDetails();
     }
 
     @Override
-    public void checkOfflineOnline(Boolean isChecked) {
+    public void checkOfflineOnline(Boolean isChecked,CompoundButton buttonView) {
         online = context.getString(R.string.driver_online);
         offline = context.getString(R.string.driver_offline);
         System.out.println("driverSwitch Clicked"+"yehhh!!");
-        if (isChecked){
-            System.out.println("driverSwitch Clicked :"+" true!!");
-            iLandingView.getOfflineOnlineState(online);
-        }
-        else{
-            System.out.println("driverSwitch Clicked :"+" false!!");
-            iLandingView.getOfflineOnlineState(offline);
+        if(AdminDriverStatus.equals("1")) {
+            if (isChecked) {
+                System.out.println("driverSwitch Clicked :" + " true!!");
+                iLandingView.getOfflineOnlineState(online);
+                user.setDriverStatus("1");
+                driverStatus = user.getDriverStatus();
+                uploadProfileName();
+            } else {
+                System.out.println("driverSwitch Clicked :" + " false!!");
+                iLandingView.getOfflineOnlineState(offline);
+                user.setDriverStatus("0");
+                driverStatus = user.getDriverStatus();
+                uploadProfileName();
+            }
+        }else {
+            buttonView.setChecked(false);
         }
     }
 
+    private void getDriverDetails(){
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("DriverUserDetails", "");
+        System.out.println("-----------uploadProfileName UserDetails"+json);
+        user = gson.fromJson(json,DriverUserModel.class);
+        fNmae = user.getFName().toString();
+        pnoneNo =user.getPhno().toString();
+        pswd = user.getPasswd().toString();
+        city = user.getCity().toString();
+        country =  user.getCountry().toString();
+        email = user.getEmail().toString();
+        userID = user.getDriver_id();
+        AdminDriverStatus = user.getAdiminDriverStatus();
+    }
+
+    private void addUserGsonInSharedPrefrences(){
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(user);
+        //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
+        if(jsonString!=null) {
+            editor.putString("DriverUserDetails", jsonString);
+            editor.commit();
+        }
+
+    }
+
+
 
     public void uploadProfileName() {
-
-
-
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
 
-       /* Call<UserDetails> call = webServices.driverProfileStatus(name, userID);
-        call.enqueue(new Callback<UserDetails>() {
+        Call<DriverUserModel> call = webServices.driverProfileStatus(String.valueOf(userID), driverStatus);
+        call.enqueue(new Callback<DriverUserModel>() {
             @Override
-            public void onResponse(Call<UserDetails> call,
-                                   Response<UserDetails> response) {
+            public void onResponse(Call<DriverUserModel> call,
+                                   Response<DriverUserModel> response) {
 
-                UserDetails user =response.body();
+                DriverUserModel user =response.body();
                 System.out.println("----- uploadProfileName isError: "+user.isError +" user_error: "+user.error_msg );
-
-                final int code =user.checkUpdateNameApi(user.isError);
-                Boolean isLoginSuccess =true;
-                if (code != 0) {
-                    isLoginSuccess = false;
-                    Toast.makeText(context, user.getError_msg(), Toast.LENGTH_SHORT).show();
-                    System.out.println("-----uploadProfileName  data unSuccess ");
-                } else {
-                    user.setFName(name);
-                    Toast.makeText(context, "Register Successful", Toast.LENGTH_SHORT).show();
-                    addUserGsonInSharedPrefrences();
-                    System.out.println("----- uploadProfileName data Successful ");
-                }
-                Boolean result = isLoginSuccess;
-                System.out.println("----- uploadProfileName second Data Please see, code = " + code + ", result: " + result);
-                iUpdateProfile.nameUploadOnSuccess(result, code, name, userID);
+                addUserGsonInSharedPrefrences();
             }
 
             @Override
-            public void onFailure(Call<UserDetails> call, Throwable t) {
+            public void onFailure(Call<DriverUserModel> call, Throwable t) {
                 Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("uploadProfileName error:", t.getMessage());
             }
         });
-*/
 
     }
+
+    private void initUser(){
+        user = new DriverUserModel();
+    }
+
 
 }

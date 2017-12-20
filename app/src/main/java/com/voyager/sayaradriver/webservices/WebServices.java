@@ -47,10 +47,10 @@ public interface WebServices {
     @POST("driver/documents/")
     public Call<DocModel> uploadFile(@Part MultipartBody.Part  driving_license, @Part("driver_id") RequestBody driverId,@Part("document_type") RequestBody docType);
 
-    @Multipart
+    @FormUrlEncoded
     @POST("driver/update/")
-    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
-                                              @Nullable @Field("status") String status);
+    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") String driverID,
+                                              @Nullable @Field("driver_online") String status);
 
 
    /* @Multipart

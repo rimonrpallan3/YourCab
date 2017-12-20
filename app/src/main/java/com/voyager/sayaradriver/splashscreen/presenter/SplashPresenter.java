@@ -3,12 +3,14 @@ package com.voyager.sayaradriver.splashscreen.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 
 
-
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.splashscreen.view.ISplashView;
 
 /**
@@ -21,12 +23,34 @@ public class SplashPresenter implements IConnectionStatus{
     ISplashView splashView;
     Activity activity;
 
+    SharedPreferences sharedPrefs;
+    SharedPreferences.Editor editor;
+
+    String userName;
+
+
     private int SPLASH_DISPLAY_LENGTH = 1000;
 
-    public SplashPresenter(Context context, ISplashView splashView, Activity activity) {
+    public SplashPresenter(Context context, ISplashView splashView, Activity activity, SharedPreferences sharedPrefs, SharedPreferences.Editor editor) {
         this.activity = activity;
         this.context = context;
         this.splashView = splashView;
+        this.sharedPrefs = sharedPrefs;
+        this.editor = editor;
+        userName = getUserGsonInSharedPrefrences();
+    }
+
+    public String getUserGsonInSharedPrefrences(){
+        String username ="";
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("DriverUserDetails", null);
+        System.out.println("-----------addUserGsonInSharedPrefrences DriverUserDetails"+json);
+        if(json!=null){
+            System.out.println("-----------addUserGsonInSharedPrefrences DriverUserDetails"+json);
+            DriverUserModel user = gson.fromJson(json, DriverUserModel.class);
+            username = user.getUserName();
+        }
+        return username;
     }
 
     @Override
@@ -36,7 +60,11 @@ public class SplashPresenter implements IConnectionStatus{
             @Override
             public void run() {
                 if(Helper.isLocationEnabled(context)) {
-                    splashView.moveToMainView();
+                    if(userName.length()>0){
+                        splashView.moveToLanding();
+                    }else{
+                        splashView.moveToSignUpLogin();
+                    }
                 }else {
                     Helper.toEnabledLocation(context,activity);
                 }

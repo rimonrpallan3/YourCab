@@ -25,7 +25,7 @@ import retrofit2.Retrofit;
 public class SignInPresenter implements ILoginPresenter {
 
     ISignInView iSignInView;
-    IUser user;
+    DriverUserModel user;
     Handler handler;
     String name;
     String passwd;
@@ -38,6 +38,7 @@ public class SignInPresenter implements ILoginPresenter {
         this.sharedPrefs = sharedPrefs;
         this.editor = editor;
         handler = new Handler(Looper.getMainLooper());
+        initUser();
     }
 
     @Override
@@ -52,10 +53,14 @@ public class SignInPresenter implements ILoginPresenter {
         initUser();
         Boolean isLoginSuccess = true;
         final int code = user.checkUserValidity(name,passwd);
-        if (code!=0) isLoginSuccess = false;
+        if (code!=0) {
+            isLoginSuccess = false;
+        } else{
+            validateLoginDataBaseApi();
+        }
         final Boolean result = isLoginSuccess;
         iSignInView.onLoginResult(result, code);
-        validateLoginDataBaseApi();
+
 
     }
 
@@ -75,9 +80,11 @@ public class SignInPresenter implements ILoginPresenter {
                         " phno : " + driverUserModel.getPhno() +
                         " city : " + driverUserModel.getCity() +
                         " CPR : " + driverUserModel.getCPR());
+                driverUserModel.setUserName(name);
+                driverUserModel.setPasswd(passwd);
                 System.out.println("----- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" driver_id: "+ driverUserModel.driver_id);
                 System.out.println("--------- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" Error message: "+ driverUserModel.error_msg);
-                final int code =user.validateLoginResponseError(driverUserModel.error_msg);
+                final int code =user.validateLoginResponseError(driverUserModel.isError);
                 Boolean isLoginSuccess =true;
                 if (code != 0) {
                     isLoginSuccess = false;
@@ -85,7 +92,7 @@ public class SignInPresenter implements ILoginPresenter {
                     System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
                 } else {
                     Toast.makeText((Context) iSignInView, "Register Successful", Toast.LENGTH_SHORT).show();
-                    addUserGsonInSharedPrefrences();
+                    addUserGsonInSharedPrefrences(driverUserModel);
                     System.out.println("----- validateLoginDataBaseApi data Successful ");
                 }
                 Boolean result = isLoginSuccess;
@@ -107,12 +114,14 @@ public class SignInPresenter implements ILoginPresenter {
 
     }
 
-    private void addUserGsonInSharedPrefrences(){
+    private void addUserGsonInSharedPrefrences(DriverUserModel driverUserModel){
         Gson gson = new Gson();
-        String jsonString = gson.toJson(user);
+        String jsonString = gson.toJson(driverUserModel);
         //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
+        System.out.println("-----------addUserGsonInSharedPrefrences UserDetails"+jsonString);
         if(jsonString!=null) {
-            editor.putString("DriverDetails", jsonString);
+            System.out.println("-----------addUserGsonInSharedPrefrences UserDetails"+jsonString);
+            editor.putString("DriverUserDetails", jsonString);
             editor.commit();
         }
 

@@ -5,5 +5,6 @@ package com.voyager.sayaradriver.splashscreen.view;
  */
 
 public interface ISplashView {
-    void moveToMainView();
+    void moveToSignUpLogin();
+    void moveToLanding();
 }

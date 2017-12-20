@@ -119,14 +119,14 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     }
 
     @Override
-    public void onMapReady(final GoogleMap map) {
+    public void onMapReady(GoogleMap map) {
         System.out.println("GoogleMap_CTL_lat-------" + lat + ",  CTL_log--------" + log);
         googleMap = map;
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);
 
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        map.addMarker(new MarkerOptions().position(new LatLng(lat, log)).title("Marker"));
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
         googleMap.moveCamera(center);
@@ -135,18 +135,18 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             // TODO: Consider calling
             return;
         }
-        locationManager.requestLocationUpdates(
+     /*   locationManager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER, 5000, 0,
                 new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                      /*  lat=location.getLatitude();
+                      *//*  lat=location.getLatitude();
                         log=location.getLongitude();
                         System.out.println("NETWORK_PROVIDER_CTL_lat-------" + lat + ",  CTL_log--------" + log);
                         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
                         CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
                         googleMap.moveCamera(center);
-                        googleMap.animateCamera(zoom);*/
+                        googleMap.animateCamera(zoom);*//*
                     }
 
                     @Override
@@ -163,9 +163,9 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                     public void onProviderDisabled(String provider) {
 
                     }
-                });
+                });*/
 
-        mMapView.getMapAsync(this);
+        //mMapView.getMapAsync(this);
     }
 
 
