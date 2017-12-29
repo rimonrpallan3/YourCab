@@ -51,6 +51,11 @@ public interface WebServices {
     @POST("driver/update/")
     Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") String driverID,
                                               @Nullable @Field("driver_online") String status);
+    @FormUrlEncoded
+    @POST("driver/updateLocation/")
+    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") String driverID,
+                                              @Nullable @Field("driver_latitude") String driverLatitude,
+                                              @Nullable @Field("driver_longitude") String driverLongitude);
 
 
    /* @Multipart
