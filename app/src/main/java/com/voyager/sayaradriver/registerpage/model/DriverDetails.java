@@ -32,7 +32,17 @@ public class DriverDetails implements  IUserValidate{
     @SerializedName("error_msg")
     public String error_msg="";
     @SerializedName("errorList")
+    double lat;
+    double longi;
+
+
+
+
     public List<DriverDetails.ErrorClass> errorList = new ArrayList();
+
+    public  DriverDetails(){
+
+    }
 
     public DriverDetails(String FName, String LName,String email, String phno, String city, String CPR) {
         this.FName = FName;
@@ -57,6 +67,22 @@ public class DriverDetails implements  IUserValidate{
         public String city;
         @SerializedName("driver_cpr")
         public String cpr;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLongi() {
+        return longi;
+    }
+
+    public void setLongi(double longi) {
+        this.longi = longi;
     }
 
     public String getError_msg() {
