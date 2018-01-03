@@ -3,6 +3,7 @@ package com.voyager.sayaradriver.landingpage;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.landingpage.presenter.LandingPresenter;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
+import com.voyager.sayaradriver.services.LocationService;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.EarningTabFragment;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabFragment;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.ProfileTabFragment;
@@ -129,5 +131,17 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     @Override
     public void getOfflineOnlineState(String setText) {
         onlineOfflineTxt.setText(setText);
+    }
+
+    @Override
+    public void startService() {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        startService(intent);
+    }
+
+    @Override
+    public void stopService() {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        stopService(intent);
     }
 }

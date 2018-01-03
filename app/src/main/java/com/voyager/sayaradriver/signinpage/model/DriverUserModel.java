@@ -34,6 +34,9 @@ public class DriverUserModel implements IUser {
 	public String driverStatus="";
 	@SerializedName("driver_online_change")
 	public String adiminDriverStatus="";
+	double lat;
+	double longi;
+
 
 	public DriverUserModel() {
 	}
@@ -70,6 +73,21 @@ public class DriverUserModel implements IUser {
 		this.country = country;
 	}
 
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLongi() {
+		return longi;
+	}
+
+	public void setLongi(double longi) {
+		this.longi = longi;
+	}
 
 	public String getFName() {
 		return FName;

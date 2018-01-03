@@ -10,11 +10,11 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.voyager.sayaradriver.registerpage.model.DriverDetails;
+
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
 
@@ -25,10 +25,8 @@ import retrofit2.Retrofit;
 
 public class LocationService extends Service implements LocationListener {
     LocationManager locationManager;
-    AppCompatActivity appCompatActivity;
     Retrofit retrofit;
     WebServices webServices;
-    String username;
 
     public LocationService() {
     }
@@ -57,23 +55,22 @@ public class LocationService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if (location != null) {
-     /*       DriverDetails driverDetails = new DriverDetails();
-            driverDetails.setUsername(username);
-            driverDetails.setLat(location.getLatitude());
-            driverDetails.setLongi(location.getLongitude());
+            DriverUserModel driverUserModel = new DriverUserModel();
+            driverUserModel.setLat(location.getLatitude());
+            driverUserModel.setLongi(location.getLongitude());
             Toast.makeText(getApplicationContext(), location.getLatitude() + ","  + location.getLongitude(), Toast.LENGTH_SHORT).show();
             Log.e("Driver long: ", location.getLongitude() + "");
-            webServices.driverLocationUpdate(driverDetails).enqueue(new Callback<DriverDetails>() {
+            webServices.driverLocationUpdate(driverUserModel).enqueue(new Callback<DriverUserModel>() {
                 @Override
-                public void onResponse(Call<DriverDetails> call, Response<DriverDetails> response) {
-                    DriverDetails model = response.body();
+                public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {
+                    DriverUserModel model = response.body();
                 }
 
                 @Override
-                public void onFailure(Call<DriverDetails> call, Throwable t) {
+                public void onFailure(Call<DriverUserModel> call, Throwable t) {
                     t.printStackTrace();
                 }
-            });*/
+            });
         }
     }
 

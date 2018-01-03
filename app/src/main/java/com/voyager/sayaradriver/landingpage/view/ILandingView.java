@@ -6,4 +6,6 @@ package com.voyager.sayaradriver.landingpage.view;
 
 public interface ILandingView {
     void getOfflineOnlineState(String setText);
+    void startService();
+    void stopService();
 }

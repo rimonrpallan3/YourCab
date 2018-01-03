@@ -12,6 +12,7 @@ import java.util.HashMap;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -56,6 +57,9 @@ public interface WebServices {
     Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") String driverID,
                                               @Nullable @Field("driver_latitude") String driverLatitude,
                                               @Nullable @Field("driver_longitude") String driverLongitude);
+
+    @POST("LocationUpdateServlet")
+    Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel driverUserModel);
 
 
    /* @Multipart

@@ -1,6 +1,7 @@
 package com.voyager.sayaradriver.landingpage.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
+import com.voyager.sayaradriver.services.LocationService;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -66,12 +68,14 @@ import retrofit2.Retrofit;
                 user.setDriverStatus("1");
                 driverStatus = user.getDriverStatus();
                 uploadProfileName();
+                //iLandingView.startService();
             } else {
                 System.out.println("driverSwitch Clicked :" + " false!!");
                 iLandingView.getOfflineOnlineState(offline);
                 user.setDriverStatus("0");
                 driverStatus = user.getDriverStatus();
                 uploadProfileName();
+                //iLandingView.stopService();
             }
         }else {
             buttonView.setChecked(false);
