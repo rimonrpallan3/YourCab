@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import com.voyager.sayaradriver.registerpage.model.DriverDetails;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -33,6 +34,7 @@ public class LocationService extends Service implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        System.out.println("----------------- LocationService");
         retrofit = ApiClient.getRetrofitClient();
         webServices = retrofit.create(WebServices.class);
         //username = getSharedPreferences(AppConstants.SHARED_PREF, MODE_PRIVATE).getString(AppConstants.USER_NAME, "");
@@ -56,11 +58,14 @@ public class LocationService extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         if (location != null) {
             DriverUserModel driverUserModel = new DriverUserModel();
-            driverUserModel.setLat(location.getLatitude());
-            driverUserModel.setLongi(location.getLongitude());
+            driverUserModel.setDriver_id(95);
+            driverUserModel.setDriverLat(location.getLatitude());
+            driverUserModel.setDriverLog(location.getLongitude());
             Toast.makeText(getApplicationContext(), location.getLatitude() + ","  + location.getLongitude(), Toast.LENGTH_SHORT).show();
             Log.e("Driver long: ", location.getLongitude() + "");
-            webServices.driverLocationUpdate(driverUserModel).enqueue(new Callback<DriverUserModel>() {
+            System.out.println("Driver long:"+location.getLongitude()+",lat : "+location.getLatitude());
+            Call<DriverUserModel> call = webServices.driverProfileStatus(driverUserModel.getDriver_id(),driverUserModel.getDriverLat(),driverUserModel.getDriverLog());
+            call.enqueue(new Callback<DriverUserModel>() {
                 @Override
                 public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {
                     DriverUserModel model = response.body();

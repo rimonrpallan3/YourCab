@@ -31,6 +31,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.voyager.sayaradriver.R;
@@ -122,6 +123,9 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     public void onMapReady(GoogleMap map) {
         System.out.println("GoogleMap_CTL_lat-------" + lat + ",  CTL_log--------" + log);
         googleMap = map;
+        googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                        getActivity(), R.raw.map_style));
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);

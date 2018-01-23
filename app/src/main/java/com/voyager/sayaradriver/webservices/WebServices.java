@@ -54,11 +54,11 @@ public interface WebServices {
                                               @Nullable @Field("driver_online") String status);
     @FormUrlEncoded
     @POST("driver/updateLocation/")
-    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") String driverID,
-                                              @Nullable @Field("driver_latitude") String driverLatitude,
-                                              @Nullable @Field("driver_longitude") String driverLongitude);
+    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
+                                              @Nullable @Field("driver_latitude") double driverLatitude,
+                                              @Nullable @Field("driver_longitude") double driverLongitude);
 
-    @POST("LocationUpdateServlet")
+    @POST("driver/updateLocation/")
     Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel driverUserModel);
 
 

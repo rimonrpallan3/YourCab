@@ -92,6 +92,10 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAzQTyTsWMbYUvMgD0lqb6NV2BYV6PZ9Vs"/>
 
+        <service
+            android:name=".services.LocationService"
+            android:enabled="true"
+            android:exported="true" />
 
         <uses-feature
             android:name="android.hardware.camera.any"

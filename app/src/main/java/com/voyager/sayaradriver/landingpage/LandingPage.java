@@ -75,6 +75,8 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
                 landingPresenter.checkOfflineOnline(isChecked,buttonView);
             }
         });
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        startService(intent);
     }
 
     public void homeTab(View v){
