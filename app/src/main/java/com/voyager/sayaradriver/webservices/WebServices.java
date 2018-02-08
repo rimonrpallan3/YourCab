@@ -61,6 +61,10 @@ public interface WebServices {
     @POST("driver/updateLocation/")
     Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel driverUserModel);
 
+    /*http://10.1.1.18/sayara/driver/myAccount/
+            (08-Feb-18 3:38:15 PM) http://10.1.1.18/sayara/driver/myRating/
+            (08-Feb-18 3:53:08 PM) http://10.1.1.18/sayara/driver/myEarning/*/
+
 
    /* @Multipart
     @POST("DriverRegisterServlet")

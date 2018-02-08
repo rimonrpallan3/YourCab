@@ -14,7 +14,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-import com.voyager.sayaradriver.registerpage.model.DriverDetails;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
