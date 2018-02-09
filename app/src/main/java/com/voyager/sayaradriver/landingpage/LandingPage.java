@@ -32,7 +32,6 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
  public class LandingPage extends AppCompatActivity implements View.OnClickListener, ILandingView {
 
     Activity activity;
-
     String online = "";
     String offline = "";
 

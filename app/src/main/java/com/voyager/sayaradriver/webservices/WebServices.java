@@ -5,9 +5,13 @@ import android.support.annotation.Nullable;
 import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
+import com.voyager.sayaradriver.tabfragment.earningstabfragment.Model.EarningModel;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
+import com.voyager.sayaradriver.tabfragment.ratingstabfragment.model.RatingModel;
 import com.voyager.sayaradriver.test.MainClass;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -60,6 +64,18 @@ public interface WebServices {
 
     @POST("driver/updateLocation/")
     Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel driverUserModel);
+
+    @FormUrlEncoded
+    @POST("driver/myEarning/")
+    Call<EarningModel> getEarnings(@Nullable @Field("driver_id") int driverID);
+
+    @FormUrlEncoded
+    @POST("driver/myRating/")
+    Call<RatingModel> getRatings(@Nullable @Field("driver_id") int driverID);
+
+    @FormUrlEncoded
+    @POST("driver/myAccount/")
+    Call<List<ProfileModel>> getProfileDetail(@Nullable @Field("driver_id") int driverID);
 
     /*http://10.1.1.18/sayara/driver/myAccount/
             (08-Feb-18 3:38:15 PM) http://10.1.1.18/sayara/driver/myRating/

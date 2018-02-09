@@ -45,7 +45,6 @@ import java.util.List;
  */
 public class HomeTabFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
 
-
     List<MapDetails> mapDetailsList;
     private GoogleMap googleMap;
     private MapView mMapView;

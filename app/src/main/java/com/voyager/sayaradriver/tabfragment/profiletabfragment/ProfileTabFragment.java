@@ -4,17 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.voyager.sayaradriver.DocumentPage.DocumentPage;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.voyager.sayaradriver.R;
-import com.voyager.sayaradriver.registersuccess.RegisterSuccessPage;
+
+import com.voyager.sayaradriver.costom.CircleImageView;
 import com.voyager.sayaradriver.signinpage.SignInPage;
-import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.Documents;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.presenter.IProfilePresenter;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.presenter.ProfileDetailPresenter;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.view.IProfileView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +31,11 @@ import java.util.List;
  * Created by User on 9/8/2017.
  */
 
-public class ProfileTabFragment  extends Fragment implements View.OnClickListener{
+public class ProfileTabFragment  extends Fragment implements View.OnClickListener,IProfileView{
 
 
-    List<MapDetails> mapDetailsList;
+    ProfileModel profileModels;
+    List<Documents> documentsList = new ArrayList<>();
     String yourFilePath ;
 
     TextView driverProfile;
@@ -36,7 +45,12 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
     TextView driverAbout;
     TextView editDriverCarImg;
     TextView editDriverImg;
+    TextView profileDriverName;
+    TextView profileDriverCarName;
     Button btnSignOut;
+    IProfilePresenter iProfilePresenter;
+    CircleImageView profileDriverImg;
+    CircleImageView profileDriverCarImg;
 
 
     private Activity activity;
@@ -56,7 +70,11 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.profile_tab_fragment, container, false);
         System.out.println("ProfileTabFragment");
+        profileDriverImg = (CircleImageView) rootView.findViewById(R.id.profileDriverImg);
+        profileDriverCarImg = (CircleImageView) rootView.findViewById(R.id.profileDriverCarImg);
         driverProfile = (TextView) rootView.findViewById(R.id.driverProfile);
+        profileDriverCarName = (TextView) rootView.findViewById(R.id.profileDriverCarName);
+        profileDriverName = (TextView) rootView.findViewById(R.id.profileDriverName);
         profileHelp = (TextView) rootView.findViewById(R.id.profileHelp);
         driverDoc = (TextView) rootView.findViewById(R.id.driverDoc);
         driverSetting = (TextView) rootView.findViewById(R.id.driverSetting);
@@ -73,6 +91,8 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         btnSignOut.setOnClickListener(this);
         editDriverCarImg.setOnClickListener(this);
         editDriverImg.setOnClickListener(this);
+        iProfilePresenter =new ProfileDetailPresenter(this);
+        iProfilePresenter.loadData();
 
         return rootView;
     }
@@ -80,7 +100,7 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
     /**
      * This method creates an ArrayList that has Church Notification model class objects
      */
-    private List<MapDetails> initializeData(){
+ /*   private List<MapDetails> initializeData(){
         // This method creates an ArrayList that has three Person objects
         // Checkout the project associated with this tutorial on Github if
         // you want to use the same images.
@@ -88,7 +108,7 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         mapDetailsList.add(new MapDetails());
         return mapDetailsList;
     }
-
+*/
 
 
 
@@ -123,7 +143,6 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
 
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -148,5 +167,73 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
                 break;
 
         }
+    }
+
+    @Override
+    public void loadData(final List<ProfileModel> profileModel) {
+        this.profileModels =profileModel.get(0);
+        documentsList = profileModels.getDocuments();
+        Picasso.with(getContext())
+                .load(profileModels.getDriverPhoto())
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .resize(0, 200)
+                .into(profileDriverImg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        //Try again online if cache failed
+                        Picasso.with(getActivity())
+                                .load(profileModels.getDriverPhoto())
+                                .error(R.drawable.profile)
+                                .resize(0, 200)
+                                .into(profileDriverImg, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Log.v("Picasso","Could not fetch image");
+                                    }
+                                });
+                    }
+                });
+        Picasso.with(getContext())
+                .load(profileModels.getCarPhoto())
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .resize(0, 200)
+                .into(profileDriverCarImg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        //Try again online if cache failed
+                        Picasso.with(getActivity())
+                                .load(profileModels.getCarPhoto())
+                                .error(R.drawable.profile)
+                                .resize(0, 200)
+                                .into(profileDriverCarImg, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Log.v("Picasso","Could not fetch image");
+                                    }
+                                });
+                    }
+                });
+        profileDriverName.setText(profileModels.getDriverName());
+        profileDriverCarName.setText(profileModels.getCarName());
     }
 }

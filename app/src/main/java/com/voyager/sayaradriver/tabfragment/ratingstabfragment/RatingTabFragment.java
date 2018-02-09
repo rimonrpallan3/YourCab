@@ -3,13 +3,22 @@ package com.voyager.sayaradriver.tabfragment.ratingstabfragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.NetworkPolicy;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.costom.CircleImageView;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
+import com.voyager.sayaradriver.tabfragment.ratingstabfragment.presenter.IRatingPresenter;
+import com.voyager.sayaradriver.tabfragment.ratingstabfragment.presenter.RatingPresenter;
+import com.voyager.sayaradriver.tabfragment.ratingstabfragment.view.IRatingView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +27,23 @@ import java.util.List;
  * Created by User on 9/8/2017.
  */
 
-public class RatingTabFragment  extends Fragment implements View.OnClickListener{
+public class RatingTabFragment  extends Fragment implements View.OnClickListener,IRatingView{
 
 
     List<MapDetails> mapDetailsList;
+    IRatingPresenter iRatingPresenter;
+
+    String rating;
+    String[] ratingArray;
 
     ImageView starImg1;
     ImageView starImg2;
     ImageView starImg3;
     ImageView starImg4;
+
+    ImageView profileDriverImg;
+    TextView profileDriverName;
+    TextView driverProfileRating;
 
     Boolean imgCheck1 = false;
     Boolean imgCheck2 = false;
@@ -51,6 +68,11 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.rate_tab_fragment, container, false);
         System.out.println("RatingTabFragment");
+        profileDriverImg = (CircleImageView) rootView.findViewById(R.id.profileDriverImg);
+        profileDriverName = (TextView) rootView.findViewById(R.id.profileDriverName);
+        driverProfileRating = (TextView) rootView.findViewById(R.id.driverProfileRating);
+
+
         starImg1 = (ImageView) rootView.findViewById(R.id.starImg1);
         starImg2 = (ImageView) rootView.findViewById(R.id.starImg2);
         starImg3 = (ImageView) rootView.findViewById(R.id.starImg3);
@@ -66,7 +88,8 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         starImg4.setOnClickListener(this);
 
         rgb = ContextCompat.getColor(getContext(), R.color.yellow);
-
+        iRatingPresenter = new RatingPresenter(this);
+        iRatingPresenter.loadData();
         return rootView;
     }
 
@@ -182,5 +205,47 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
                 break;
 
         }
+    }
+
+    @Override
+    public void loadData(String driverName, String driverCity, String driverRating, final String driverPhoto, boolean error) {
+        Picasso.with(getContext())
+                .load(driverPhoto)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .resize(0, 200)
+                .into(profileDriverImg, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        //Try again online if cache failed
+                        Picasso.with(getActivity())
+                                .load(driverPhoto)
+                                .error(R.drawable.profile)
+                                .resize(0, 200)
+                                .into(profileDriverImg, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError() {
+                                        Log.v("Picasso","Could not fetch image");
+                                    }
+                                });
+                    }
+                });
+        profileDriverName.setText(driverName);
+        rating =(driverRating);
+        ratingArray =rating.split("(?<=\\.\\d{1})");
+        for (int i=0; i<(ratingArray.length); i++ ) {
+            System.out.println("getCommentListAndDetails values :"+ ratingArray[i]);
+        }
+        driverProfileRating.setText(ratingArray[0]);
+
     }
 }
