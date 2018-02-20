@@ -72,6 +72,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.voyager.sayaradriver.registerapproved.RegisterApproved"
             android:screenOrientation="portrait"/>
+        <activity android:name="com.voyager.sayaradriver.profilepage.ProfileDetailPage"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.voyager.sayaradriver.displydoc.DisplayDoc"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.voyager.sayaradriver.drivehelp.DriverHelp"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.voyager.sayaradriver.about.AboutPage"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

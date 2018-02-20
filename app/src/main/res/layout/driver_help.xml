@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarDriverHelp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_color"
+        android:elevation="4dp"
+        android:visibility="visible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.voyager.sayaradriver.costom.CircleImageView
+            android:id="@+id/profileName"
+            android:layout_width="@dimen/_70"
+            android:layout_height="@dimen/_70"
+            android:src="@drawable/customer_care" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20"
+            android:layout_marginTop="@dimen/_10"
+            android:text="Customer Care Executive" />
+
+        <ImageView
+            android:layout_width="@dimen/_30"
+            android:layout_height="@dimen/_30"
+            android:src="@drawable/phone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10"
+            android:layout_marginBottom="@dimen/_10"
+            android:text="Call "/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="@dimen/_20"
+            android:layout_marginRight="@dimen/_20"
+            android:background="@drawable/boder_black"/>
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_10"
+            android:layout_marginLeft="@dimen/_20"
+            android:layout_marginRight="@dimen/_20"
+            android:layout_height="150dp"
+            android:paddingTop="@dimen/_10"
+            android:paddingLeft="@dimen/_08"
+            android:hint="Type your text here"
+            android:inputType="text|textMultiLine"
+            android:background="@drawable/boder_black"
+            android:gravity="top"/>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_10"
+            android:layout_height="@dimen/_40"
+            android:background="@drawable/rectangle_button"
+            android:layout_gravity="center"
+            android:text="@string/submit"
+            android:textAllCaps="false"/>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

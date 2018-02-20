@@ -16,7 +16,11 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.voyager.sayaradriver.R;
 
+import com.voyager.sayaradriver.about.AboutPage;
 import com.voyager.sayaradriver.costom.CircleImageView;
+import com.voyager.sayaradriver.displydoc.DisplayDoc;
+import com.voyager.sayaradriver.drivehelp.DriverHelp;
+import com.voyager.sayaradriver.profilepage.ProfileDetailPage;
 import com.voyager.sayaradriver.signinpage.SignInPage;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.Documents;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
@@ -77,7 +81,6 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         profileDriverName = (TextView) rootView.findViewById(R.id.profileDriverName);
         profileHelp = (TextView) rootView.findViewById(R.id.profileHelp);
         driverDoc = (TextView) rootView.findViewById(R.id.driverDoc);
-        driverSetting = (TextView) rootView.findViewById(R.id.driverSetting);
         driverAbout = (TextView) rootView.findViewById(R.id.driverAbout);
         editDriverCarImg = (TextView) rootView.findViewById(R.id.driverAbout);
         editDriverImg = (TextView) rootView.findViewById(R.id.driverAbout);
@@ -86,7 +89,6 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         driverProfile.setOnClickListener(this);
         profileHelp.setOnClickListener(this);
         driverDoc.setOnClickListener(this);
-        driverSetting.setOnClickListener(this);
         driverAbout.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
         editDriverCarImg.setOnClickListener(this);
@@ -147,17 +149,23 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.driverProfile:
-               break;
+                Intent intent = new Intent(getActivity(), ProfileDetailPage.class);
+                startActivity(intent);
+                break;
             case R.id.profileHelp:
+                intent = new Intent(getActivity(), DriverHelp.class);
+                startActivity(intent);
                 break;
             case R.id.driverDoc:
-                break;
-            case R.id.driverSetting:
+                intent = new Intent(getActivity(), DisplayDoc.class);
+                startActivity(intent);
                 break;
             case R.id.driverAbout:
+                intent = new Intent(getActivity(), AboutPage.class);
+                startActivity(intent);
                 break;
             case R.id.btnSignOut:
-                Intent intent = new Intent(getActivity(), SignInPage.class);
+                intent = new Intent(getActivity(), SignInPage.class);
                 startActivity(intent);
                 getActivity().finish();
                 break;

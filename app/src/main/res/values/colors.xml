@@ -26,4 +26,8 @@
     <!--pop up Dialog Box-->
     <color name="popup_inner_layer">#2a2a2a</color>
     <color name="popup_outer">#a9a9a9</color>
+    <!--Driver Detail Page-->
+    <color name="highLighted">#FFDADADA</color>
+    <color name="UnHighlighted">#ececec</color>
+    <color name="dividerColor">#FFE1DFE0</color>
 </resources>
