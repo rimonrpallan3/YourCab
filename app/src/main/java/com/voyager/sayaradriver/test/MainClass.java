@@ -16,7 +16,7 @@ public class MainClass {
 
     public static class SubClass {
 
-        @SerializedName("driver_id")
+        @SerializedName("driverId")
         public String id;
         @SerializedName("driver_first_name")
         public String fname;

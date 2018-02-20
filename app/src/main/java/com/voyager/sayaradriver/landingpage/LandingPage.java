@@ -14,11 +14,13 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.landingpage.presenter.LandingPresenter;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
 import com.voyager.sayaradriver.services.LocationService;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.EarningTabFragment;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabFragment;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.ProfileTabFragment;
@@ -40,6 +42,8 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     LandingPresenter landingPresenter;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
+    DriverUserModel driverUserModel;
+    Bundle bundle;
 
 
     @Override
@@ -57,8 +61,17 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
-
-        landingPresenter = new LandingPresenter(this, this,sharedPrefs,editor);
+        Intent intent = getIntent();
+        bundle = new Bundle();
+        driverUserModel = (DriverUserModel) intent.getParcelableExtra("DriverUserModel");
+        if (driverUserModel != null) {
+            System.out.println("LandingPage -- DriverUserModel- name : " + driverUserModel.getFName());
+        }
+        else {
+            getUserSDetails();
+        }
+        bundle.putParcelable("DriverUserModel", driverUserModel);
+        landingPresenter = new LandingPresenter(this,driverUserModel);
 
 
         if (savedInstanceState == null) {
@@ -74,8 +87,18 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
                 landingPresenter.checkOfflineOnline(isChecked,buttonView);
             }
         });
-        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        intent = new Intent(getApplicationContext(), LocationService.class);
         startService(intent);
+    }
+
+    private void getUserSDetails() {
+        Gson gson = new Gson();
+        String json = sharedPrefs.getString("DriverUserModel",null);
+        if(json!=null){
+            System.out.println("-----------LandingPage uploadProfileName DriverUserModel" + json);
+            driverUserModel = gson.fromJson(json, DriverUserModel.class);
+        }
+
     }
 
     public void homeTab(View v){
@@ -83,6 +106,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         HomeTabFragment homeTabFragment = new HomeTabFragment(activity);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, homeTabFragment);
+        homeTabFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -92,6 +116,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         EarningTabFragment earningTabFragment = new EarningTabFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, earningTabFragment);
+        earningTabFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -101,6 +126,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         RatingTabFragment ratingTabFragment = new RatingTabFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, ratingTabFragment);
+        ratingTabFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -110,6 +136,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         ProfileTabFragment profileTabFragment = new ProfileTabFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, profileTabFragment);
+        profileTabFragment.setArguments(bundle);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

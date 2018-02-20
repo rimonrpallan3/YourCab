@@ -57,13 +57,13 @@ public class LocationService extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         if (location != null) {
             DriverUserModel driverUserModel = new DriverUserModel();
-            driverUserModel.setDriver_id(95);
+            driverUserModel.setDriverId(95);
             driverUserModel.setDriverLat(location.getLatitude());
             driverUserModel.setDriverLog(location.getLongitude());
             Toast.makeText(getApplicationContext(), location.getLatitude() + ","  + location.getLongitude(), Toast.LENGTH_SHORT).show();
             Log.e("Driver long: ", location.getLongitude() + "");
             System.out.println("Driver long:"+location.getLongitude()+",lat : "+location.getLatitude());
-            Call<DriverUserModel> call = webServices.driverProfileStatus(driverUserModel.getDriver_id(),driverUserModel.getDriverLat(),driverUserModel.getDriverLog());
+            Call<DriverUserModel> call = webServices.driverProfileStatus(driverUserModel.getDriverId(),driverUserModel.getDriverLat(),driverUserModel.getDriverLog());
             call.enqueue(new Callback<DriverUserModel>() {
                 @Override
                 public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {

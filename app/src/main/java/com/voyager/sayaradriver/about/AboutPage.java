@@ -33,10 +33,7 @@ public class AboutPage  extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.about_title));
         toolbarAboutPage.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
-        tvAboutContent= (TextView)findViewById(R.id.tvAboutContent);  // tv is id in XML file for TextView
-        tvAboutContent.setTextSize(20);
-        tvAboutContent.setTextColor(Color.rgb(0xff, 0, 0));
-        tvAboutContent.setTypeface(Typeface.SERIF, Typeface.ITALIC);
+        tvAboutContent= (TextView)findViewById(R.id.tvAboutContent);
 
     }
 

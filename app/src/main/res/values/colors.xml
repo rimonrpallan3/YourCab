@@ -30,4 +30,6 @@
     <color name="highLighted">#FFDADADA</color>
     <color name="UnHighlighted">#ececec</color>
     <color name="dividerColor">#FFE1DFE0</color>
+    <!--Display Document Page-->
+    <color name="displayDocumentTitle">#2a2a2a</color>
 </resources>

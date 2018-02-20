@@ -1,5 +1,6 @@
 package com.voyager.sayaradriver.tabfragment.profiletabfragment.presenter;
 
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.view.IProfileView;
 import com.voyager.sayaradriver.webservices.ApiClient;
@@ -18,9 +19,11 @@ import retrofit2.Retrofit;
 
 public class ProfileDetailPresenter implements IProfilePresenter{
     IProfileView iProfileView;
+    DriverUserModel driverUserModel;
 
-    public ProfileDetailPresenter(IProfileView iProfileView) {
+    public ProfileDetailPresenter(IProfileView iProfileView, DriverUserModel driverUserModel) {
         this.iProfileView = iProfileView;
+        this.driverUserModel = driverUserModel;
     }
 
 
@@ -29,7 +32,7 @@ public class ProfileDetailPresenter implements IProfilePresenter{
         System.out.println("-------EarningPresenter");
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<List<ProfileModel>> call = webServices.getProfileDetail(89);
+        Call<List<ProfileModel>> call = webServices.getProfileDetail(driverUserModel.driverId);
         call.enqueue(new Callback<List<ProfileModel>>() {
             @Override
             public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {

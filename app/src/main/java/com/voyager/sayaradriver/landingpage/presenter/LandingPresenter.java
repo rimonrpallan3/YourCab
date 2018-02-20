@@ -1,7 +1,6 @@
 package com.voyager.sayaradriver.landingpage.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -10,7 +9,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
-import com.voyager.sayaradriver.services.LocationService;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -33,7 +31,7 @@ import retrofit2.Retrofit;
     SharedPreferences.Editor editor;
     String online = "";
     String offline = "";
-    DriverUserModel user;
+    DriverUserModel driverUserModel;
 
     String fNmae ="";
     String pnoneNo ="";
@@ -41,18 +39,15 @@ import retrofit2.Retrofit;
     String city ="";
     String country ="";
     String email ="";
-    int userID;
+    int driverId;
     String driverStatus = "";
     String AdminDriverStatus = "";
 
 
 
-    public LandingPresenter(ILandingView iLandingView, Context context, SharedPreferences sharedPrefs, SharedPreferences.Editor editor) {
+    public LandingPresenter(ILandingView iLandingView, DriverUserModel driverUserModel) {
         this.iLandingView = iLandingView;
-        this.sharedPrefs = sharedPrefs;
-        this.context =context;
-        this.editor = editor;
-        initUser();
+        this.driverUserModel = driverUserModel;
         getDriverDetails();
     }
 
@@ -65,15 +60,15 @@ import retrofit2.Retrofit;
             if (isChecked) {
                 System.out.println("driverSwitch Clicked :" + " true!!");
                 iLandingView.getOfflineOnlineState(online);
-                user.setDriverStatus("1");
-                driverStatus = user.getDriverStatus();
+                driverUserModel.setDriverStatus("1");
+                driverStatus = driverUserModel.getDriverStatus();
                 uploadProfileName();
                 //iLandingView.startService();
             } else {
                 System.out.println("driverSwitch Clicked :" + " false!!");
                 iLandingView.getOfflineOnlineState(offline);
-                user.setDriverStatus("0");
-                driverStatus = user.getDriverStatus();
+                driverUserModel.setDriverStatus("0");
+                driverStatus = driverUserModel.getDriverStatus();
                 uploadProfileName();
                 //iLandingView.stopService();
             }
@@ -83,26 +78,22 @@ import retrofit2.Retrofit;
     }
 
     private void getDriverDetails(){
-        Gson gson = new Gson();
-        String json = sharedPrefs.getString("DriverUserDetails", "");
-        System.out.println("-----------uploadProfileName UserDetails"+json);
-        user = gson.fromJson(json,DriverUserModel.class);
-        fNmae = user.getFName().toString();
-        pnoneNo =user.getPhno().toString();
-        pswd = user.getPasswd().toString();
-        city = user.getCity().toString();
-        country =  user.getCountry().toString();
-        email = user.getEmail().toString();
-        userID = user.getDriver_id();
-        AdminDriverStatus = user.getAdiminDriverStatus();
+        fNmae = driverUserModel.getFName().toString();
+        pnoneNo =driverUserModel.getPhno().toString();
+        pswd = driverUserModel.getPasswd().toString();
+        city = driverUserModel.getCity().toString();
+        country =  driverUserModel.getCountry().toString();
+        email = driverUserModel.getEmail().toString();
+        driverId = driverUserModel.getDriverId();
+        AdminDriverStatus = driverUserModel.getAdiminDriverStatus();
     }
 
     private void addUserGsonInSharedPrefrences(){
         Gson gson = new Gson();
-        String jsonString = gson.toJson(user);
+        String jsonString = gson.toJson(driverUserModel);
         //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
         if(jsonString!=null) {
-            editor.putString("DriverUserDetails", jsonString);
+            editor.putString("DriverUserModel", jsonString);
             editor.commit();
         }
 
@@ -114,7 +105,7 @@ import retrofit2.Retrofit;
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
 
-        Call<DriverUserModel> call = webServices.driverProfileStatus(String.valueOf(userID), driverStatus);
+        Call<DriverUserModel> call = webServices.driverProfileStatus(driverId, driverStatus);
         call.enqueue(new Callback<DriverUserModel>() {
             @Override
             public void onResponse(Call<DriverUserModel> call,
@@ -132,10 +123,6 @@ import retrofit2.Retrofit;
             }
         });
 
-    }
-
-    private void initUser(){
-        user = new DriverUserModel();
     }
 
 

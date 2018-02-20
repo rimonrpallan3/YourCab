@@ -50,15 +50,15 @@ public interface WebServices {
 
     @Multipart
     @POST("driver/documents/")
-    public Call<DocModel> uploadFile(@Part MultipartBody.Part  driving_license, @Part("driver_id") RequestBody driverId,@Part("document_type") RequestBody docType);
+    public Call<DocModel> uploadFile(@Part MultipartBody.Part  driving_license, @Part("driverId") RequestBody driverId,@Part("document_type") RequestBody docType);
 
     @FormUrlEncoded
-    @POST("driver/update/")
-    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") String driverID,
+    @POST("driver/updateStatus/")
+    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
                                               @Nullable @Field("driver_online") String status);
     @FormUrlEncoded
     @POST("driver/updateLocation/")
-    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
+    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driverId") int driverID,
                                               @Nullable @Field("driver_latitude") double driverLatitude,
                                               @Nullable @Field("driver_longitude") double driverLongitude);
 
@@ -67,15 +67,15 @@ public interface WebServices {
 
     @FormUrlEncoded
     @POST("driver/myEarning/")
-    Call<EarningModel> getEarnings(@Nullable @Field("driver_id") int driverID);
+    Call<EarningModel> getEarnings(@Nullable @Field("driverId") int driverID);
 
     @FormUrlEncoded
     @POST("driver/myRating/")
-    Call<RatingModel> getRatings(@Nullable @Field("driver_id") int driverID);
+    Call<RatingModel> getRatings(@Nullable @Field("driverId") int driverID);
 
     @FormUrlEncoded
     @POST("driver/myAccount/")
-    Call<List<ProfileModel>> getProfileDetail(@Nullable @Field("driver_id") int driverID);
+    Call<List<ProfileModel>> getProfileDetail(@Nullable @Field("driverId") int driverID);
 
     /*http://10.1.1.18/sayara/driver/myAccount/
             (08-Feb-18 3:38:15 PM) http://10.1.1.18/sayara/driver/myRating/

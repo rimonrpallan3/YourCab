@@ -16,6 +16,7 @@ import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
 import com.voyager.sayaradriver.landingpage.LandingPage;
 import com.voyager.sayaradriver.registerpage.RegisterPage;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.signinpage.presenter.SignInPresenter;
 import com.voyager.sayaradriver.signinpage.view.ISignInView;
 
@@ -94,10 +95,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
         edtEmailPhno.setEnabled(true);
         edtPswd.setEnabled(true);
         if (result){
-            Intent intent = new Intent(this, LandingPage.class);
-            startActivity(intent);
-            setResult(1);
-            finish();
+            signInPresenter.onLoginSucuess();
         }
         else {
             Toast.makeText(this, "Please input correct UserName and Password, code = " + code, Toast.LENGTH_SHORT).show();
@@ -109,5 +107,14 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
     @Override
     public void onSetProgressBarVisibility(int visibility) {
         progressBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void sendPParcelableObj(DriverUserModel driverUserModel) {
+        Intent intent = new Intent(this, LandingPage.class);
+        intent.putExtra("DriverUserModel", driverUserModel);
+        startActivity(intent);
+        setResult(1);
+        finish();
     }
 }

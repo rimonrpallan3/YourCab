@@ -1,17 +1,20 @@
 package com.voyager.sayaradriver.signinpage.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by kaede on 2015/5/18.
  */
-public class DriverUserModel implements IUser {
+public class DriverUserModel implements IUser,Parcelable {
 	@SerializedName("username")
 	public String userName;
 	@SerializedName("password")
 	public String passwd;
 	@SerializedName("driver_id")
-	public int driver_id;
+	public int driverId;
 	@SerializedName("driver_first_name")
 	public String FName;
 	@SerializedName("driver_last_name")
@@ -45,6 +48,72 @@ public class DriverUserModel implements IUser {
 	public DriverUserModel() {
 	}
 
+
+	protected DriverUserModel(Parcel in) {
+		userName = in.readString();
+		FName = in.readString();
+		LName = in.readString();
+		passwd = in.readString();
+		CPR = in.readString();
+		email = in.readString();
+		phno = in.readString();
+		city = in.readString();
+		country = in.readString();
+		error_msg =in.readString();
+		isError = in.readByte() != 0;
+		driverId = in.readInt();
+		driverStatus = in.readString();
+		adiminDriverStatus = in.readString();
+		driverLat = in.readDouble();
+		driverLog = in.readDouble();
+	}
+
+	@Override
+	public int describeContents() {
+		System.out.println("Describe the content DriverUserModel");
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		System.out.println("writeToParcel to DriverUserModel ");
+		dest.writeString(userName);
+		dest.writeString(FName);
+		dest.writeString(LName);
+		dest.writeString(passwd);
+		dest.writeString(CPR);
+		dest.writeString(email);
+		dest.writeString(phno);
+		dest.writeString(city);
+		dest.writeString(country);
+		dest.writeString(error_msg);
+		dest.writeByte((byte) (isError ? 1 : 0));
+		dest.writeInt(driverId);
+		dest.writeString(driverStatus);
+		dest.writeString(adiminDriverStatus);
+		dest.writeDouble(driverLat);
+		dest.writeDouble(driverLog);
+	}
+
+
+	public static final Parcelable.Creator<DriverUserModel> CREATOR = new Parcelable.Creator<DriverUserModel>() {
+		@Override
+		public DriverUserModel createFromParcel(Parcel in) {
+			return new DriverUserModel(in);
+		}
+
+		@Override
+		public DriverUserModel[] newArray(int size) {
+			return new DriverUserModel[size];
+		}
+	};
+
+	public static Creator<DriverUserModel> getCREATOR() {
+		return CREATOR;
+	}
+
+
+
 	public String getDriverStatus() {
 		return driverStatus;
 	}
@@ -61,12 +130,12 @@ public class DriverUserModel implements IUser {
 		this.adiminDriverStatus = adiminDriverStatus;
 	}
 
-	public int getDriver_id() {
-		return driver_id;
+	public int getDriverId() {
+		return driverId;
 	}
 
-	public void setDriver_id(int driver_id) {
-		this.driver_id = driver_id;
+	public void setDriverId(int driverId) {
+		this.driverId = driverId;
 	}
 
 	public String getCountry() {

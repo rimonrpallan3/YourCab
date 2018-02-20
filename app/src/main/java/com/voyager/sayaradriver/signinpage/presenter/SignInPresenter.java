@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
-import com.voyager.sayaradriver.signinpage.model.IUser;
 import com.voyager.sayaradriver.signinpage.view.ISignInView;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -25,7 +24,7 @@ import retrofit2.Retrofit;
 public class SignInPresenter implements ILoginPresenter {
 
     ISignInView iSignInView;
-    DriverUserModel user;
+    DriverUserModel driverUserModel;
     Handler handler;
     String name;
     String passwd;
@@ -52,7 +51,7 @@ public class SignInPresenter implements ILoginPresenter {
         this.passwd = passwd;
         initUser();
         Boolean isLoginSuccess = true;
-        final int code = user.checkUserValidity(name,passwd);
+        final int code = driverUserModel.checkUserValidity(name,passwd);
         if (code!=0) {
             isLoginSuccess = false;
         } else{
@@ -71,8 +70,8 @@ public class SignInPresenter implements ILoginPresenter {
         call.enqueue(new Callback<DriverUserModel>() {
             @Override
             public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {
-                DriverUserModel driverUserModel = (DriverUserModel) response.body();
-                System.out.println("-------validateLoginDataBaseApi  userName : " + name +
+                driverUserModel = (DriverUserModel) response.body();
+                System.out.println("-------validateLoginDataBaseApi  driverUserModelName : " + name +
                         " Password : " + passwd+
                         " FName : " + driverUserModel.getFName() +
                         " LName : " + driverUserModel.getLName()+
@@ -82,9 +81,9 @@ public class SignInPresenter implements ILoginPresenter {
                         " CPR : " + driverUserModel.getCPR());
                 driverUserModel.setUserName(name);
                 driverUserModel.setPasswd(passwd);
-                System.out.println("----- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" driver_id: "+ driverUserModel.driver_id);
+                System.out.println("----- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" driverId: "+ driverUserModel.driverId);
                 System.out.println("--------- validateLoginDataBaseApi isError: "+ driverUserModel.isError +" Error message: "+ driverUserModel.error_msg);
-                final int code =user.validateLoginResponseError(driverUserModel.isError);
+                final int code =driverUserModel.validateLoginResponseError(driverUserModel.isError);
                 Boolean isLoginSuccess =true;
                 if (code != 0) {
                     isLoginSuccess = false;
@@ -117,11 +116,11 @@ public class SignInPresenter implements ILoginPresenter {
     private void addUserGsonInSharedPrefrences(DriverUserModel driverUserModel){
         Gson gson = new Gson();
         String jsonString = gson.toJson(driverUserModel);
-        //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
-        System.out.println("-----------addUserGsonInSharedPrefrences UserDetails"+jsonString);
+        //DriverUserModel driverUserModel1 = gson.fromJson(jsonString,DriverUserModel.class);
+        System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+jsonString);
         if(jsonString!=null) {
-            System.out.println("-----------addUserGsonInSharedPrefrences UserDetails"+jsonString);
-            editor.putString("DriverUserDetails", jsonString);
+            System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+jsonString);
+            editor.putString("DriverUserModel", jsonString);
             editor.commit();
         }
 
@@ -133,7 +132,12 @@ public class SignInPresenter implements ILoginPresenter {
         iSignInView.onSetProgressBarVisibility(visiblity);
     }
 
+    @Override
+    public void onLoginSucuess() {
+        iSignInView.sendPParcelableObj(driverUserModel);
+    }
+
     private void initUser(){
-        user = new DriverUserModel(name,passwd);
+        driverUserModel = new DriverUserModel(name,passwd);
     }
 }

@@ -91,7 +91,7 @@ public class RegisterPresenter implements IRegisterFetcher{
                         " phno : " + phno +
                         " city : " + city +
                         " CPR : " + CPR);
-                System.out.println("----- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" driver_id: "+driverDetails.driver_id+" created_at: "+driverDetails.created_at);
+                System.out.println("----- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" driverId: "+driverDetails.driver_id+" created_at: "+driverDetails.created_at);
                 System.out.println("--------- sendRegisteredDataAndValidateResponse isError: "+driverDetails.isError +" Error message: "+driverDetails.error_msg);
                     final int code =user.validateRegisterResponseError(driverDetails.error_msg);
                     Boolean isLoginSuccess =true;

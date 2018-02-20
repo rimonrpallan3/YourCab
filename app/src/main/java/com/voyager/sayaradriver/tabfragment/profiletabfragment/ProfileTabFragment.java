@@ -22,6 +22,7 @@ import com.voyager.sayaradriver.displydoc.DisplayDoc;
 import com.voyager.sayaradriver.drivehelp.DriverHelp;
 import com.voyager.sayaradriver.profilepage.ProfileDetailPage;
 import com.voyager.sayaradriver.signinpage.SignInPage;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.Documents;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.presenter.IProfilePresenter;
@@ -55,6 +56,7 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
     IProfilePresenter iProfilePresenter;
     CircleImageView profileDriverImg;
     CircleImageView profileDriverCarImg;
+    DriverUserModel driverUserModel;
 
 
     private Activity activity;
@@ -93,7 +95,12 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         btnSignOut.setOnClickListener(this);
         editDriverCarImg.setOnClickListener(this);
         editDriverImg.setOnClickListener(this);
-        iProfilePresenter =new ProfileDetailPresenter(this);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            driverUserModel = bundle.getParcelable("DriverUserModel");
+        }
+        iProfilePresenter =new ProfileDetailPresenter(this,driverUserModel);
         iProfilePresenter.loadData();
 
         return rootView;
@@ -168,10 +175,6 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
                 intent = new Intent(getActivity(), SignInPage.class);
                 startActivity(intent);
                 getActivity().finish();
-                break;
-            case R.id.editDriverCarImg:
-                break;
-            case R.id.editDriverImg:
                 break;
 
         }

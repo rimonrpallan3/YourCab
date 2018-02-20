@@ -30,7 +30,7 @@ public class DisplayDoc extends AppCompatActivity {
         setSupportActionBar(toolbarDisplayDoc);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.driver_profile_title));
+        getSupportActionBar().setTitle(getResources().getString(R.string.displayDocTitle));
         toolbarDisplayDoc.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
 
     }

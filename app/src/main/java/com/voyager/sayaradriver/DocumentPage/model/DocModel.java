@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class DocModel {
     @SerializedName("error")
     public Boolean error;
-    @SerializedName("driver_id")
+    @SerializedName("driverId")
     public String driverId;
     @SerializedName("success_msg")
     public String errorMsg;

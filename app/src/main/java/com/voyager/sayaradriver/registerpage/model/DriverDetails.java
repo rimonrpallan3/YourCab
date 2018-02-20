@@ -25,7 +25,7 @@ public class DriverDetails implements  IUserValidate{
     String CPR;
     @SerializedName("error")
     public boolean isError   = Boolean.parseBoolean("");
-    @SerializedName("driver_id")
+    @SerializedName("driverId")
     public String driver_id="";
     @SerializedName("created_at")
     public String created_at="";
