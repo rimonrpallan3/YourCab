@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="@style/spinnerItemStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/boder_black"
+    android:drawableRight="@drawable/down_arrow"
+    android:ellipsize="marquee"
+    android:layoutDirection="ltr"
+    android:maxLines="1"
+    android:paddingLeft="@dimen/_10"
+    android:paddingRight="@dimen/_10"
+    android:paddingTop="@dimen/_10" />
