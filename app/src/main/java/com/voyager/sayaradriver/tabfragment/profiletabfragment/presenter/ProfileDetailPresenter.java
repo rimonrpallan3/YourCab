@@ -1,6 +1,7 @@
 package com.voyager.sayaradriver.tabfragment.profiletabfragment.presenter;
 
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.LogOut;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.view.IProfileView;
 import com.voyager.sayaradriver.webservices.ApiClient;
@@ -29,10 +30,10 @@ public class ProfileDetailPresenter implements IProfilePresenter{
 
     @Override
     public void loadData() {
-        System.out.println("-------EarningPresenter");
+        System.out.println("-------loadData -- ProfileDetailPresenter");
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<List<ProfileModel>> call = webServices.getProfileDetail(driverUserModel.driverId);
+        Call<List<ProfileModel>> call = webServices.getProfileDetail(driverUserModel.getDriverId());
         call.enqueue(new Callback<List<ProfileModel>>() {
             @Override
             public void onResponse(Call<List<ProfileModel>> call, Response<List<ProfileModel>> response) {
@@ -53,16 +54,38 @@ public class ProfileDetailPresenter implements IProfilePresenter{
 
             @Override
             public void onFailure(Call<List<ProfileModel>> call, Throwable t) {
-
+                System.out.println("-------loadData -- ProfileDetailPresenter onFailure: "+t.getMessage());
                 t.printStackTrace();
                 //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void logout(int logout) {
+        System.out.println("-------logout -- ProfileDetailPresenter");
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        WebServices webServices = retrofit.create(WebServices.class);
+        Call<LogOut> call = webServices.logedOut(driverUserModel.getDriverId(),logout);
+        call.enqueue(new Callback<LogOut>() {
+            @Override
+            public void onResponse(Call<LogOut> call, Response<LogOut> response) {
+                LogOut logOut  = response.body();
+                System.out.println("-------ProfileDetailPresenter loadData ErrorMesg : " + logOut.getError_msg() +
+                        " ErrorState : " + logOut.getError());
+                iProfileView.logOut();
+            }
+
+            @Override
+            public void onFailure(Call<LogOut> call, Throwable t) {
+                System.out.println("-------logout -- ProfileDetailPresenter onFailure: "+t.getMessage());
+                t.printStackTrace();
+                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
 }

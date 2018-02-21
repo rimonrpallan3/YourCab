@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.landingpage.presenter.ILandingPresenter;
 import com.voyager.sayaradriver.landingpage.presenter.LandingPresenter;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
 import com.voyager.sayaradriver.services.LocationService;
@@ -39,7 +40,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
 
     SwitchCompat driverSwitch;
     TextView onlineOfflineTxt;
-    LandingPresenter landingPresenter;
+    ILandingPresenter iLandingPresenter;
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
     DriverUserModel driverUserModel;
@@ -71,7 +72,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
             getUserSDetails();
         }
         bundle.putParcelable("DriverUserModel", driverUserModel);
-        landingPresenter = new LandingPresenter(this,driverUserModel);
+        iLandingPresenter = new LandingPresenter(this,driverUserModel,online,offline);
 
 
         if (savedInstanceState == null) {
@@ -84,11 +85,11 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
 
         driverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                landingPresenter.checkOfflineOnline(isChecked,buttonView);
+                iLandingPresenter.checkOfflineOnline(isChecked,buttonView);
             }
         });
-        intent = new Intent(getApplicationContext(), LocationService.class);
-        startService(intent);
+        /*intent = new Intent(getApplicationContext(), LocationService.class);
+        startService(intent);*/
     }
 
     private void getUserSDetails() {
@@ -164,6 +165,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     @Override
     public void startService() {
         Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        intent.putExtra("DriverUserModel", driverUserModel);
         startService(intent);
     }
 
@@ -171,5 +173,16 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     public void stopService() {
         Intent intent = new Intent(getApplicationContext(), LocationService.class);
         stopService(intent);
+    }
+
+    @Override
+    public void addUserGsonInSharedPrefrences(DriverUserModel driverUserModel) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(driverUserModel);
+        //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
+        if(jsonString!=null) {
+            editor.putString("DriverUserModel", jsonString);
+            editor.commit();
+        }
     }
 }

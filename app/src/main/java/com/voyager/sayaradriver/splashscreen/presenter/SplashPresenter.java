@@ -43,12 +43,12 @@ public class SplashPresenter implements IConnectionStatus{
     public String getUserGsonInSharedPrefrences(){
         String username ="";
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("DriverUserDetails", null);
-        System.out.println("-----------addUserGsonInSharedPrefrences DriverUserDetails"+json);
+        String json = sharedPrefs.getString("DriverUserModel", null);
+        System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+json);
         if(json!=null){
-            System.out.println("-----------addUserGsonInSharedPrefrences DriverUserDetails"+json);
-            DriverUserModel user = gson.fromJson(json, DriverUserModel.class);
-            username = user.getUserName();
+            System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+json);
+            DriverUserModel driverUserModel = gson.fromJson(json, DriverUserModel.class);
+            username = driverUserModel.getUserName();
         }
         return username;
     }

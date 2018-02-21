@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
 import com.voyager.sayaradriver.viewpgertab.DriverProfileContent.DriverProfileContent;
 import com.voyager.sayaradriver.viewpgertab.DriverVehicleContent.DriverVehicleContent;
 
@@ -15,11 +16,13 @@ import com.voyager.sayaradriver.viewpgertab.DriverVehicleContent.DriverVehicleCo
 public class ProfileViewPageAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     Activity activity;
+    ProfileModel profileModel;
 
-    public ProfileViewPageAdapter(Activity activity, FragmentManager fm, int NumOfTabs ) {
+    public ProfileViewPageAdapter(Activity activity, FragmentManager fm, int NumOfTabs, ProfileModel profileModel) {
         super(fm);
         this.activity = activity;
         this.mNumOfTabs = NumOfTabs;
+        this.profileModel = profileModel;
     }
 
     @Override
@@ -28,14 +31,14 @@ public class ProfileViewPageAdapter extends FragmentStatePagerAdapter {
 
             case 0:
 
-                DriverProfileContent driverProfileContent = new DriverProfileContent();
+                DriverProfileContent driverProfileContent = new DriverProfileContent(profileModel);
                 return driverProfileContent;
             case 1:
 
-                DriverVehicleContent driverVehicleContent = new DriverVehicleContent();
+                DriverVehicleContent driverVehicleContent = new DriverVehicleContent(profileModel);
                 return driverVehicleContent;
             default:
-                 driverProfileContent = new DriverProfileContent();
+                 driverProfileContent = new DriverProfileContent(profileModel);
                 return driverProfileContent;
 
         }

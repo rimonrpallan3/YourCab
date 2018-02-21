@@ -25,10 +25,6 @@ import retrofit2.Retrofit;
  public class LandingPresenter implements ILandingPresenter{
 
     ILandingView iLandingView;
-    Context context;
-
-    SharedPreferences sharedPrefs;
-    SharedPreferences.Editor editor;
     String online = "";
     String offline = "";
     DriverUserModel driverUserModel;
@@ -45,16 +41,16 @@ import retrofit2.Retrofit;
 
 
 
-    public LandingPresenter(ILandingView iLandingView, DriverUserModel driverUserModel) {
+    public LandingPresenter(ILandingView iLandingView, DriverUserModel driverUserModel,String online,String offline) {
         this.iLandingView = iLandingView;
         this.driverUserModel = driverUserModel;
+        this.online = online;
+        this.offline = offline;
         getDriverDetails();
     }
 
     @Override
     public void checkOfflineOnline(Boolean isChecked,CompoundButton buttonView) {
-        online = context.getString(R.string.driver_online);
-        offline = context.getString(R.string.driver_offline);
         System.out.println("driverSwitch Clicked"+"yehhh!!");
         if(AdminDriverStatus.equals("1")) {
             if (isChecked) {
@@ -63,14 +59,14 @@ import retrofit2.Retrofit;
                 driverUserModel.setDriverStatus("1");
                 driverStatus = driverUserModel.getDriverStatus();
                 uploadProfileName();
-                //iLandingView.startService();
+                iLandingView.startService();
             } else {
                 System.out.println("driverSwitch Clicked :" + " false!!");
                 iLandingView.getOfflineOnlineState(offline);
                 driverUserModel.setDriverStatus("0");
                 driverStatus = driverUserModel.getDriverStatus();
                 uploadProfileName();
-                //iLandingView.stopService();
+                iLandingView.stopService();
             }
         }else {
             buttonView.setChecked(false);
@@ -79,24 +75,13 @@ import retrofit2.Retrofit;
 
     private void getDriverDetails(){
         fNmae = driverUserModel.getFName().toString();
-        pnoneNo =driverUserModel.getPhno().toString();
+        pnoneNo = driverUserModel.getPhno().toString();
         pswd = driverUserModel.getPasswd().toString();
         city = driverUserModel.getCity().toString();
         country =  driverUserModel.getCountry().toString();
         email = driverUserModel.getEmail().toString();
         driverId = driverUserModel.getDriverId();
         AdminDriverStatus = driverUserModel.getAdiminDriverStatus();
-    }
-
-    private void addUserGsonInSharedPrefrences(){
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(driverUserModel);
-        //DriverUserModel user1 = gson.fromJson(jsonString,DriverUserModel.class);
-        if(jsonString!=null) {
-            editor.putString("DriverUserModel", jsonString);
-            editor.commit();
-        }
-
     }
 
 
@@ -111,15 +96,16 @@ import retrofit2.Retrofit;
             public void onResponse(Call<DriverUserModel> call,
                                    Response<DriverUserModel> response) {
 
-                DriverUserModel user =response.body();
-                System.out.println("----- uploadProfileName isError: "+user.isError +" user_error: "+user.error_msg );
-                addUserGsonInSharedPrefrences();
+                driverUserModel =response.body();
+                System.out.println("LandingPresenter----- uploadProfileName isError: "+driverUserModel.isError +" user_error: "+driverUserModel.error_msg );
+                iLandingView.addUserGsonInSharedPrefrences(driverUserModel);
             }
 
             @Override
             public void onFailure(Call<DriverUserModel> call, Throwable t) {
-                Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("uploadProfileName error:", t.getMessage());
+                //Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                System.out.println("LandingPresenter----- uploadProfileName onFailure: "+t.getMessage());
+                Log.e("LandingPresenter uploadProfileName error:", t.getMessage());
             }
         });
 

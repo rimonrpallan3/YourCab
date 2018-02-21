@@ -34,7 +34,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
 
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     LocationManager locationManager;
     String mprovider;
     private LatLng CURRENTLOCATION = null;
+    DriverUserModel driverUserModel;
     /**
      * Provides access to the Fused Location Provider API.
      */
@@ -90,6 +93,13 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         View rootView = inflater.inflate(R.layout.home_tab_fragment, container, false);
         this.rootView =rootView;
         System.out.println("HomeTabFragment");
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            driverUserModel = bundle.getParcelable("DriverUserModel");
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(driverUserModel);
+            System.out.println("-----------HomeTabFragment DriverUserModel"+jsonString);
+        }
         mMapView =  rootView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);

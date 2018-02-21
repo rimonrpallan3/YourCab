@@ -27,6 +27,8 @@ public class LocationService extends Service implements LocationListener {
     LocationManager locationManager;
     Retrofit retrofit;
     WebServices webServices;
+    DriverUserModel driverUserModel;
+    int driverId=89;
 
     public LocationService() {
     }
@@ -34,6 +36,11 @@ public class LocationService extends Service implements LocationListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         System.out.println("----------------- LocationService");
+        driverUserModel = (DriverUserModel) intent.getParcelableExtra("DriverUserModel");
+        if (driverUserModel != null) {
+            driverId =driverUserModel.getDriverId();
+            System.out.println("LocationService -- DriverUserModel- name : " + driverUserModel.getFName());
+        }
         retrofit = ApiClient.getRetrofitClient();
         webServices = retrofit.create(WebServices.class);
         //username = getSharedPreferences(AppConstants.SHARED_PREF, MODE_PRIVATE).getString(AppConstants.USER_NAME, "");
@@ -57,7 +64,7 @@ public class LocationService extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         if (location != null) {
             DriverUserModel driverUserModel = new DriverUserModel();
-            driverUserModel.setDriverId(95);
+            driverUserModel.setDriverId(driverId);
             driverUserModel.setDriverLat(location.getLatitude());
             driverUserModel.setDriverLog(location.getLongitude());
             Toast.makeText(getApplicationContext(), location.getLatitude() + ","  + location.getLongitude(), Toast.LENGTH_SHORT).show();

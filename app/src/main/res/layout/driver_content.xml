@@ -13,11 +13,12 @@
         android:orientation="vertical">
 
         <com.voyager.sayaradriver.costom.CircleImageView
-            android:id="@+id/profileName"
+            android:id="@+id/driverImg"
             android:layout_width="@dimen/_100"
             android:layout_height="@dimen/_100"
             android:src="@drawable/profile"/>
         <TextView
+            android:id="@+id/driverName"
             android:layout_marginTop="@dimen/_10"
             android:layout_marginBottom="@dimen/_20"
             android:layout_width="wrap_content"
@@ -40,6 +41,7 @@
             android:layout_marginLeft="@dimen/_20"/>
 
         <TextView
+            android:id="@+id/mobNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000 000 000"
@@ -60,6 +62,7 @@
             android:layout_marginLeft="@dimen/_20"/>
 
         <TextView
+            android:id="@+id/emailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000 000 000"
@@ -79,6 +82,7 @@
             android:layout_marginLeft="@dimen/_20"/>
 
         <TextView
+            android:id="@+id/bankAcc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000 000 000"
@@ -98,6 +102,7 @@
             android:layout_marginLeft="@dimen/_20"/>
 
         <TextView
+            android:id="@+id/CPRNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="000 000 000"

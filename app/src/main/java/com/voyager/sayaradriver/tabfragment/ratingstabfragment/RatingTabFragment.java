@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.NetworkPolicy;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.costom.CircleImageView;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.presenter.IRatingPresenter;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.presenter.RatingPresenter;
@@ -32,6 +34,7 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
 
     List<MapDetails> mapDetailsList;
     IRatingPresenter iRatingPresenter;
+    DriverUserModel driverUserModel;
 
     String rating;
     String[] ratingArray;
@@ -68,6 +71,13 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.rate_tab_fragment, container, false);
         System.out.println("RatingTabFragment");
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            driverUserModel = bundle.getParcelable("DriverUserModel");
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(driverUserModel);
+            System.out.println("-----------RatingTabFragment DriverUserModel"+jsonString);
+        }
         profileDriverImg = (CircleImageView) rootView.findViewById(R.id.profileDriverImg);
         profileDriverName = (TextView) rootView.findViewById(R.id.profileDriverName);
         driverProfileRating = (TextView) rootView.findViewById(R.id.driverProfileRating);
@@ -88,7 +98,7 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
         starImg4.setOnClickListener(this);
 
         rgb = ContextCompat.getColor(getContext(), R.color.yellow);
-        iRatingPresenter = new RatingPresenter(this);
+        iRatingPresenter = new RatingPresenter(this,driverUserModel);
         iRatingPresenter.loadData();
         return rootView;
     }

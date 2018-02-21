@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -99,8 +100,11 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             driverUserModel = bundle.getParcelable("DriverUserModel");
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(driverUserModel);
+            System.out.println("-----------ProfileTabFragment DriverUserModel"+jsonString);
         }
-        iProfilePresenter =new ProfileDetailPresenter(this,driverUserModel);
+        iProfilePresenter = new ProfileDetailPresenter(this,driverUserModel);
         iProfilePresenter.loadData();
 
         return rootView;
@@ -157,24 +161,26 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
         switch (view.getId()) {
             case R.id.driverProfile:
                 Intent intent = new Intent(getActivity(), ProfileDetailPage.class);
+                intent.putExtra("ProfileModel", profileModels);
                 startActivity(intent);
                 break;
             case R.id.profileHelp:
                 intent = new Intent(getActivity(), DriverHelp.class);
+                intent.putExtra("ProfileModel", profileModels);
                 startActivity(intent);
                 break;
             case R.id.driverDoc:
                 intent = new Intent(getActivity(), DisplayDoc.class);
+                intent.putExtra("ProfileModel", profileModels);
                 startActivity(intent);
                 break;
             case R.id.driverAbout:
                 intent = new Intent(getActivity(), AboutPage.class);
+                intent.putExtra("ProfileModel", profileModels);
                 startActivity(intent);
                 break;
             case R.id.btnSignOut:
-                intent = new Intent(getActivity(), SignInPage.class);
-                startActivity(intent);
-                getActivity().finish();
+                iProfilePresenter.logout(1);
                 break;
 
         }
@@ -246,5 +252,12 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
                 });
         profileDriverName.setText(profileModels.getDriverName());
         profileDriverCarName.setText(profileModels.getCarName());
+    }
+
+    @Override
+    public void logOut() {
+        Intent intent = new Intent(getActivity(), SignInPage.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

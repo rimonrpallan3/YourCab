@@ -15,7 +15,7 @@ public class ProfileModel implements Parcelable {
     String driverName;
     String driverPhone;
     String driverEmail;
-    int driverAcno;
+    String driverAcno;
     String driverCarRegNo;
     String driverCarTaxExpiryDate;
     String driverCarInsuranceExpiryDate;
@@ -42,11 +42,11 @@ public class ProfileModel implements Parcelable {
         this.driverEmail = driverEmail;
     }
 
-    public int getDriverAcno() {
+    public String getDriverAcno() {
         return driverAcno;
     }
 
-    public void setDriverAcno(int driverAcno) {
+    public void setDriverAcno(String driverAcno) {
         this.driverAcno = driverAcno;
     }
 
@@ -196,7 +196,7 @@ public class ProfileModel implements Parcelable {
         dest.writeString(this.driverName);
         dest.writeString(this.driverPhone);
         dest.writeString(this.driverEmail);
-        dest.writeInt(this.driverAcno);
+        dest.writeString(this.driverAcno);
         dest.writeString(this.driverCarRegNo);
         dest.writeString(this.driverCarTaxExpiryDate);
         dest.writeString(this.driverCarInsuranceExpiryDate);
@@ -214,14 +214,11 @@ public class ProfileModel implements Parcelable {
         dest.writeList(this.documents);
     }
 
-    public ProfileModel() {
-    }
-
     protected ProfileModel(Parcel in) {
         this.driverName = in.readString();
         this.driverPhone = in.readString();
         this.driverEmail = in.readString();
-        this.driverAcno = in.readInt();
+        this.driverAcno = in.readString();
         this.driverCarRegNo = in.readString();
         this.driverCarTaxExpiryDate = in.readString();
         this.driverCarInsuranceExpiryDate = in.readString();

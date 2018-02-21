@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.Model.EarningModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.presenter.EarningPresenter;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.presenter.IEarningPresenter;
@@ -30,6 +32,7 @@ public class EarningTabFragment extends Fragment implements IEarningView{
     TextView trips;
     TextView balanceEarning;
     IEarningPresenter iEarningPresenter;
+    DriverUserModel driverUserModel;
 
 
     private Activity activity;
@@ -41,15 +44,21 @@ public class EarningTabFragment extends Fragment implements IEarningView{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iEarningPresenter = new EarningPresenter(this);
-        iEarningPresenter.loadData();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.earning_tab_fragment, container, false);
-
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            driverUserModel = bundle.getParcelable("DriverUserModel");
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(driverUserModel);
+            System.out.println("-----------EarningTabFragment DriverUserModel"+jsonString);
+        }
+        iEarningPresenter = new EarningPresenter(this,driverUserModel);
+        iEarningPresenter.loadData();
 
         totalEarning = (TextView) rootView.findViewById(R.id.totalEarning);
         trips = (TextView) rootView.findViewById(R.id.trips);

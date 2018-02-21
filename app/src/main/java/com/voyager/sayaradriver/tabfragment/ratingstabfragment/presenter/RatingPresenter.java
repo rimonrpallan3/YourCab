@@ -1,5 +1,6 @@
 package com.voyager.sayaradriver.tabfragment.ratingstabfragment.presenter;
 
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.model.RatingModel;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.view.IRatingView;
 import com.voyager.sayaradriver.webservices.ApiClient;
@@ -16,9 +17,11 @@ import retrofit2.Retrofit;
 
 public class RatingPresenter implements IRatingPresenter{
     IRatingView iRatingView;
+    DriverUserModel driverUserModel;
 
-    public RatingPresenter(IRatingView iRatingView) {
+    public RatingPresenter(IRatingView iRatingView,DriverUserModel driverUserModel) {
         this.iRatingView = iRatingView;
+        this.driverUserModel = driverUserModel;
     }
 
 
@@ -27,7 +30,7 @@ public class RatingPresenter implements IRatingPresenter{
         System.out.println("-------RatingPresenter");
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<RatingModel> call = webServices.getRatings(89);
+        Call<RatingModel> call = webServices.getRatings(driverUserModel.getDriverId());
         call.enqueue(new Callback<RatingModel>() {
             @Override
             public void onResponse(Call<RatingModel> call, Response<RatingModel> response) {

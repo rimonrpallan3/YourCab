@@ -3,6 +3,7 @@ package com.voyager.sayaradriver.tabfragment.earningstabfragment.presenter;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.Model.EarningModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.view.IEarningView;
 import com.voyager.sayaradriver.webservices.ApiClient;
@@ -20,9 +21,11 @@ import retrofit2.Retrofit;
 public class EarningPresenter implements IEarningPresenter{
 
     IEarningView iEarningView;
+    DriverUserModel driverUserModel;
 
-    public EarningPresenter(IEarningView iEarningView) {
+    public EarningPresenter(IEarningView iEarningView, DriverUserModel driverUserModel) {
         this.iEarningView = iEarningView;
+        this.driverUserModel = driverUserModel;
     }
 
 
@@ -31,7 +34,7 @@ public class EarningPresenter implements IEarningPresenter{
         System.out.println("-------EarningPresenter");
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<EarningModel> call = webServices.getEarnings(89);
+        Call<EarningModel> call = webServices.getEarnings(driverUserModel.getDriverId());
         call.enqueue(new Callback<EarningModel>() {
             @Override
             public void onResponse(Call<EarningModel> call, Response<EarningModel> response) {
