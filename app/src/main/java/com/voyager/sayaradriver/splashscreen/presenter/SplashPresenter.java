@@ -60,7 +60,7 @@ public class SplashPresenter implements IConnectionStatus{
             @Override
             public void run() {
                 if(Helper.isLocationEnabled(context)) {
-                    if(userName.length()>0){
+                    if(userName!=null && userName.length()>0){
                         splashView.moveToLanding();
                     }else{
                         splashView.moveToSignUpLogin();
