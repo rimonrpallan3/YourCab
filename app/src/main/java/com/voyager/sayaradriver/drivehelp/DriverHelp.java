@@ -20,11 +20,13 @@ import android.widget.Toast;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
 
+import static com.voyager.sayaradriver.common.Helper.REQUEST_PHONE_CALL;
+
 /**
  * Created by User on 20-Feb-18.
  */
 
-public class DriverHelp extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class DriverHelp extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Toolbar toolbarDriverHelp;
     Spinner enquiresSpinner;
@@ -62,14 +64,15 @@ public class DriverHelp extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
-    public void callCustomerCare(View v){
-        System.out.println("callCustomerCare -- -  : " );
+    public void callCustomerCare(View v) {
+        System.out.println("callCustomerCare -- -  : ");
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + profileModel.getDriverPhone()));
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+        } else {
+            startActivity(callIntent);
         }
-        startActivity(callIntent);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -81,6 +84,20 @@ public class DriverHelp extends AppCompatActivity implements AdapterView.OnItemS
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PHONE_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + profileModel.getDriverPhone()));
+                    startActivity(intent);
+                } else {
+
+                }
+                return;
+            }
+        }
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
