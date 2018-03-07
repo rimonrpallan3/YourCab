@@ -47,17 +47,14 @@ import com.voyager.sayaradriver.otppagesubmit.SubmitOTPPage;
 
         spinnerSelectContry.setAdapter(adapter);
         spinnerSelectContry.setPrompt(getString(R.string.otp_spinner_country));
-
     }
 
     @Override
     public void onItemSelected(AdapterView parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
-
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-
     }
 
     public void onNothingSelected(AdapterView arg0) {

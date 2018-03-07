@@ -36,10 +36,16 @@ public class LocationService extends Service implements LocationListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         System.out.println("----------------- LocationService");
-        driverUserModel = (DriverUserModel) intent.getParcelableExtra("DriverUserModel");
-        if (driverUserModel != null) {
-            driverId =driverUserModel.getDriverId();
-            System.out.println("LocationService -- DriverUserModel- name : " + driverUserModel.getFName());
+        try {
+            if(intent!=null) {
+                driverUserModel = (DriverUserModel) intent.getParcelableExtra("DriverUserModel");
+                if (driverUserModel != null) {
+                    driverId = driverUserModel.getDriverId();
+                    System.out.println("LocationService -- DriverUserModel- name : " + driverUserModel.getFName());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         retrofit = ApiClient.getRetrofitClient();
         webServices = retrofit.create(WebServices.class);
@@ -61,7 +67,7 @@ public class LocationService extends Service implements LocationListener {
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(Location location){
         if (location != null) {
             DriverUserModel driverUserModel = new DriverUserModel();
             driverUserModel.setDriverId(driverId);

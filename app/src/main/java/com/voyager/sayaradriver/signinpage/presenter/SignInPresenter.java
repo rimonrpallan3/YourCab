@@ -90,7 +90,7 @@ public class SignInPresenter implements ILoginPresenter {
                     Toast.makeText((Context) iSignInView, driverUserModel.getError_msg(), Toast.LENGTH_SHORT).show();
                     System.out.println("-----validateLoginDataBaseApi  data unSuccess ");
                 } else {
-                    Toast.makeText((Context) iSignInView, "Register Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText((Context) iSignInView, "Login Successful", Toast.LENGTH_SHORT).show();
                     addUserGsonInSharedPrefrences(driverUserModel);
                     System.out.println("----- validateLoginDataBaseApi data Successful ");
                 }
