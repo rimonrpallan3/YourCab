@@ -16,7 +16,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.voyager.sayara.landingpage.LandingPage;
+import com.voyager.sayaradriver.landingpage.LandingPage;
 
 import org.json.JSONArray;
 import org.json.JSONException;
