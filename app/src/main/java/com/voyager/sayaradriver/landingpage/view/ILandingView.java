@@ -11,4 +11,6 @@ public interface ILandingView {
     void startService();
     void stopService();
     void addUserGsonInSharedPrefrences(DriverUserModel driverUserModel);
+    //----------- This method is used to connect with Map Fragment and MainActivity
+    void mapDataPass();
 }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.voyager.sayaradriver.services.LocationService;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.EarningTabFragment;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabFragment;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.ProfileTabFragment;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment;
 
@@ -45,6 +47,8 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     SharedPreferences.Editor editor;
     DriverUserModel driverUserModel;
     Bundle bundle;
+    String fcmAvliable = "";
+    FCMDetials fcmDetials;
 
 
     @Override
@@ -65,6 +69,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         Intent intent = getIntent();
         bundle = new Bundle();
         driverUserModel = (DriverUserModel) intent.getParcelableExtra("DriverUserModel");
+        fcmAvliable = bundle.getString("showNotification",fcmAvliable);
         if (driverUserModel != null) {
             System.out.println("LandingPage -- DriverUserModel- name : " + driverUserModel.getFName());
         }
@@ -90,6 +95,24 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         });
         /*intent = new Intent(getApplicationContext(), LocationService.class);
         startService(intent);*/
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        fcmAvliable = bundle.getString("showNotification",fcmAvliable);
+        fcmDetials = (FCMDetials) intent.getParcelableExtra("FCMDetials");
+        bundle.putParcelable("FCMDetials", fcmDetials);
+        if(fcmAvliable!=null){
+            Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
+            HomeTabFragment homeTabFragment = new HomeTabFragment(activity);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, homeTabFragment);
+            homeTabFragment.setArguments(bundle);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+
     }
 
     private void getUserSDetails() {
@@ -184,5 +207,10 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
             editor.putString("DriverUserModel", jsonString);
             editor.commit();
         }
+    }
+
+    @Override
+    public void mapDataPass() {
+
     }
 }

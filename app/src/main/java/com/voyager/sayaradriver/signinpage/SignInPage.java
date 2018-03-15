@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.firstotppage.FirstOTPPage;
@@ -35,11 +36,15 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
     SharedPreferences.Editor editor;
 
     SignInPresenter signInPresenter;
+    String fireBaseToken="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_page);
+
+        fireBaseToken = FirebaseInstanceId.getInstance().getToken();
+        System.out.println("----------- onCreate ----------fireBaseToken: "+fireBaseToken);
 
         sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
                 Context.MODE_PRIVATE);
@@ -60,7 +65,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
        Helper.hideKeyboard(this);
        signInPresenter.setProgressBarVisiblity(View.VISIBLE);
        btnSubmit.setEnabled(false);
-       signInPresenter.doLogin(edtEmailPhno.getText().toString(), edtPswd.getText().toString());
+       signInPresenter.doLogin(edtEmailPhno.getText().toString(), edtPswd.getText().toString(),fireBaseToken);
    }
 
     public void SignUp(View v){

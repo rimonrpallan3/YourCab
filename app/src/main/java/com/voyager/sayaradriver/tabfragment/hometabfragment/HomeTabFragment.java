@@ -6,19 +6,18 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -37,6 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
 
 import java.util.ArrayList;
@@ -72,6 +72,20 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     View rootView;
     Activity activity;
 
+    FrameLayout suddenTrip;
+    Button tripAccept;
+    Button tripReject;
+    TextView tripTimeOut;
+    TextView tripUser;
+    TextView tripStartOrgin;
+    TextView tripEndDestin;
+    TextView tripDistance;
+    TextView tripCostFair;
+    TextView tripPaymentMethod;
+    String fcmAvliable = "";
+    FCMDetials fcmDetials;
+
+
 
 
     public HomeTabFragment(Activity activity) {
@@ -94,23 +108,55 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         this.rootView =rootView;
         System.out.println("HomeTabFragment");
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            driverUserModel = bundle.getParcelable("DriverUserModel");
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(driverUserModel);
-            System.out.println("-----------HomeTabFragment DriverUserModel"+jsonString);
-        }
+
         mMapView =  rootView.findViewById(R.id.map);
+        tripAccept = (Button) rootView.findViewById(R.id.tripAccept);
+        tripReject = (Button) rootView.findViewById(R.id.tripReject);
+        suddenTrip = (FrameLayout) rootView.findViewById(R.id.suddenTrip);
+        tripTimeOut = (TextView) rootView.findViewById(R.id.tripTimeOut);
+        tripUser = (TextView) rootView.findViewById(R.id.tripUser);
+        tripStartOrgin = (TextView) rootView.findViewById(R.id.tripStartOrgin);
+        tripEndDestin = (TextView) rootView.findViewById(R.id.tripEndDestin);
+        tripDistance = (TextView) rootView.findViewById(R.id.tripDistance);
+        tripCostFair = (TextView) rootView.findViewById(R.id.tripCostFair);
+        tripPaymentMethod = (TextView) rootView.findViewById(R.id.tripPaymentMethod);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         mprovider = locationManager.getBestProvider(criteria, false);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
+        tripAccept.setOnClickListener(this);
+        tripReject.setOnClickListener(this);
+
+        if (bundle != null) {
+            try {
+                driverUserModel = bundle.getParcelable("DriverUserModel");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            try {
+                fcmDetials = bundle.getParcelable("FCMDetials");
+                tripUser.setText(fcmDetials.getUserName());
+                tripStartOrgin.setText(fcmDetials.getPickupAddress());
+                tripEndDestin.setText(fcmDetials.getDropAddress());
+                tripDistance.setText(fcmDetials.getDistance());
+                tripCostFair.setText(fcmDetials.getFare());
+                tripPaymentMethod.setText(fcmDetials.getPayType());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            Gson gson = new Gson();
+            if(driverUserModel!=null) {
+                String jsonString = gson.toJson(driverUserModel);
+                System.out.println("-----------HomeTabFragment DriverUserModel" + jsonString);
+            }
+        }
+
+
 
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         MapsInitializer.initialize(this.getActivity());
-
 
         return rootView;
     }
@@ -144,6 +190,9 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
         googleMap.moveCamera(center);
         googleMap.animateCamera(zoom);
+        if(fcmAvliable!=null){
+           // suddenTrip.setVisibility(View.VISIBLE);
+        }
         if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             return;
@@ -284,8 +333,12 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.map:
+            case R.id.tripAccept:
+                //suddenTrip.setVisibility(View.GONE);
             break;
+            case R.id.tripReject:
+                suddenTrip.setVisibility(View.GONE);
+                break;
         }
     }
 }

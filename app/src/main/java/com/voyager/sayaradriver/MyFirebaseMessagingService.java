@@ -16,7 +16,10 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 import com.voyager.sayaradriver.landingpage.LandingPage;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     String church_name;
 
     Bitmap bitmap;
+    FCMDetials fcmDetials;
 
     public static final String FaithApp_PREFERENCES = "FaithApp_Prefs";
 
@@ -47,17 +51,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i("PVL", "MESSAGE RECEIVED!!");
-        if (remoteMessage.getNotification().getBody() != null) {
-            Log.i("PVL", "RECEIVED MESSAGE: " + remoteMessage.getNotification().getBody());
-            System.out.println("RemoteMessage -- B"+remoteMessage.getNotification().getTitle());
-            System.out.println("RemoteMessage -- B"+remoteMessage.getNotification().getBody());
-            System.out.println("RemoteMessage -- B"+remoteMessage.getNotification().getClickAction());
+        if (remoteMessage.getData() != null) {
             System.out.println("RemoteMessage -- M"+remoteMessage.getData().get("message"));
+            Gson gson = new Gson();
+            String json = remoteMessage.getData().get("message");
+            if(json!=null){
+                System.out.println("----------- MyFirebaseMessagingService onMessageReceived fcmDetials" + json);
+                fcmDetials = gson.fromJson(json, FCMDetials.class);
+                Intent intent = new Intent(getApplicationContext(), LandingPage.class);
+                intent.putExtra("FCMDetials", fcmDetials);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                System.out.println("fcmDetials onMessageReceived -- getDistance"+ fcmDetials.getDistance());            }
         } else {
             System.out.println("RemoteMessage -- M"+remoteMessage.getData().get("message"));
             Log.i("PVL", "RECEIVED MESSAGE: " + remoteMessage.getData().get("message"));
         }
-       // showNotification(remoteMessage.getData().get("message"));
+        // showNotification(remoteMessage.getData().get("message"));
         if(remoteMessage.getData().size() > 0) {
             System.out.println("RemoteMessage --"+remoteMessage.getData());
             //Log.e("fcm: ", remoteMessage.getData().get("message"));
@@ -96,6 +106,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Intent i = new Intent(getApplicationContext(),LandingPage.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("showNotification","FCM");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)

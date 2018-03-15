@@ -28,6 +28,7 @@ public class SignInPresenter implements ILoginPresenter {
     Handler handler;
     String name;
     String passwd;
+    String fireBaseToken;
 
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
@@ -46,9 +47,10 @@ public class SignInPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void doLogin(String name, String passwd) {
+    public void doLogin(String name, String passwd,String fireBaseToken) {
         this.name = name;
         this.passwd = passwd;
+        this.fireBaseToken = fireBaseToken;
         initUser();
         Boolean isLoginSuccess = true;
         final int code = driverUserModel.checkUserValidity(name,passwd);
@@ -66,7 +68,8 @@ public class SignInPresenter implements ILoginPresenter {
     public void validateLoginDataBaseApi(){
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
-        Call<DriverUserModel> call = webServices.loginUser(name,passwd);
+        Call<DriverUserModel> call = webServices.loginUser(name,passwd,fireBaseToken);
+        System.out.println("----------- validateLoginDataBaseApi ----------fireBaseToken: "+fireBaseToken);
         call.enqueue(new Callback<DriverUserModel>() {
             @Override
             public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {

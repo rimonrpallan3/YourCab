@@ -46,6 +46,7 @@
             android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity android:name="com.voyager.sayaradriver.landingpage.LandingPage"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/SCBSwitch"/>
         <activity android:name="com.voyager.sayaradriver.firstotppage.FirstOTPPage"
             android:screenOrientation="portrait"

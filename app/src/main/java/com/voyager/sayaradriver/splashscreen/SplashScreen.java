@@ -22,7 +22,6 @@ import com.voyager.sayaradriver.splashscreen.view.ISplashView;
 public class SplashScreen extends AppCompatActivity implements ISplashView{
 
     private SplashPresenter mPresenter;
-
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
 

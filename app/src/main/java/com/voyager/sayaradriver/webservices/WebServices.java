@@ -43,7 +43,8 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("driver/login/")
     public Call<DriverUserModel> loginUser(@Nullable @Field("username") String name,
-                                           @Nullable @Field("password") String passwd);
+                                           @Nullable @Field("password") String passwd,
+                                           @Nullable @Field("token") String fireBaseToken);
 
     @FormUrlEncoded
     @POST("register.php")

@@ -6,6 +6,11 @@
 
     <!--Landing colors -->
     <color name="toolbar_color">#ffa500</color>
+    <color name="transparentColor">#D8000000</color>
+
+    <!--Ripple Button click-->
+
+    <color name="rippleColor">#ffc964</color>
 
     <!--Highlight Text Color-->
     <color name="highLightText">#ffa500</color>

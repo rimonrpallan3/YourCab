@@ -5,7 +5,7 @@ package com.voyager.sayaradriver.signinpage.presenter;
  */
 public interface ILoginPresenter {
 	void clear();
-	void doLogin(String emailPhno, String passwd);
+	void doLogin(String emailPhno, String passwd,String fireBaseToken);
 	void setProgressBarVisiblity(int visiblity);
 	void onLoginSucuess();
 }
