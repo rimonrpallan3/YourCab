@@ -36,8 +36,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter.HomeTabPresenter;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter.IHomeTabPresenter;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.view.IHometabView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +48,7 @@ import java.util.List;
 /**
  * Created by rimon on 22/4/16.
  */
-public class HomeTabFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
+public class HomeTabFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener, IHometabView {
 
     List<MapDetails> mapDetailsList;
     private GoogleMap googleMap;
@@ -84,6 +87,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     TextView tripPaymentMethod;
     String fcmAvliable = "";
     FCMDetials fcmDetials;
+    IHomeTabPresenter iHomeTabPresenter;
 
 
 
@@ -128,6 +132,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         tripAccept.setOnClickListener(this);
         tripReject.setOnClickListener(this);
+        iHomeTabPresenter = new HomeTabPresenter(this);
 
         if (bundle != null) {
             try {
@@ -335,10 +340,20 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         switch (view.getId()) {
             case R.id.tripAccept:
                 //suddenTrip.setVisibility(View.GONE);
+                iHomeTabPresenter.acceptTrip();
             break;
             case R.id.tripReject:
-                suddenTrip.setVisibility(View.GONE);
+                iHomeTabPresenter.rejectTrip(driverUserModel.driverId,fcmDetials.getTripId());
                 break;
         }
     }
+
+    @Override
+    public void rejectTrip() {
+        suddenTrip.setVisibility(View.GONE);
+    }
+    /*@Override
+    public void startTrip() {
+
+    }*/
 }

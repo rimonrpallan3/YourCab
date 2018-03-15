@@ -5,4 +5,6 @@ package com.voyager.sayaradriver.tabfragment.hometabfragment.view;
  */
 
 public interface IHometabView {
+    //void startTrip()
+     void rejectTrip();
 }
