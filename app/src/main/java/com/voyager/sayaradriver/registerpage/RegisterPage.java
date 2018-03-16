@@ -47,7 +47,7 @@ public class RegisterPage extends AppCompatActivity implements IRegisterView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
 
-        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+        sharedPrefs = getSharedPreferences(getResources().getString(R.string.myPreference),
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
 

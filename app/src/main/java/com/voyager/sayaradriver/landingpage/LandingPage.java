@@ -48,6 +48,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     DriverUserModel driverUserModel;
     Bundle bundle;
     String fcmAvliable = "";
+    String fcmPush = "";
     FCMDetials fcmDetials;
 
 
@@ -63,7 +64,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         offline = getString(R.string.driver_offline);
         onlineOfflineTxt.setText(offline);
 
-        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+        sharedPrefs = getSharedPreferences(getResources().getString(R.string.myPreference),
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
         Intent intent = getIntent();
@@ -100,10 +101,14 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        fcmAvliable = bundle.getString("showNotification",fcmAvliable);
+        System.out.println("onNewIntent Landing -------------");
         fcmDetials = (FCMDetials) intent.getParcelableExtra("FCMDetials");
+        fcmPush =  intent.getStringExtra("fcmPush");
+        System.out.println("onNewIntent Landing fcmPush-------------  "+fcmPush);
         bundle.putParcelable("FCMDetials", fcmDetials);
-        if(fcmAvliable!=null){
+        bundle.putString("fcmPush",fcmPush);
+        if(fcmDetials!=null){
+            System.out.println("onNewIntent Landing ------------- inside  ");
             Toast.makeText(getApplicationContext(), "Home Selected", Toast.LENGTH_SHORT).show();
             HomeTabFragment homeTabFragment = new HomeTabFragment(activity);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -117,7 +122,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
 
     private void getUserSDetails() {
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("DriverUserModel",null);
+        String json = sharedPrefs.getString(getResources().getString(R.string.myPreference),null);
         if(json!=null){
             System.out.println("-----------LandingPage uploadProfileName DriverUserModel" + json);
             driverUserModel = gson.fromJson(json, DriverUserModel.class);

@@ -89,8 +89,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     FCMDetials fcmDetials;
     IHomeTabPresenter iHomeTabPresenter;
 
-
-
+    String fcmPush = "";
+    Bundle bundle ;
 
     public HomeTabFragment(Activity activity) {
         this.activity =activity;
@@ -111,7 +111,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         View rootView = inflater.inflate(R.layout.home_tab_fragment, container, false);
         this.rootView =rootView;
         System.out.println("HomeTabFragment");
-        Bundle bundle = this.getArguments();
+        bundle = this.getArguments();
 
         mMapView =  rootView.findViewById(R.id.map);
         tripAccept = (Button) rootView.findViewById(R.id.tripAccept);
@@ -142,12 +142,19 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             }
             try {
                 fcmDetials = bundle.getParcelable("FCMDetials");
-                tripUser.setText(fcmDetials.getUserName());
-                tripStartOrgin.setText(fcmDetials.getPickupAddress());
-                tripEndDestin.setText(fcmDetials.getDropAddress());
-                tripDistance.setText(fcmDetials.getDistance());
-                tripCostFair.setText(fcmDetials.getFare());
-                tripPaymentMethod.setText(fcmDetials.getPayType());
+                fcmPush = bundle.getString("fcmPush");
+                System.out.println("-----------HomeTabFragment fcmPush" + fcmPush);
+
+                if(fcmPush!=null&& fcmPush.length()>1) {
+                    tripUser.setText(fcmDetials.getUserName());
+                    tripStartOrgin.setText(fcmDetials.getPickupAddress());
+                    tripEndDestin.setText(fcmDetials.getDropAddress());
+                    tripDistance.setText(fcmDetials.getDistance());
+                    tripCostFair.setText(fcmDetials.getFare());
+                    tripPaymentMethod.setText(fcmDetials.getPayType());
+                    suddenTrip.setVisibility(View.VISIBLE);
+
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -339,7 +346,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tripAccept:
-                //suddenTrip.setVisibility(View.GONE);
+                suddenTrip.setVisibility(View.GONE);
                 iHomeTabPresenter.acceptTrip();
             break;
             case R.id.tripReject:
@@ -351,6 +358,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @Override
     public void rejectTrip() {
         suddenTrip.setVisibility(View.GONE);
+        bundle.putString("fcmPush",null);
     }
     /*@Override
     public void startTrip() {

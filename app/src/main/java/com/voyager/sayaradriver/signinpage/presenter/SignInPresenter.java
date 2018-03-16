@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.signinpage.view.ISignInView;
 import com.voyager.sayaradriver.webservices.ApiClient;
@@ -32,11 +33,13 @@ public class SignInPresenter implements ILoginPresenter {
 
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
+    Context context;
 
-    public SignInPresenter(ISignInView iSignInView,SharedPreferences sharedPrefs, SharedPreferences.Editor editor) {
+    public SignInPresenter(ISignInView iSignInView,SharedPreferences sharedPrefs, SharedPreferences.Editor editor,Context context) {
         this.iSignInView = iSignInView;
         this.sharedPrefs = sharedPrefs;
         this.editor = editor;
+        this.context = context;
         handler = new Handler(Looper.getMainLooper());
         initUser();
     }
@@ -123,7 +126,7 @@ public class SignInPresenter implements ILoginPresenter {
         System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+jsonString);
         if(jsonString!=null) {
             System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+jsonString);
-            editor.putString("DriverUserModel", jsonString);
+            editor.putString(context.getResources().getString(R.string.myPreference), jsonString);
             editor.commit();
         }
 

@@ -42,6 +42,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     Bitmap bitmap;
     FCMDetials fcmDetials;
+    String fcmPush = "";
 
     public static final String FaithApp_PREFERENCES = "FaithApp_Prefs";
 
@@ -57,9 +58,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String json = remoteMessage.getData().get("message");
             if(json!=null){
                 System.out.println("----------- MyFirebaseMessagingService onMessageReceived fcmDetials" + json);
+                fcmPush = "fcm";
                 fcmDetials = gson.fromJson(json, FCMDetials.class);
                 Intent intent = new Intent(getApplicationContext(), LandingPage.class);
                 intent.putExtra("FCMDetials", fcmDetials);
+                intent.putExtra("fcmPush", fcmPush);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 System.out.println("fcmDetials onMessageReceived -- getDistance"+ fcmDetials.getDistance());            }

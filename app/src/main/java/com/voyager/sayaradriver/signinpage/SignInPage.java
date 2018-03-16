@@ -38,6 +38,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
     SignInPresenter signInPresenter;
     String fireBaseToken="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
         fireBaseToken = FirebaseInstanceId.getInstance().getToken();
         System.out.println("----------- onCreate ----------fireBaseToken: "+fireBaseToken);
 
-        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+        sharedPrefs = getSharedPreferences(getResources().getString(R.string.myPreference),
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
 
@@ -57,7 +58,7 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
         progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
 
         //init
-        signInPresenter = new SignInPresenter(this,sharedPrefs,editor);
+        signInPresenter = new SignInPresenter(this,sharedPrefs,editor,this);
         signInPresenter.setProgressBarVisiblity(View.INVISIBLE);
    }
 

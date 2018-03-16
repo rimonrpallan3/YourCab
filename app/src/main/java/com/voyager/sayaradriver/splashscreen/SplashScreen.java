@@ -30,7 +30,7 @@ public class SplashScreen extends AppCompatActivity implements ISplashView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-        sharedPrefs = getSharedPreferences(Helper.MyPREFERENCES,
+        sharedPrefs = getSharedPreferences(getResources().getString(R.string.myPreference),
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();
         mPresenter = new SplashPresenter(this,this,this,sharedPrefs,editor);

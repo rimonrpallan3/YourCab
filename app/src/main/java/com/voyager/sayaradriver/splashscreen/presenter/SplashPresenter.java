@@ -9,6 +9,7 @@ import android.os.Looper;
 
 
 import com.google.gson.Gson;
+import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.splashscreen.view.ISplashView;
@@ -27,6 +28,7 @@ public class SplashPresenter implements IConnectionStatus{
     SharedPreferences.Editor editor;
 
     String userName;
+    String myPreference = "";
 
 
     private int SPLASH_DISPLAY_LENGTH = 1000;
@@ -43,8 +45,10 @@ public class SplashPresenter implements IConnectionStatus{
     public String getUserGsonInSharedPrefrences(){
         String username ="";
         Gson gson = new Gson();
-        String json = sharedPrefs.getString("DriverUserModel", null);
-        System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+json);
+        myPreference = activity.getResources().getString(R.string.myPreference);
+        System.out.println("-----------SplashPresenter addUserGsonInSharedPrefrences myPreference: "+ myPreference);
+        String json = sharedPrefs.getString(myPreference, null);
+        System.out.println("-----------SplashPresenter addUserGsonInSharedPrefrences DriverUserModel"+json);
         if(json!=null){
             System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+json);
             DriverUserModel driverUserModel = gson.fromJson(json, DriverUserModel.class);

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SayaraDriver</string>
 
+    <!--Shared preferance Strings -->
+    <string name="myPreference">DriverUserModel</string>
     <!-- Sign and SignUp Page-->
     <string name="signUp_btn">Register</string>
     <string name="signIn_btn">Sign In</string>
