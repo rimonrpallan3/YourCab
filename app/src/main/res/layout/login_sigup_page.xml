@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.voyager.sayaradriver.loginsignuppage.LoginSignUpPage">
+
+  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/LoginSignInLogo"
+            android:layout_width="@dimen/_200"
+            android:layout_height="@dimen/_200"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_3"
+            android:layout_marginBottom="@dimen/_20"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btnSignUp"
+            android:text="@string/signUp_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12"
+            android:background="@drawable/rectangle_button"
+            android:layout_marginTop="@dimen/_10"
+            android:onClick="btnSignUp"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/btnSignIn"
+            android:text="@string/signIn_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12"
+            android:background="@drawable/rectangle_button"
+            android:layout_marginTop="@dimen/_10"
+            android:onClick="btnSignIn"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btnTrack"
+            android:text="@string/track_btn"
+            android:textScaleX="0.9"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40"
+            android:textColor="@color/black"
+            android:background="@drawable/rectangle_button"
+            android:layout_marginTop="@dimen/_10"
+            android:textSize="@dimen/_12"
+            android:paddingRight="@dimen/_04"
+            android:paddingLeft="@dimen/_04"
+            android:onClick="btnTrack"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+
+
+</FrameLayout>

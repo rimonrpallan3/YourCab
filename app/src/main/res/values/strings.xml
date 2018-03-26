@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">SayaraDriver</string>
+
+    <!--Shared preferance Strings -->
+    <string name="myPreference">DriverUserModel</string>
+    <!-- Sign and SignUp Page-->
+    <string name="signUp_btn">Register</string>
+    <string name="signIn_btn">Sign In</string>
+    <string name="track_btn">Application Tracking</string>
+    <string name="gps_network_not_enabled">Please Enable Location</string>
+    <string name="open_location_settings">Location Settings</string>
+    <string name="Cancel">Cancel</string>
+    <string name="email_number">Username</string>
+    <string name="paswd">Password</string>
+    <string name="account_create">Create an account?</string>
+    <string name="SignUp">\u0020 Sign Up</string>
+    <string name="submit">Submit</string>
+    <string name="btn_register">Register Now</string>
+    <string name="cpr_no">CPR</string>
+    <string name="address">City</string>
+    <string name="phno">Phone Number</string>
+    <string name="create_acnt">Have an Account?</string>
+    <string name="fill_txt">Fill the details below</string>
+    <string name="Login">\u0020 Log In.</string>
+    <string name="last_name">Last Name</string>
+    <string name="emil_address">Email Address</string>
+    <string name="first_name">First Name</string>
+    <!--Opt First page -->
+    <string name="otp_no">OTP Number</string>
+    <string name="otp_spinner_country">Select Country</string>
+    <string name="otp_zip_code_hint">Zip Code</string>
+    <string name="otp_mobile_no_hint">Mobile Number</string>
+    <string name="get_otp">Get OTP</string>
+    <string name="otp_resend">Resend OTP</string>
+    <string name="bahrain_code">+973</string>
+    <string-array name="country_names">
+        <item>Bahrain</item>
+
+
+    </string-array>
+
+
+    <!--track_id-->
+    <string name="hint_ref_no">Reference Number</string>
+    <string name="track_first_txt">Thank You, Your application has been received and we are currently reviewing your application</string>
+    <string name="track_second_txt">Please reach our office on , for verifying the documents. </string>
+    <string name="track_third_txt">Congratulations! your application has been reviewed and accepted. Welcome on board</string>
+    <string name="track_fourth_txt">Kindly resubmit the documents.</string>
+
+    <!--Custom Dialog Box-->
+
+    <string name="gallery">\u0020 \u0020 \u0020 Gallery</string>
+    <string name="camera">\u0020 \u0020 \u0020 Camera</string>
+    <string name="cancel">Cancel</string>
+
+
+
+
+    <string name="drivers_license">Driver Documents</string>
+    <string name="cont">\u0020 Continue</string>
+    <string name="otp_firsttxt_msg">Enter the 4-digit code to your Mobile Number</string>
+    <string name="otp_secondtxt_msg"><![CDATA[I agree to the Terms & Conditions & Privacy Policy issued. Terms & Condition.]]></string>
+    <string name="driver_front">Driver License Front</string>
+    <string name="driver_back">Driver License Back</string>
+    <string name="certificate_Register">Certificate of Register</string>
+    <string name="vehicle_Register">Vehicle Register</string>
+    <string name="vehicle_Permit">Vehicle Permit</string>
+    <string name="commercial_Insurance">Commercial Insurance</string>
+    <string name="tax_Receipt">Tax Receipt</string>
+    <string name="contract_Carriage_Permit">Contract Carriage Permit</string>
+    <string name="insurance_Certification">Insurance Certification</string>
+    <string name="image_upload_txt">Please Upload the Document by taking a Picture.</string>
+    <string name="image_upload_doc_txt">Please Upload the Certificate by taking a Picture. and do something with it, please voyager do something.</string>
+    <string name="tk_photo">\u0020Take Photo</string>
+    <string name="drivers_doc">\u0020Take a photo of your Document</string>
+    <string name="drivers_certification">\u0020Take a photo of your Certificate</string>
+    <string name="image_upload_certificate_txt">Please Upload the Document by taking a Picture. and do something with it, please voyager do something.</string>
+    <string name="register_msg">Thanks for registering with us. You will get a notification once your profile is approved.</string>
+    <string name="approval_btn">Approval Pending</string>
+    <string name="approval_msg">Congratulations!!! Your profile is approved. Please click the below button to login for further activities.</string>
+    <string name="login_btn">Login</string>
+    <string name="terms_and_cond"><![CDATA[Terms & Condition]]></string>
+    <string name="home">Home</string>
+    <string name="earning">Earning</string>
+    <string name="rating">Ratings</string>
+    <string name="account">Account</string>
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="driver_profile_txt">\u0020 Driver Profile</string>
+    <string name="help_profile_txt">\u0020 Help</string>
+    <string name="document_profile_txt">\u0020 Document</string>
+    <string name="setting_profile_txt">\u0020 Setting</string>
+    <string name="about_profile_txt">\u0020 About</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="earning_heading">TOTAL EARNING</string>
+    <string name="earning_trip_heading">TRIPS</string>
+    <string name="earning_balance_heading">BALANCE</string>
+    <string name="earning_summery_heading">Summery</string>
+    <string name="earning_summery_subheading">Know more</string>
+    <string name="earning_invites_heading">Invites</string>
+    <string name="earning_invites_subheading">like driving? Invite a friend!</string>
+    <string name="earning_ern_more">EARN MORE</string>
+    <string name="star_rate_text">Your Star Rating</string>
+    <string name="driver_online">Online</string>
+    <string name="driver_offline">Offline</string>
+
+    <string name="internal_storage">Internal storage</string>
+    <!--Driver Detail Page -->
+    <string name="driver_profile_title">Driver Profile</string>
+    <!--Driver Help Page-->
+    <string name="driver_help_title">Help page</string>
+    <string name="driver_help_spinner_enquires">Select Country</string>
+    <string-array name="enquires">
+        <item>App crashes</item>
+        <item>Functionality not working</item>
+        <item>Document Error</item>
+        <item>Payment Issues</item>
+        <item>Others</item>
+    </string-array>
+    <!--About Page-->
+    <string name="about_title">About</string>
+    <string name="about_content">Starting with the Pentium Pro, and the AMD Athlon, x86 processors support 4 MiB pages (called Page Size Extension) (2 MiB pages if using PAE) in addition to their standard 4 KiB pages; newer x86-64 processors, such as AMDs newer AMD64 processors and Intels Westmere[25] and later Xeon processors can use 1 GiB pages in long mode. IA-64 supports as many as eight different page sizes, from 4 KiB up to 256 MiB, and some other architectures have similar features.[specify]Larger pages, despite being available in the processors used in most contemporary personal computers, are not in common use except in large-scale applications, the applications typically found in large servers and in computational clusters, and in the operating system itself. Commonly, their use requires elevated privileges, cooperation from the application making the large allocation (usually setting a flag to ask the operating system for huge pages), or manual administrator configuration; operating systems commonly, sometimes by design, cannot page them out to disk.However, SGI IRIX has general-purpose support for multiple page sizes. Each individual process can provide hints and the operating system will automatically use the largest page size possible for a given region of address space.[26]Linux has supported huge pages on several architectures since the 2.6 series via the hugetlbfs filesystem[27] and without hugetlbfs since 2.6.38.[28] Windows Server 2003 (SP1 and newer), Windows Vista and Windows Server 2008 support huge pages under the name of large pages. Windows 2000 and Windows XP support large pages internally,[29] but do not expose them to applications. Solaris beginning with version 9 supports large pages on SPARC and x86.[30][31] FreeBSD 7.2-RELEASE features superpages.[32] Note that until recently in Linux, applications needed to be modified in order to use huge pages. The 2.6.38 kernel introduced support for transparent use of huge pages.[28] On Linux kernels supporting transparent huge pages, as well as FreeBSD and Solaris, applications take advantage of huge pages automatically, without the need for modification</string>
+    <!--Display Document Page-->
+    <string name="displayDocTitle">Documents Review</string>
+    <!--About Page-->
+
+
+</resources>

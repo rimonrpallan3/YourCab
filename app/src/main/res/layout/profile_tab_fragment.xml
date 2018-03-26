@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.voyager.sayaradriver.costom.CircleImageView
+                    android:id="@+id/profileDriverImg"
+                    android:layout_width="@dimen/_80"
+                    android:layout_height="@dimen/_80"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_04"
+                    android:src="@drawable/dummy_profile"
+                    android:transitionName="profile"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/profileDriverName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_04"
+                    android:text="User Name" />
+
+                <TextView
+                    android:id="@+id/editDriverImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_04"
+                    android:layout_marginTop="@dimen/_04"
+                    android:text="EDIT "
+                    android:visibility="gone"
+                    android:textColor="@color/highLightText" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.voyager.sayaradriver.costom.CircleImageView
+                    android:id="@+id/profileDriverCarImg"
+                    android:layout_width="@dimen/_80"
+                    android:layout_height="@dimen/_80"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_04"
+                    android:src="@drawable/car"
+                    android:transitionName="profile"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="1dp" />
+
+                <TextView
+                    android:id="@+id/profileDriverCarName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_04"
+                    android:text="Select a Vehicle" />
+
+                <TextView
+                    android:id="@+id/editDriverCarImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_04"
+                    android:layout_marginTop="@dimen/_04"
+                    android:text="CHANGE "
+                    android:textColor="@color/highLightText"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="70"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/_20"
+                android:layout_marginRight="@dimen/_20"
+                android:layout_weight="90"
+                android:orientation="vertical"
+                android:weightSum="60">
+
+
+                <TextView
+                    android:id="@+id/driverProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:elevation="@dimen/_04"
+                    android:background="@drawable/rectangle_grey_button"
+                    android:drawableLeft="@drawable/avatar"
+                    android:drawableRight="@drawable/ic_navigate_next"
+                    android:gravity="center|left"
+                    android:hint="@string/driver_profile_txt"
+                    android:paddingLeft="@dimen/_20"
+                    android:paddingRight="@dimen/_20" />
+
+                <TextView
+                    android:id="@+id/driverDoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10"
+                    android:layout_weight="10"
+                    android:elevation="@dimen/_04"
+                    android:background="@drawable/rectangle_grey_button"
+                    android:drawableLeft="@drawable/document"
+                    android:drawableRight="@drawable/ic_navigate_next"
+                    android:gravity="center|left"
+                    android:hint="@string/document_profile_txt"
+                    android:paddingLeft="@dimen/_20"
+                    android:paddingRight="@dimen/_20" />
+
+                <TextView
+                    android:id="@+id/profileHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10"
+                    android:layout_weight="10"
+                    android:elevation="@dimen/_04"
+                    android:background="@drawable/rectangle_grey_button"
+                    android:drawableLeft="@drawable/help"
+                    android:drawableRight="@drawable/ic_navigate_next"
+                    android:gravity="center|left"
+                    android:hint="@string/help_profile_txt"
+                    android:paddingLeft="@dimen/_20"
+                    android:paddingRight="@dimen/_20" />
+
+
+
+                <TextView
+                    android:id="@+id/driverAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/_10"
+                    android:layout_weight="10"
+                    android:background="@drawable/rectangle_grey_button"
+                    android:drawableLeft="@drawable/about"
+                    android:drawableRight="@drawable/ic_navigate_next"
+                    android:gravity="center|left"
+                    android:hint="@string/about_profile_txt"
+                    android:elevation="@dimen/_04"
+                    android:paddingLeft="@dimen/_20"
+                    android:paddingRight="@dimen/_20" />
+
+
+                <Button
+                    android:id="@+id/btnSignOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_20"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:layout_marginRight="@dimen/_20"
+                    android:layout_marginTop="@dimen/_20"
+                    android:layout_weight="10"
+                    android:background="@drawable/rectangle_button"
+                    android:text="@string/sign_out"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

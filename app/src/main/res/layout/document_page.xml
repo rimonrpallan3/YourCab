@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/_20"
+    android:layout_weight="100"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_20"
+        android:layout_weight="6"
+        android:text="@string/drivers_license"
+        android:textSize="@dimen/_18"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/driverLicenseFront"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_marginTop="@dimen/_20"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:textAlignment="gravity"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/driver_front"
+        android:onClick="driverLicenseFront"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/driverLicenseBack"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/driver_back"
+        android:onClick="driverLicenseBack"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/certificateRegister"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9.5"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/certificate_Register"
+        android:onClick="certificateRegister"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/vehicleRegister"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/vehicle_Register"
+        android:onClick="vehicleRegister"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/vehiclePermit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/vehicle_Permit"
+        android:onClick="vehiclePermit"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/commercialInsurance"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/commercial_Insurance"
+        android:onClick="commercialInsurance"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20"/>
+
+    <TextView
+        android:id="@+id/taxReceipt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/tax_Receipt"
+        android:onClick="taxReceipt"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/contractCarriagePermit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/contract_Carriage_Permit"
+        android:onClick="contractCarriagePermit"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+    <TextView
+        android:id="@+id/insuranceCertification"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_20"
+        android:layout_weight="9"
+        android:gravity="center|left"
+        android:background="@drawable/rectangle_grey_button"
+        android:hint="@string/insurance_Certification"
+        android:onClick="insuranceCertification"
+        android:drawableRight="@drawable/ic_navigate_next"
+        android:paddingRight="@dimen/_10"
+        android:paddingLeft="@dimen/_20" />
+
+
+
+    <Button
+        android:id="@+id/contSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:layout_gravity="center"
+        android:background="@drawable/rectangle_button"
+        android:onClick="contSubmit"
+        android:text="@string/cont"
+        android:textColor="@color/black"
+        android:textAllCaps="false" />
+
+</LinearLayout>

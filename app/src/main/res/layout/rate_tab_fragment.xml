@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_20">
+
+                <com.voyager.sayaradriver.costom.CircleImageView
+                    android:id="@+id/profileDriverImg"
+                    android:layout_width="@dimen/_80"
+                    android:layout_height="@dimen/_80"
+                    android:src="@drawable/dummy_profile"
+                    android:transitionName="profile"
+                    app:civ_border="true"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/profileDriverName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Robin"
+                android:textColor="@color/black"
+                android:layout_marginRight="@dimen/_80"
+                android:layout_marginLeft="@dimen/_20"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/driverProfileRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20"
+            android:text="4.0"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_30"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_20"
+            android:text="@string/star_rate_text"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_20"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/starImg1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/starImg2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/starImg3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/starImg4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/starImg5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
