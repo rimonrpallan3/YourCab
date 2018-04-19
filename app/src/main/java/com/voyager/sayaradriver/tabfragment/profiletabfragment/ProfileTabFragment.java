@@ -188,70 +188,75 @@ public class ProfileTabFragment  extends Fragment implements View.OnClickListene
 
     @Override
     public void loadData(final List<ProfileModel> profileModel) {
-        this.profileModels =profileModel.get(0);
-        documentsList = profileModels.getDocuments();
-        Picasso.with(getContext())
-                .load(profileModels.getDriverPhoto())
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .resize(0, 200)
-                .into(profileDriverImg, new Callback() {
-                    @Override
-                    public void onSuccess() {
+        if(profileModel!=null) {
+            this.profileModels = profileModel.get(0);
+            documentsList = profileModels.getDocuments();
+            Picasso.with(getContext())
+                    .load(profileModels.getDriverPhoto())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .resize(0, 200)
+                    .into(profileDriverImg, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError() {
-                        //Try again online if cache failed
-                        Picasso.with(getActivity())
-                                .load(profileModels.getDriverPhoto())
-                                .error(R.drawable.profile)
-                                .resize(0, 200)
-                                .into(profileDriverImg, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
+                        @Override
+                        public void onError() {
+                            //Try again online if cache failed
+                            Picasso.with(getActivity())
+                                    .load(profileModels.getDriverPhoto())
+                                    .error(R.drawable.profile)
+                                    .resize(0, 200)
+                                    .into(profileDriverImg, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onError() {
-                                        Log.v("Picasso","Could not fetch image");
-                                    }
-                                });
-                    }
-                });
-        Picasso.with(getContext())
-                .load(profileModels.getCarPhoto())
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .resize(0, 200)
-                .into(profileDriverCarImg, new Callback() {
-                    @Override
-                    public void onSuccess() {
+                                        @Override
+                                        public void onError() {
+                                            Log.v("Picasso", "Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
+            Picasso.with(getContext())
+                    .load(profileModels.getCarPhoto())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .resize(0, 200)
+                    .into(profileDriverCarImg, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError() {
-                        //Try again online if cache failed
-                        Picasso.with(getActivity())
-                                .load(profileModels.getCarPhoto())
-                                .error(R.drawable.profile)
-                                .resize(0, 200)
-                                .into(profileDriverCarImg, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
+                        @Override
+                        public void onError() {
+                            //Try again online if cache failed
+                            Picasso.with(getActivity())
+                                    .load(profileModels.getCarPhoto())
+                                    .error(R.drawable.profile)
+                                    .resize(0, 200)
+                                    .into(profileDriverCarImg, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onError() {
-                                        Log.v("Picasso","Could not fetch image");
-                                    }
-                                });
-                    }
-                });
-        profileDriverName.setText(profileModels.getDriverName());
-        profileDriverCarName.setText(profileModels.getCarName());
+                                        @Override
+                                        public void onError() {
+                                            Log.v("Picasso", "Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
+            profileDriverName.setText(profileModels.getDriverName());
+            profileDriverCarName.setText(profileModels.getCarName());
+        }else {
+            profileDriverName.setText(driverUserModel.getFName());
+            profileDriverCarName.setText("nill");
+        }
     }
 
     @Override

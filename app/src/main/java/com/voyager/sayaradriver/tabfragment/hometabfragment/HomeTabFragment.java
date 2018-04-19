@@ -143,9 +143,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             try {
                 fcmDetials = bundle.getParcelable("FCMDetials");
                 fcmPush = bundle.getString("fcmPush");
-                System.out.println("-----------HomeTabFragment fcmPush" + fcmPush);
-
-                if(fcmPush!=null&& fcmPush.length()>1) {
+                System.out.println(" ----------- HomeTabFragment fcmPush" + fcmPush);
+                if(fcmPush!=null && fcmPush.length()>1 && fcmDetials.getUserName().length()>0) {
                     tripUser.setText(fcmDetials.getUserName());
                     tripStartOrgin.setText(fcmDetials.getPickupAddress());
                     tripEndDestin.setText(fcmDetials.getDropAddress());
@@ -153,7 +152,10 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                     tripCostFair.setText(fcmDetials.getFare());
                     tripPaymentMethod.setText(fcmDetials.getPayType());
                     suddenTrip.setVisibility(View.VISIBLE);
-
+                }else if(fcmPush!=null && fcmPush.length()>0&& fcmDetials.getTripStatus().equals("gone")){
+                    if(suddenTrip.getVisibility() == View.VISIBLE){
+                        suddenTrip.setVisibility(View.GONE);
+                    }
                 }
             }catch (Exception e){
                 e.printStackTrace();

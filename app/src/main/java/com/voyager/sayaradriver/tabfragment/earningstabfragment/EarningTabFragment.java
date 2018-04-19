@@ -119,8 +119,20 @@ public class EarningTabFragment extends Fragment implements IEarningView{
 
     @Override
     public void loadData(String trip, String totalEarn, String balanceEarn) {
-        trips.setText(trip);
-        totalEarning.setText(totalEarn);
-        balanceEarning.setText(balanceEarn);
+        if(trip.length()>0) {
+            trips.setText(trip);
+        }else {
+            trips.setText("nill");
+        }
+        if(totalEarn.length()>0){
+            totalEarning.setText(totalEarn);
+        } else {
+            totalEarning.setText("nill");
+        }
+        if(balanceEarn.length()>0){
+            balanceEarning.setText(totalEarn);
+        } else {
+            balanceEarning.setText("nill");
+        }
     }
 }

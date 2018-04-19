@@ -46,9 +46,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String FaithApp_PREFERENCES = "FaithApp_Prefs";
 
-
-
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i("PVL", "MESSAGE RECEIVED!!");
@@ -56,7 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             System.out.println("RemoteMessage -- M"+remoteMessage.getData().get("message"));
             Gson gson = new Gson();
             String json = remoteMessage.getData().get("message");
-            if(json!=null){
+            if(json!= null){
                 System.out.println("----------- MyFirebaseMessagingService onMessageReceived fcmDetials" + json);
                 fcmPush = "fcm";
                 fcmDetials = gson.fromJson(json, FCMDetials.class);

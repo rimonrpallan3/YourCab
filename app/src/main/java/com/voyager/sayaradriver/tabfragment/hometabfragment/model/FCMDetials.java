@@ -15,6 +15,7 @@ public class FCMDetials implements Parcelable {
     String tripId;
     String userName;
     String dropAddress;
+    String tripStatus;
 
     protected FCMDetials(Parcel in) {
         fare = in.readString();
@@ -24,6 +25,7 @@ public class FCMDetials implements Parcelable {
         tripId = in.readString();
         userName = in.readString();
         dropAddress = in.readString();
+        tripStatus = in.readString();
     }
 
     public static final Creator<FCMDetials> CREATOR = new Creator<FCMDetials>() {
@@ -54,10 +56,19 @@ public class FCMDetials implements Parcelable {
         dest.writeString(tripId);
         dest.writeString(userName);
         dest.writeString(dropAddress);
+        dest.writeString(tripStatus);
     }
 
     public static Creator<FCMDetials> getCREATOR() {
         return CREATOR;
+    }
+
+    public String getTripStatus() {
+        return tripStatus;
+    }
+
+    public void setTripStatus(String tripStatus) {
+        this.tripStatus = tripStatus;
     }
 
     public String getFare() {

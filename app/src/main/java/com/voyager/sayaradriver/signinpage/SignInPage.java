@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -20,6 +21,9 @@ import com.voyager.sayaradriver.registerpage.RegisterPage;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.signinpage.presenter.SignInPresenter;
 import com.voyager.sayaradriver.signinpage.view.ISignInView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by User on 8/23/2017.
@@ -38,11 +42,16 @@ public class SignInPage extends AppCompatActivity implements ISignInView{
     SignInPresenter signInPresenter;
     String fireBaseToken="";
 
+    @BindView(R.id.mainLayout)
+    FrameLayout mainLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_page);
+        ButterKnife.bind(this);
 
         fireBaseToken = FirebaseInstanceId.getInstance().getToken();
         System.out.println("----------- onCreate ----------fireBaseToken: "+fireBaseToken);

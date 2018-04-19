@@ -219,43 +219,51 @@ public class RatingTabFragment  extends Fragment implements View.OnClickListener
 
     @Override
     public void loadData(String driverName, String driverCity, String driverRating, final String driverPhoto, boolean error) {
-        Picasso.with(getContext())
-                .load(driverPhoto)
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .resize(0, 200)
-                .into(profileDriverImg, new Callback() {
-                    @Override
-                    public void onSuccess() {
+            Picasso.with(getContext())
+                    .load(driverPhoto)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .resize(0, 200)
+                    .into(profileDriverImg, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError() {
-                        //Try again online if cache failed
-                        Picasso.with(getActivity())
-                                .load(driverPhoto)
-                                .error(R.drawable.profile)
-                                .resize(0, 200)
-                                .into(profileDriverImg, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
+                        @Override
+                        public void onError() {
+                            //Try again online if cache failed
+                            Picasso.with(getActivity())
+                                    .load(driverPhoto)
+                                    .error(R.drawable.profile)
+                                    .resize(0, 200)
+                                    .into(profileDriverImg, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
 
-                                    }
+                                        }
 
-                                    @Override
-                                    public void onError() {
-                                        Log.v("Picasso","Could not fetch image");
-                                    }
-                                });
-                    }
-                });
-        profileDriverName.setText(driverName);
-        rating =(driverRating);
-        ratingArray =rating.split("(?<=\\.\\d{1})");
-        for (int i=0; i<(ratingArray.length); i++ ) {
-            System.out.println("getCommentListAndDetails values :"+ ratingArray[i]);
+                                        @Override
+                                        public void onError() {
+                                            Log.v("Picasso", "Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
+        if(driverName!=null && driverName.length()>0) {
+            profileDriverName.setText(driverName);
+        }else {
+            profileDriverName.setText(driverUserModel.getFName());
         }
-        driverProfileRating.setText(ratingArray[0]);
+        if(driverRating!=null && driverRating.length()>0) {
+            rating =(driverRating);
+            ratingArray =rating.split("(?<=\\.\\d{1})");
+            for (int i=0; i<(ratingArray.length); i++ ) {
+                System.out.println("getCommentListAndDetails values :"+ ratingArray[i]);
+            }
+            driverProfileRating.setText(ratingArray[0]);
+        }else {
+            driverProfileRating.setText("nill");
+        }
 
     }
 }
