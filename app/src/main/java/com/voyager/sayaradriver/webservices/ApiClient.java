@@ -33,6 +33,7 @@ public class ApiClient {
     public static Retrofit getRetrofitClient() {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+
             if(BuildConfig.DEBUG){
                 logging.setLevel(HttpLoggingInterceptor.Level.BODY);
                 logging.getLevel().toString();
