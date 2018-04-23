@@ -14,4 +14,5 @@ public interface IHometabView {
     void rejectTrip();
     void hideViewsOnTrip(int visibility);
     void setRoutesToCustomer(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);
+    void setRoutesToDestination(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);
 }

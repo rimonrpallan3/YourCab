@@ -144,6 +144,10 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     FrameLayout onTripStartUpLayout;
     @BindView(R.id.startTrip)
     Button startTrip;
+    @BindView(R.id.stopTrip)
+    Button stopTrip;
+    @BindView(R.id.onGoingTripLayout)
+    FrameLayout onGoingTripLayout;
     String pickLat ="";
     String picklng ="";
 
@@ -186,6 +190,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         tripCostFair = (TextView) rootView.findViewById(R.id.tripCostFair);
         tripPaymentMethod = (TextView) rootView.findViewById(R.id.tripPaymentMethod);
         onTripStartUpLayout = (FrameLayout) rootView.findViewById(R.id.onTripStartUpLayout);
+        onGoingTripLayout = (FrameLayout) rootView.findViewById(R.id.onGoingTripLayout);
         driverHeaderLayout = (LinearLayout) rootView.findViewById(R.id.driverHeaderLayout);
         driverBodyLayout = (LinearLayout) rootView.findViewById(R.id.driverBodyLayout);
         tripSupportCall = (LinearLayout) rootView.findViewById(R.id.tripSupportCall);
@@ -387,7 +392,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         try {
             iLandingView = (ILandingView) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
+            throw new ClassCastException(context.toString() + " must implement ILandingView");
         }
     }
 
@@ -515,12 +520,81 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
 
     @OnClick(R.id.startTrip)
     public void startTripBtnClick(){
-        //startTrip.
+        onTripStartUpLayout.setVisibility(View.GONE);
+        String currentLat = String.valueOf(lat);
+        String currentLng = String.valueOf(log);
+        iHomeTabPresenter.startOnGoingTrip(currentLat,currentLng,pickLat,picklng,false,ApiKey);
+        onGoingTripLayout.setVisibility(View.VISIBLE);
+
+    }
+    @OnClick(R.id.stopTrip)
+    public void stopOnGoingTripBtnClick(){
+        onGoingTripLayout.setVisibility(View.GONE);
 
     }
 
     @Override
     public void setRoutesToCustomer(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist) {
+        double pickUpLatD = Double.parseDouble(pickLat);
+        double pickUpLngD = Double.parseDouble(picklng);
+
+        if (lat > 0.0 && log > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
+            System.out.println("MapFragmentView---IF");
+            if (mMapView != null) {
+                googleMap.clear();
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat, log))
+                        .title("From"))
+                        .setIcon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView("Current Location")));
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(pickUpLatD, pickUpLngD))
+                        .title("To"))
+                        .setIcon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(fcmDetials.getPickupAddress())));
+                ArrayList<LatLng> points = null;
+                PolylineOptions polyLineOptions = null;
+                // traversing through routes
+                double dist = 0;
+                Location srcLoc = new Location("");
+                Location destLoc = new Location("");
+                for (int i = 0; i < routes.size(); i++) {
+                    points = new ArrayList<LatLng>();
+                    polyLineOptions = new PolylineOptions();
+                    List<HashMap<String, String>> path = route.get(i);
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap<String, String> point = path.get(j);
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        if (destLoc.getLatitude() > 0) {
+                            destLoc.setLatitude(srcLoc.getLatitude());
+                            destLoc.setLongitude(srcLoc.getLongitude());
+                        } else {
+                            destLoc.setLatitude(lat);
+                            destLoc.setLongitude(lng);
+                        }
+                        srcLoc.setLatitude(lat);
+                        srcLoc.setLongitude(lng);
+                        dist = dist + destLoc.distanceTo(srcLoc);
+                        LatLng position = new LatLng(lat, lng);
+                        points.add(position);
+                    }
+                    zoomRoute(googleMap,points);
+                    polyLineOptions.addAll(points);
+                    polyLineOptions.width(10);
+                    polyLineOptions.color(Color.DKGRAY);
+                }
+                onTripStartUpLayout.setVisibility(View.VISIBLE);
+                if (polyLineOptions != null) {
+                    System.out.println("MapFragmentView---polyLineOptions --IF");
+                    googleMap.addPolyline(polyLineOptions);
+                } else {
+                    Toast.makeText(getActivity(), "Could not find path", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setRoutesToDestination(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist) {
         double pickUpLatD = Double.parseDouble(pickLat);
         double pickUpLngD = Double.parseDouble(picklng);
 

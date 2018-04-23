@@ -16,5 +16,8 @@
     <include
         layout="@layout/trip_start_on_going_pickup" />
 
+    <include
+        layout="@layout/trip_start_on_going_drop" />
+
 
 </FrameLayout>

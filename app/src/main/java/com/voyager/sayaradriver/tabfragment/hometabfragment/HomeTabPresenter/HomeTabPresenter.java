@@ -151,6 +151,51 @@ public class HomeTabPresenter implements IHomeTabPresenter{
 
     }
 
+    @Override
+    public void startOnGoingTrip(String originLat, String originLng, String destinationLat, String destinationLng, Boolean sensor, String ApiKey) {
+        Retrofit retrofit = new ApiClient().getRetrofitClientPath();
+        WebServices webServices = retrofit.create(WebServices.class);
+        Call<GetPaths> call = webServices.getPaths(originLat + "," + originLng, destinationLat + "," + destinationLng, sensor,ApiKey);
+        call.enqueue(new Callback<GetPaths>() {
+            @Override
+            public void onResponse(Call<GetPaths> call, Response<GetPaths> response) {
+                GetPaths getPaths = response.body();
+                List<List<HashMap<String, String>>> route = new ArrayList<List<HashMap<String, String>>>();
+                List<Route> routes = getPaths.getRoutes();
+                for (int i = 0; i < routes.size(); i++) {
+                    List<HashMap<String, String>> path = new ArrayList<HashMap<String, String>>();
+                    List<Leg> legs = routes.get(i).getLegs();
+                    Distance distance = legs.get(0).getDistance();
+                    tripDist = distance.getText();
+                    for (int j = 0; j < legs.size(); j++) {
+                        List<Step> steps = legs.get(j).getSteps();
+                        for (int k = 0; k < steps.size(); k++) {
+                            String polyline = steps.get(k).getPolyline().getPoints();
+                            List<LatLng> latLngs = decodePoly(polyline);
+                            for (int l = 0; l < latLngs.size(); l++) {
+                                HashMap<String, String> hm = new HashMap<String, String>();
+                                hm.put("lat",
+                                        Double.toString(((LatLng) latLngs.get(l)).latitude));
+                                hm.put("lng",
+                                        Double.toString(((LatLng) latLngs.get(l)).longitude));
+                                path.add(hm);
+                            }
+                        }
+                    }
+                    route.add(path);
+                }
+                iHometabView.setRoutesToDestination(route,routes,tripDist);
+            }
+
+            @Override
+            public void onFailure(Call<GetPaths> call, Throwable t) {
+
+                t.printStackTrace();
+                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private List<LatLng> decodePoly(String encoded) {
         List<LatLng> poly = new ArrayList<LatLng>();

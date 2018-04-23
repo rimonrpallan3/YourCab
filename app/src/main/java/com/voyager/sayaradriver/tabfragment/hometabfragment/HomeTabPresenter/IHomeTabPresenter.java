@@ -10,4 +10,5 @@ public interface IHomeTabPresenter {
     void suddenTripStart();
     void hideTripStartViews(int visibility);
     void getToCustomerDirection(final String originLat,final String originLng,  String destinationLat,String destinationLng, Boolean sensor, String ApiKey);
+    void startOnGoingTrip(final String originLat,final String originLng,  String destinationLat,String destinationLng, Boolean sensor, String ApiKey);
 }
