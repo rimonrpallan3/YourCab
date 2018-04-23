@@ -13,6 +13,8 @@
     <include
         layout="@layout/trip_dilog" />
 
+    <include
+        layout="@layout/trip_start_on_going_pickup" />
 
 
 </FrameLayout>

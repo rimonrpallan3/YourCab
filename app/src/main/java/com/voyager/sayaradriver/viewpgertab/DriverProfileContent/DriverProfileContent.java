@@ -43,7 +43,7 @@ public class DriverProfileContent  extends Fragment {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.driver_content, container, false);
         driverImg = (CircleImageView)  rootView.findViewById(R.id.driverImg);
-        driverName = (TextView)  rootView.findViewById(R.id.driverName);
+        driverName = (TextView)  rootView.findViewById(R.id.userName);
         mobNo = (TextView)  rootView.findViewById(R.id.mobNo);
         emailId = (TextView)  rootView.findViewById(R.id.emailId);
         bankAcc = (TextView)  rootView.findViewById(R.id.bankAcc);

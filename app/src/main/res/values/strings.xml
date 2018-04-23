@@ -103,6 +103,9 @@
     <string name="driver_online">Online</string>
     <string name="driver_offline">Offline</string>
 
+    <!-- Api Map Key-->
+    <string name="place_api_key">AIzaSyAzQTyTsWMbYUvMgD0lqb6NV2BYV6PZ9Vs</string>
+
     <string name="internal_storage">Internal storage</string>
     <!--Driver Detail Page -->
     <string name="driver_profile_title">Driver Profile</string>

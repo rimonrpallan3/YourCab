@@ -9,8 +9,13 @@
     <color name="transparentColor">#D8000000</color>
 
     <!--Ripple Button click-->
-
     <color name="rippleColor">#ffc964</color>
+
+    <!--Layout under Line Color-->
+    <color name="divider_dark_gray">#e4e1e1</color>
+
+    <!--Route Found Page -->
+    <color name="bag_marker_color">#faaf40</color>
 
     <!--Highlight Text Color-->
     <color name="highLightText">#ffa500</color>

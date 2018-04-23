@@ -18,7 +18,7 @@
             android:layout_height="@dimen/_100"
             android:src="@drawable/profile"/>
         <TextView
-            android:id="@+id/driverName"
+            android:id="@+id/userName"
             android:layout_marginTop="@dimen/_10"
             android:layout_marginBottom="@dimen/_20"
             android:layout_width="wrap_content"

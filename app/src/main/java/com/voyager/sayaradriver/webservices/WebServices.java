@@ -7,6 +7,7 @@ import com.voyager.sayaradriver.registerpage.model.DriverDetails;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.Model.EarningModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.TripDetails;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.geogetpath.GetPaths;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.LogOut;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.model.ProfileModel;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.model.RatingModel;
@@ -63,11 +64,11 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("driver/rejectTrip/")
     Call<TripDetails> driverRejectTrip (@Nullable @Field("driver_id") int driverID,
-                                        @Nullable @Field("trip_id") String status);
+                                        @Nullable @Field("trip_id") int status);
     @FormUrlEncoded
     @POST("driver/acceptTrip/")
     Call<TripDetails> driverAcceptTrip (@Nullable @Field("driver_id") int driverID,
-                                        @Nullable @Field("trip_id") String status);
+                                        @Nullable @Field("trip_id") int status);
 
     @FormUrlEncoded
     @POST("driver/updateLocation/")
@@ -93,6 +94,10 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("driver/logout/")
     Call<LogOut> logedOut(@Nullable @Field("driver_id") int driverID, @Nullable @Field("logout") int logout);
+
+    @GET("directions/json?")
+    public Call<GetPaths> getPaths(@Query("origin") String origin, @Query("destination") String dest, @Query("sensor") Boolean sensor, @Query("key") String key);
+
     //Call<LogOut> logedOut(@Body LogOut logout);
 
     /*http://10.1.1.18/sayara/driver/myAccount/

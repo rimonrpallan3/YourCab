@@ -12,6 +12,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,9 @@ import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabFragment;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 import com.voyager.sayaradriver.tabfragment.profiletabfragment.ProfileTabFragment;
 import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -50,6 +54,9 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     String fcmAvliable = "";
     String fcmPush = "";
     FCMDetials fcmDetials;
+    @BindView(R.id.tabItemsLayout)
+    LinearLayout tabItemsLayout;
+
 
 
     @Override
@@ -57,7 +64,7 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.landing_page);
         activity = this;
-
+        ButterKnife.bind(this);
         onlineOfflineTxt = (TextView) findViewById(R.id.onlineOfflineTxt);
         driverSwitch = (SwitchCompat) findViewById(R.id.driverSwitch);
         online = getString(R.string.driver_online);
@@ -78,7 +85,12 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
             getUserSDetails();
         }
         bundle.putParcelable("DriverUserModel", driverUserModel);
-        iLandingPresenter = new LandingPresenter(this,driverUserModel,online,offline);
+        if(driverUserModel!=null) {
+            iLandingPresenter = new LandingPresenter(this, driverUserModel, online, offline);
+        }else if(driverUserModel==null){
+            getUserSDetails();
+            iLandingPresenter = new LandingPresenter(this, driverUserModel, online, offline);
+        }
 
 
         if (savedInstanceState == null) {
@@ -215,7 +227,8 @@ import com.voyager.sayaradriver.tabfragment.ratingstabfragment.RatingTabFragment
     }
 
     @Override
-    public void mapDataPass() {
-
+    public void hideViewsOnTripStartUp(int visibility) {
+        tabItemsLayout.setVisibility(visibility);
     }
+
 }
