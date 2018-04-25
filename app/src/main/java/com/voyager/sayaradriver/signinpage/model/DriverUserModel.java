@@ -9,26 +9,27 @@ import com.google.gson.annotations.SerializedName;
  * Created by kaede on 2015/5/18.
  */
 public class DriverUserModel implements IUser,Parcelable {
+
 	@SerializedName("username")
-	public String userName;
+	public String userName="";
 	@SerializedName("password")
-	public String passwd;
+	public String passwd="";
 	@SerializedName("driver_id")
-	public int driverId;
+	public int driverId=0;
 	@SerializedName("driver_first_name")
-	public String FName;
+	public String FName="";
 	@SerializedName("driver_last_name")
-	public String LName;
+	public String LName="";
 	@SerializedName("driver_email")
-	public String email;
+	public String email="";
 	@SerializedName("driver_phone")
-	public String phno;
+	public String phno="";
 	@SerializedName("driver_city")
-	public String city;
+	public String city="";
 	@SerializedName("driver_cpr")
-	public String CPR;
+	public String CPR="";
 	@SerializedName("driver_country")
-	public String country;
+	public String country="";
 	@SerializedName("error")
 	public boolean isError   = Boolean.parseBoolean("");
 	@SerializedName("error_msg")
@@ -76,7 +77,7 @@ public class DriverUserModel implements IUser,Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		System.out.println("writeToParcel to DriverUserModel ");
+		System.out.println("writeToParcel to DriverUserModel");
 		dest.writeString(userName);
 		dest.writeString(FName);
 		dest.writeString(LName);

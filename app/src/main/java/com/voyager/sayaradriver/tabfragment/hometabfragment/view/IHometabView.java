@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface IHometabView {
     void acceptTrip();
+    void driverStartTrip();
     void rejectTrip();
     void hideViewsOnTrip(int visibility);
     void setRoutesToCustomer(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);

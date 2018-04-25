@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.voyager.sayaradriver.DocumentPage.model.DocModel;
 import com.voyager.sayaradriver.registerpage.model.DriverDetails;
+import com.voyager.sayaradriver.services.model.DriverLocDetails;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.earningstabfragment.Model.EarningModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.TripDetails;
@@ -72,9 +73,9 @@ public interface WebServices {
 
     @FormUrlEncoded
     @POST("driver/updateLocation/")
-    Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
-                                              @Nullable @Field("driver_latitude") double driverLatitude,
-                                              @Nullable @Field("driver_longitude") double driverLongitude);
+    Call<DriverLocDetails> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
+                                               @Nullable @Field("driver_latitude") double driverLatitude,
+                                               @Nullable @Field("driver_longitude") double driverLongitude);
 
     @POST("driver/updateLocation/")
     Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel driverUserModel);
@@ -94,6 +95,11 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("driver/logout/")
     Call<LogOut> logedOut(@Nullable @Field("driver_id") int driverID, @Nullable @Field("logout") int logout);
+
+    @FormUrlEncoded
+    @POST("driver/startTrip/")
+    Call<TripDetails> driverStartTrip (@Nullable @Field("driver_id") int driverID,
+                            @Nullable @Field("trip_id") int status);
 
     @GET("directions/json?")
     public Call<GetPaths> getPaths(@Query("origin") String origin, @Query("destination") String dest, @Query("sensor") Boolean sensor, @Query("key") String key);

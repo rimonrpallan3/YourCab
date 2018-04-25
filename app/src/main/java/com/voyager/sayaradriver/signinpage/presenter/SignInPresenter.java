@@ -112,7 +112,7 @@ public class SignInPresenter implements ILoginPresenter {
                 int code = -77;
                 iSignInView.onLoginResult(result, code);
                 t.printStackTrace();
-                //Toast.makeText((Context) iRegisterView, "ErrorMessage"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println("----- sendRegisteredDataAndValidateResponse onFailure : " + t.getMessage());
             }
         });
 
@@ -126,7 +126,7 @@ public class SignInPresenter implements ILoginPresenter {
         System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+jsonString);
         if(jsonString!=null) {
             System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+jsonString);
-            editor.putString(context.getResources().getString(R.string.myPreference), jsonString);
+            editor.putString("DriverUserModel", jsonString);
             editor.commit();
         }
 

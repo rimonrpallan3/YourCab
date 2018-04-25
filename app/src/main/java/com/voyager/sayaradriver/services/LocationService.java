@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 
+import com.voyager.sayaradriver.services.model.DriverLocDetails;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.webservices.ApiClient;
 import com.voyager.sayaradriver.webservices.WebServices;
@@ -69,22 +70,22 @@ public class LocationService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location){
         if (location != null) {
-            DriverUserModel driverUserModel = new DriverUserModel();
-            driverUserModel.setDriverId(driverId);
-            driverUserModel.setDriverLat(location.getLatitude());
-            driverUserModel.setDriverLog(location.getLongitude());
+            DriverLocDetails driverLocDetails = new DriverLocDetails();
+            driverLocDetails.setDriverId(driverId);
+            driverLocDetails.setDriverLat(location.getLatitude());
+            driverLocDetails.setDriverLog(location.getLongitude());
             Toast.makeText(getApplicationContext(), location.getLatitude() + ","  + location.getLongitude(), Toast.LENGTH_SHORT).show();
             Log.e("Driver long: ", location.getLongitude() + "");
             System.out.println("Driver long:"+location.getLongitude()+",lat : "+location.getLatitude());
-            Call<DriverUserModel> call = webServices.driverProfileStatus(driverUserModel.getDriverId(),driverUserModel.getDriverLat(),driverUserModel.getDriverLog());
-            call.enqueue(new Callback<DriverUserModel>() {
+            Call<DriverLocDetails> call = webServices.driverProfileStatus(driverLocDetails.getDriverId(),driverLocDetails.getDriverLat(),driverLocDetails.getDriverLog());
+            call.enqueue(new Callback<DriverLocDetails>() {
                 @Override
-                public void onResponse(Call<DriverUserModel> call, Response<DriverUserModel> response) {
-                    DriverUserModel model = response.body();
+                public void onResponse(Call<DriverLocDetails> call, Response<DriverLocDetails> response) {
+                    DriverLocDetails model = response.body();
                 }
 
                 @Override
-                public void onFailure(Call<DriverUserModel> call, Throwable t) {
+                public void onFailure(Call<DriverLocDetails> call, Throwable t) {
                     t.printStackTrace();
                 }
             });
@@ -105,7 +106,6 @@ public class LocationService extends Service implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
-
     @Override
     public void onDestroy() {
         locationManager.removeUpdates(LocationService.this);

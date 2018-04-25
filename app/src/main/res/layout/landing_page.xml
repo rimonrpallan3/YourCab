@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,11 +18,6 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,172 +55,170 @@
     </android.support.v7.widget.Toolbar>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="100">
-
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="?attr/actionBarSize"
+      android:orientation="vertical">
 
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="90">
-
-
-
-
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_60"
+        android:orientation="vertical">
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/tabItemsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@color/highLightText"
-        android:orientation="horizontal"
-        android:weightSum="80">
+          android:id="@+id/tabItemsLayout"
+          android:layout_width="match_parent"
+          android:gravity="bottom"
+          android:layout_gravity="bottom"
+          android:layout_height="@dimen/_60"
+          android:background="@color/highLightText"
+          android:orientation="horizontal"
+          android:weightSum="80">
 
 
-        <FrameLayout
-            android:id="@+id/homeTabFrame"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="?selectableItemBackground"
-            android:layout_weight="19"
-            android:onClick="homeTab">
+          <FrameLayout
+              android:id="@+id/homeTabFrame"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:background="?selectableItemBackground"
+              android:layout_weight="19"
+              android:onClick="homeTab">
 
-            <ImageButton
-                android:id="@+id/homeTabImg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/_10"
-                android:background="@null"
-                android:onClick="homeTab"
-                android:src="@drawable/home_new"/>
+              <ImageButton
+                  android:id="@+id/homeTabImg"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginBottom="@dimen/_10"
+                  android:background="@null"
+                  android:onClick="homeTab"
+                  android:src="@drawable/home_new"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:text="@string/home"
-                android:textColor="@color/black"
-                android:onClick="homeTab"
-                android:layout_marginBottom="@dimen/_04"
-                android:textSize="@dimen/_14"/>
-        </FrameLayout>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom|center"
+                  android:text="@string/home"
+                  android:textColor="@color/black"
+                  android:onClick="homeTab"
+                  android:layout_marginBottom="@dimen/_04"
+                  android:textSize="@dimen/_14"/>
+          </FrameLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:background="@color/transparentColor"
-            />
+          <View
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight=".5"
+              android:background="@color/transparentColor"
+              />
 
-        <FrameLayout
-            android:id="@+id/earnTabFrame"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="20"
-            android:background="?selectableItemBackground"
-            android:onClick="earnTab">
+          <FrameLayout
+              android:id="@+id/earnTabFrame"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="20"
+              android:background="?selectableItemBackground"
+              android:onClick="earnTab">
 
-            <ImageButton
-                android:id="@+id/earnTabImg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/_10"
-                android:background="@null"
-                android:onClick="earnTab"
-                android:src="@drawable/money_new"/>
+              <ImageButton
+                  android:id="@+id/earnTabImg"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginBottom="@dimen/_10"
+                  android:background="@null"
+                  android:onClick="earnTab"
+                  android:src="@drawable/money_new"/>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_marginBottom="@dimen/_04"
-                android:onClick="earnTab"
-                android:text="@string/earning"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14" />
-        </FrameLayout>
+              <TextView
+                  android:id="@+id/textView"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom|center"
+                  android:layout_marginBottom="@dimen/_04"
+                  android:onClick="earnTab"
+                  android:text="@string/earning"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/_14" />
+          </FrameLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:background="@color/transparentColor"
-            />
+          <View
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight=".5"
+              android:background="@color/transparentColor"
+              />
 
-        <FrameLayout
-            android:id="@+id/rateTabFrame"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="19"
-            android:onClick="rateTab">
+          <FrameLayout
+              android:id="@+id/rateTabFrame"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="19"
+              android:onClick="rateTab">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:text="@string/rating"
-                android:textColor="@color/black"
-                android:onClick="rateTab"
-                android:layout_marginBottom="@dimen/_04"
-                android:textSize="@dimen/_14"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom|center"
+                  android:text="@string/rating"
+                  android:textColor="@color/black"
+                  android:onClick="rateTab"
+                  android:layout_marginBottom="@dimen/_04"
+                  android:textSize="@dimen/_14"/>
 
-            <ImageButton
-                android:id="@+id/rateTabImg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/_10"
-                android:background="@null"
-                android:onClick="rateTab"
-                android:src="@drawable/star_new" />
-        </FrameLayout>
+              <ImageButton
+                  android:id="@+id/rateTabImg"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginBottom="@dimen/_10"
+                  android:background="@null"
+                  android:onClick="rateTab"
+                  android:src="@drawable/star_new" />
+          </FrameLayout>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:background="@color/transparentColor"
-            />
+          <View
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight=".5"
+              android:background="@color/transparentColor"
+              />
 
-        <FrameLayout
-            android:id="@+id/profileTabFrame"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="?selectableItemBackground"
-            android:layout_weight="20"
-            android:onClick="profileTab">
+          <FrameLayout
+              android:id="@+id/profileTabFrame"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:background="?selectableItemBackground"
+              android:layout_weight="20"
+              android:onClick="profileTab">
 
-            <ImageButton
-                android:id="@+id/profileTabImg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/_10"
-                android:background="@null"
-                android:onClick="profileTab"
-                android:src="@drawable/profile_avatar_new"/>
+              <ImageButton
+                  android:id="@+id/profileTabImg"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginBottom="@dimen/_10"
+                  android:background="@null"
+                  android:onClick="profileTab"
+                  android:src="@drawable/profile_avatar_new"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:text="@string/account"
-                android:onClick="profileTab"
-                android:layout_marginBottom="@dimen/_04"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14"/>
-        </FrameLayout>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom|center"
+                  android:text="@string/account"
+                  android:onClick="profileTab"
+                  android:layout_marginBottom="@dimen/_04"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/_14"/>
+          </FrameLayout>
 
-    </LinearLayout>
-
-    </LinearLayout>
+      </LinearLayout>
 
 
-</LinearLayout>
+
+  </FrameLayout>
+
+
+</FrameLayout>

@@ -58,7 +58,24 @@ public class ApiClient {
 
     public static Retrofit getRetrofitClientPath() {
         if (pathRetrofit == null) {
-            pathRetrofit = new Retrofit.Builder().baseUrl("https://maps.googleapis.com/maps/api/directions/").addConverterFactory(GsonConverterFactory.create()).build();
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+
+            if(BuildConfig.DEBUG){
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                logging.getLevel().toString();
+                System.out.println("logging : "+logging.getLevel().toString());
+            }
+            OkHttpClient client = new OkHttpClient.Builder().
+                    addInterceptor(logging).
+                    connectTimeout(300, TimeUnit.SECONDS).
+                    readTimeout(300, TimeUnit.SECONDS).
+                    build();
+
+            pathRetrofit = new Retrofit.Builder()
+                    .baseUrl("https://maps.googleapis.com/maps/api/")
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return pathRetrofit;
     }

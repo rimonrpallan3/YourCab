@@ -11,6 +11,7 @@ import com.voyager.sayaradriver.landingpage.LandingPage;
 import com.voyager.sayaradriver.loginsignuppage.LoginSignUpPage;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.common.Helper;
+import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.splashscreen.presenter.SplashPresenter;
 import com.voyager.sayaradriver.splashscreen.view.ISplashView;
 
@@ -45,8 +46,9 @@ public class SplashScreen extends AppCompatActivity implements ISplashView{
     }
 
     @Override
-    public void moveToLanding() {
+    public void moveToLanding(DriverUserModel driverUserModel) {
         Intent intent = new Intent(this, LandingPage.class);
+        intent.putExtra("DriverUserModel",driverUserModel);
         startActivity(intent);
         finish();
     }

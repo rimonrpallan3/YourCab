@@ -70,6 +70,33 @@ public class HomeTabPresenter implements IHomeTabPresenter{
     }
 
     @Override
+    public void startTrip(int driverId, Integer tripId) {
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        WebServices webServices = retrofit.create(WebServices.class);
+
+        Call<TripDetails> call = webServices.driverStartTrip(driverId, tripId);
+        call.enqueue(new Callback<TripDetails>() {
+            @Override
+            public void onResponse(Call<TripDetails> call,
+                                   Response<TripDetails> response) {
+
+                tripDetails =response.body();
+                iHometabView.driverStartTrip();
+                System.out.println("HomeTabPresenter----- rejectTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
+                        ", Error :"+tripDetails.getError());
+            }
+
+            @Override
+            public void onFailure(Call<TripDetails> call, Throwable t) {
+                //Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                System.out.println("HomeTabPresenter----- rejectTrip onFailure: "+t.getMessage());
+                Log.e("LandingPresenter uploadProfileName error:", t.getMessage());
+            }
+        });
+
+    }
+
+    @Override
     public void rejectTrip(int driverId,Integer tripId) {
         Retrofit retrofit = new ApiClient().getRetrofitClient();
         WebServices webServices = retrofit.create(WebServices.class);
@@ -107,6 +134,8 @@ public class HomeTabPresenter implements IHomeTabPresenter{
 
     @Override
     public void getToCustomerDirection(String originLat, String originLng, String destinationLat, String destinationLng, Boolean sensor, String ApiKey) {
+        System.out.println("HomeTabFragment acceptTrip currentLat: "+ originLat +
+                ",currentLng : "+ originLng +",pickLat :"+destinationLat+",picklng: "+destinationLng);
         Retrofit retrofit = new ApiClient().getRetrofitClientPath();
         WebServices webServices = retrofit.create(WebServices.class);
         Call<GetPaths> call = webServices.getPaths(originLat + "," + originLng, destinationLat + "," + destinationLng, sensor,ApiKey);

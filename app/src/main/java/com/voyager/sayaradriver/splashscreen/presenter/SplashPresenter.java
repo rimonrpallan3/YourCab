@@ -27,8 +27,9 @@ public class SplashPresenter implements IConnectionStatus{
     SharedPreferences sharedPrefs;
     SharedPreferences.Editor editor;
 
-    String userName;
+    String userName="";
     String myPreference = "";
+    DriverUserModel driverUserModel;
 
 
     private int SPLASH_DISPLAY_LENGTH = 1000;
@@ -47,11 +48,11 @@ public class SplashPresenter implements IConnectionStatus{
         Gson gson = new Gson();
         myPreference = activity.getResources().getString(R.string.myPreference);
         System.out.println("-----------SplashPresenter addUserGsonInSharedPrefrences myPreference: "+ myPreference);
-        String json = sharedPrefs.getString(myPreference, null);
+        String json = sharedPrefs.getString("DriverUserModel", null);
         System.out.println("-----------SplashPresenter addUserGsonInSharedPrefrences DriverUserModel"+json);
         if(json!=null){
             System.out.println("-----------addUserGsonInSharedPrefrences DriverUserModel"+json);
-            DriverUserModel driverUserModel = gson.fromJson(json, DriverUserModel.class);
+            driverUserModel = gson.fromJson(json, DriverUserModel.class);
             username = driverUserModel.getUserName();
         }
         return username;
@@ -65,7 +66,7 @@ public class SplashPresenter implements IConnectionStatus{
             public void run() {
                 if(Helper.isLocationEnabled(context)) {
                     if(userName!=null && userName.length()>0){
-                        splashView.moveToLanding();
+                        splashView.moveToLanding(driverUserModel);
                     }else{
                         splashView.moveToSignUpLogin();
                     }

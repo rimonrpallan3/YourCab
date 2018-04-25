@@ -6,6 +6,7 @@ package com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter;
 
 public interface IHomeTabPresenter {
     void acceptTrip(int driverId,Integer tripId);
+    void startTrip(int driverId,Integer tripId);
     void rejectTrip(int driverId,Integer tripId);
     void suddenTripStart();
     void hideTripStartViews(int visibility);

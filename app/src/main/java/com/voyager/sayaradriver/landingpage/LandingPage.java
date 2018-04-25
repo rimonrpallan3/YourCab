@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -56,6 +57,8 @@ import butterknife.ButterKnife;
     FCMDetials fcmDetials;
     @BindView(R.id.tabItemsLayout)
     LinearLayout tabItemsLayout;
+    @BindView(R.id.container)
+    FrameLayout container;
 
 
 
@@ -229,6 +232,12 @@ import butterknife.ButterKnife;
     @Override
     public void hideViewsOnTripStartUp(int visibility) {
         tabItemsLayout.setVisibility(visibility);
+        ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) container.getLayoutParams();
+        if (tabItemsLayout.getVisibility()==View.VISIBLE) {
+            mlp.setMargins(0, 0, 0, (int) getResources().getDimension(R.dimen._60));
+        } else {
+            mlp.setMargins(0, 0, 0, 0);
+        }
     }
 
 }

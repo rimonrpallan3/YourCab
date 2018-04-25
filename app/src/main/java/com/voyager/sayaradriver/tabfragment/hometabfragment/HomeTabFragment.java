@@ -14,9 +14,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +34,9 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,11 +50,25 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.costom.CircleImageView;
 import com.voyager.sayaradriver.landingpage.view.ILandingView;
+import com.voyager.sayaradriver.services.LocationService;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter.HomeTabPresenter;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter.IHomeTabPresenter;
@@ -81,9 +101,11 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
      * Provides access to the Fused Location Provider API.
      */
     private FusedLocationProviderClient mFusedLocationClient;
-    protected Location mLastKnownLocation;
     private Marker mCLocation;
     LocationRequest mLocationRequest;
+
+    private static final int DEFAULT_ZOOM = 15;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     private static final String TAG = HomeTabFragment.class.getSimpleName();
 
@@ -113,6 +135,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     Bundle bundle;
 
     ILandingView iLandingView;
+    String currentLng = "";
+    String currentLat = "";
 
     @BindView(R.id.driverHeaderLayout)
     LinearLayout driverHeaderLayout;
@@ -154,6 +178,15 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     Boolean isClicked = true;
 
     String ApiKey = "";
+    private final LatLng mDefaultLocation = new LatLng(lat, log);
+    private Location mLastKnownLocation;
+    // The entry points to the Places API.
+    private GeoDataClient mGeoDataClient;
+    private PlaceDetectionClient mPlaceDetectionClient;
+    private boolean mLocationPermissionGranted;
+
+    // The entry point to the Fused Location Provider.
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
     public HomeTabFragment(Activity activity) {
         this.activity = activity;
@@ -205,6 +238,16 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         tripAccept.setOnClickListener(this);
         tripReject.setOnClickListener(this);
         iHomeTabPresenter = new HomeTabPresenter(this);
+
+
+        // Construct a GeoDataClient.
+        mGeoDataClient = Places.getGeoDataClient(getActivity(), null);
+
+        // Construct a PlaceDetectionClient.
+        mPlaceDetectionClient = Places.getPlaceDetectionClient(getActivity(), null);
+
+        // Construct a FusedLocationProviderClient.
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         if (bundle != null) {
             try {
@@ -272,10 +315,73 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         return mapDetailsList;
     }
 
+    /**
+     * Prompts the user for permission to use the device location.
+     */
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    /**
+     * Handles the result of the request for location permissions.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+        updateLocationUI();
+    }
+
+    /**
+     * Updates the map's UI settings based on whether the user has granted location permission.
+     */
+    private void updateLocationUI() {
+        if (googleMap == null) {
+            return;
+        }
+        try {
+            if (mLocationPermissionGranted) {
+                googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+            } else {
+                googleMap.setMyLocationEnabled(false);
+                googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+                mLastKnownLocation = null;
+                getLocationPermission();
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap map) {
         System.out.println("GoogleMap_CTL_lat-------" + lat + ",  CTL_log--------" + log);
         googleMap = map;
+        getLocationPermission();
         googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
                         getActivity(), R.raw.map_style));
@@ -291,34 +397,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         if (fcmAvliable != null) {
             // suddenTrip.setVisibility(View.VISIBLE);
         }
-        if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            return;
-        }
 
-           locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 5000, 0,
-                new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        lat=location.getLatitude();
-                        log=location.getLongitude();
-                        System.out.println("NETWORK_PROVIDER_CTL_lat-------" + lat + ",  CTL_log--------" + log);
-                        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
-                        CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-                        googleMap.moveCamera(center);
-                        googleMap.animateCamera(zoom);
-                    }
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                    }
-                    @Override
-                    public void onProviderEnabled(String provider) {
-                    }
-                    @Override
-                    public void onProviderDisabled(String provider) {
-                    }
-                });
 
         //mMapView.getMapAsync(this);
     }
@@ -501,9 +580,32 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         bundle.putString("fcmPush", null);
         iHomeTabPresenter.suddenTripStart();
         onTripStartUpLayout.setVisibility(View.VISIBLE);
-        String currentLat = String.valueOf(lat);
-        String currentLng = String.valueOf(log);
-        iHomeTabPresenter.getToCustomerDirection(currentLat,currentLng,pickLat,picklng,false,ApiKey);
+
+        if (ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return;
+        }
+        try {
+            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            // get the last know location from your location manager.
+            Location location= locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            // now get the lat/lon from the location and do something with it.
+            currentLat = String.valueOf(location.getLatitude());
+            currentLng = String.valueOf(location.getLongitude());
+            iHomeTabPresenter.getToCustomerDirection(currentLat,currentLng,pickLat,picklng,false,ApiKey);
+            System.out.println("currentLat: "+currentLat+", currentLng: "+currentLng);
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+
+
+
+    }
+
+    @Override
+    public void driverStartTrip() {
+        iHomeTabPresenter.startOnGoingTrip(currentLat,currentLng,pickLat,picklng,false,ApiKey);
+        onGoingTripLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -521,10 +623,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @OnClick(R.id.startTrip)
     public void startTripBtnClick(){
         onTripStartUpLayout.setVisibility(View.GONE);
-        String currentLat = String.valueOf(lat);
-        String currentLng = String.valueOf(log);
-        iHomeTabPresenter.startOnGoingTrip(currentLat,currentLng,pickLat,picklng,false,ApiKey);
-        onGoingTripLayout.setVisibility(View.VISIBLE);
+        iHomeTabPresenter.startTrip(driverUserModel.driverId, fcmDetials.getTripId());
+
 
     }
     @OnClick(R.id.stopTrip)
@@ -537,13 +637,18 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     public void setRoutesToCustomer(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist) {
         double pickUpLatD = Double.parseDouble(pickLat);
         double pickUpLngD = Double.parseDouble(picklng);
+        double currentLatD = Double.parseDouble(currentLat);
+        double currentLngD = Double.parseDouble(currentLng);
 
-        if (lat > 0.0 && log > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
+        if (currentLatD > 0.0 && currentLngD > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
+
             System.out.println("MapFragmentView---IF");
-            if (mMapView != null) {
+            if (googleMap != null) {
+                System.out.println("HomeTabFragment acceptTrip currentLatD: "+ currentLatD +
+                        ",currentLngD : "+ currentLngD +",pickUpLatD :"+pickUpLatD+",pickUpLngD: "+pickUpLngD);
                 googleMap.clear();
                 googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(lat, log))
+                        .position(new LatLng(currentLatD, currentLngD))
                         .title("From"))
                         .setIcon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView("Current Location")));
                 googleMap.addMarker(new MarkerOptions()
@@ -597,13 +702,15 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     public void setRoutesToDestination(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist) {
         double pickUpLatD = Double.parseDouble(pickLat);
         double pickUpLngD = Double.parseDouble(picklng);
+        double currentLatD = Double.parseDouble(currentLat);
+        double currentLngD = Double.parseDouble(currentLng);
 
-        if (lat > 0.0 && log > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
+        if (currentLatD > 0.0 && currentLngD > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
             System.out.println("MapFragmentView---IF");
-            if (mMapView != null) {
+            if (googleMap != null) {
                 googleMap.clear();
                 googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(lat, log))
+                        .position(new LatLng(currentLatD, currentLngD))
                         .title("From"))
                         .setIcon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView("Current Location")));
                 googleMap.addMarker(new MarkerOptions()
