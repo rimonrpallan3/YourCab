@@ -1,6 +1,7 @@
 package com.voyager.sayaradriver.drivehelp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -84,6 +85,7 @@ public class DriverHelp extends AppCompatActivity implements AdapterView.OnItemS
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

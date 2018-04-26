@@ -13,6 +13,7 @@ public interface IHometabView {
     void acceptTrip();
     void driverStartTrip();
     void rejectTrip();
+    void stopedTrip();
     void hideViewsOnTrip(int visibility);
     void setRoutesToCustomer(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);
     void setRoutesToDestination(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);

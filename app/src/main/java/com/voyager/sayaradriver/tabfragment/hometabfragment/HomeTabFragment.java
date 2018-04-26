@@ -3,6 +3,7 @@ package com.voyager.sayaradriver.tabfragment.hometabfragment;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,6 +14,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -20,12 +22,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,20 +54,9 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.location.places.PlaceLikelihood;
-import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
+import com.mikepenz.community_material_typeface_library.CommunityMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.squareup.picasso.Picasso;
 import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.costom.CircleImageView;
@@ -84,6 +77,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.voyager.sayaradriver.common.Helper.REQUEST_PHONE_CUSTOMER_CALL;
+import static com.voyager.sayaradriver.common.Helper.REQUEST_PHONE_SUPPORT_CALL;
 
 /**
  * Created by rimon on 22/4/16.
@@ -165,13 +161,19 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @BindView(R.id.tripDist)
     TextView tripDist;
     @BindView(R.id.onTripStartUpLayout)
-    FrameLayout onTripStartUpLayout;
+    LinearLayout onTripStartUpLayout;
     @BindView(R.id.startTrip)
     Button startTrip;
     @BindView(R.id.stopTrip)
     Button stopTrip;
     @BindView(R.id.onGoingTripLayout)
-    FrameLayout onGoingTripLayout;
+    LinearLayout onGoingTripLayout;
+    @BindView(R.id.imgOnGoingCancel)
+    ImageView imgOnGoingCancel;
+    @BindView(R.id.imgCallCustomer)
+    ImageView imgCallCustomer;
+    @BindView(R.id.imgCallSupport)
+    ImageView imgCallSupport;
     String pickLat ="";
     String picklng ="";
 
@@ -222,8 +224,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         tripDistance = (TextView) rootView.findViewById(R.id.tripDistance);
         tripCostFair = (TextView) rootView.findViewById(R.id.tripCostFair);
         tripPaymentMethod = (TextView) rootView.findViewById(R.id.tripPaymentMethod);
-        onTripStartUpLayout = (FrameLayout) rootView.findViewById(R.id.onTripStartUpLayout);
-        onGoingTripLayout = (FrameLayout) rootView.findViewById(R.id.onGoingTripLayout);
+        onTripStartUpLayout = (LinearLayout) rootView.findViewById(R.id.onTripStartUpLayout);
+        onGoingTripLayout = (LinearLayout) rootView.findViewById(R.id.onGoingTripLayout);
         driverHeaderLayout = (LinearLayout) rootView.findViewById(R.id.driverHeaderLayout);
         driverBodyLayout = (LinearLayout) rootView.findViewById(R.id.driverBodyLayout);
         tripSupportCall = (LinearLayout) rootView.findViewById(R.id.tripSupportCall);
@@ -237,9 +239,26 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         tripAccept.setOnClickListener(this);
         tripReject.setOnClickListener(this);
+        onGoingTripLayout.setOnClickListener(this);
+        driverHeaderLayout.setOnClickListener(this);
+        driverBodyLayout.setOnClickListener(this);
+        tripSupportCall.setOnClickListener(this);
+        tripCustomerCall.setOnClickListener(this);
+        tripCancel.setOnClickListener(this);
         iHomeTabPresenter = new HomeTabPresenter(this);
 
+        final Drawable callIcon = new IconicsDrawable(getActivity())
+                .icon(CommunityMaterial.Icon.cmd_phone)
+                .color(ResourcesCompat.getColor(getResources(),R.color.iconColor,null))
+                .sizeDp(10);
+        final Drawable cancelIcon = new IconicsDrawable(getActivity())
+                .icon(CommunityMaterial.Icon.cmd_cancel)
+                .color(ResourcesCompat.getColor(getResources(),R.color.red,null))
+                .sizeDp(10);
 
+        imgOnGoingCancel.setImageDrawable(cancelIcon);
+        imgCallCustomer.setImageDrawable(callIcon);
+        imgCallSupport.setImageDrawable(callIcon);
         // Construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(getActivity(), null);
 
@@ -350,6 +369,24 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
                 }
+            }
+            case REQUEST_PHONE_SUPPORT_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "9895184339"));
+                    startActivity(intent);
+                } else {
+
+                }
+                return;
+            }
+            case REQUEST_PHONE_CUSTOMER_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "9895184339"));
+                    startActivity(intent);
+                } else {
+
+                }
+                return;
             }
         }
         updateLocationUI();
@@ -521,6 +558,30 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             case R.id.tripReject:
                 iHomeTabPresenter.rejectTrip(driverUserModel.driverId, fcmDetials.getTripId());
                 break;
+            case R.id.onGoingTripLayout:
+                break;
+            case R.id.tripCancel:
+                break;
+            case R.id.tripSupportCall:
+                System.out.println("callCustomerCare -- -  : ");
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + "9895184339"));
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_SUPPORT_CALL);
+                } else {
+                    startActivity(callIntent);
+                }
+                break;
+            case R.id.tripCustomerCall:
+                System.out.println("callCustomerCare -- -  : ");
+                callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + "9895184339"));
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CUSTOMER_CALL);
+                } else {
+                    startActivity(callIntent);
+                }
+                break;
             case R.id.driverHeaderLayout:
                 if(isClicked){
                     driverBodyLayout.setVisibility(View.VISIBLE);
@@ -615,6 +676,11 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     }
 
     @Override
+    public void stopedTrip() {
+
+    }
+
+    @Override
     public void hideViewsOnTrip(int visibility) {
         suddenTrip.setVisibility(visibility);
         iLandingView.hideViewsOnTripStartUp(visibility);
@@ -630,7 +696,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @OnClick(R.id.stopTrip)
     public void stopOnGoingTripBtnClick(){
         onGoingTripLayout.setVisibility(View.GONE);
-
+        iHomeTabPresenter.endTrip(driverUserModel.driverId,fcmDetials.getTripId());
     }
 
     @Override

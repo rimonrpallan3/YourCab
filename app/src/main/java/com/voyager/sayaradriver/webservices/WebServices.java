@@ -70,6 +70,10 @@ public interface WebServices {
     @POST("driver/acceptTrip/")
     Call<TripDetails> driverAcceptTrip (@Nullable @Field("driver_id") int driverID,
                                         @Nullable @Field("trip_id") int status);
+    @FormUrlEncoded
+    @POST("driver/stopTrip/")
+    Call<TripDetails> driverStopTrip (@Nullable @Field("driver_id") int driverID,
+                                        @Nullable @Field("trip_id") int status);
 
     @FormUrlEncoded
     @POST("driver/updateLocation/")

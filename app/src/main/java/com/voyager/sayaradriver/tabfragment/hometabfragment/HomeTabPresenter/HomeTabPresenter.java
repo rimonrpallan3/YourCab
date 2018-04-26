@@ -123,6 +123,32 @@ public class HomeTabPresenter implements IHomeTabPresenter{
     }
 
     @Override
+    public void endTrip(int driverId, Integer tripId) {
+        Retrofit retrofit = new ApiClient().getRetrofitClient();
+        WebServices webServices = retrofit.create(WebServices.class);
+
+        Call<TripDetails> call = webServices.driverStopTrip(driverId, tripId);
+        call.enqueue(new Callback<TripDetails>() {
+            @Override
+            public void onResponse(Call<TripDetails> call,
+                                   Response<TripDetails> response) {
+
+                tripDetails =response.body();
+                iHometabView.stopedTrip();
+                System.out.println("HomeTabPresenter----- rejectTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
+                        ", Error :"+tripDetails.getError());
+            }
+
+            @Override
+            public void onFailure(Call<TripDetails> call, Throwable t) {
+                //Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                System.out.println("HomeTabPresenter----- rejectTrip onFailure: "+t.getMessage());
+                Log.e("LandingPresenter uploadProfileName error:", t.getMessage());
+            }
+        });
+    }
+
+    @Override
     public void suddenTripStart() {
 
     }

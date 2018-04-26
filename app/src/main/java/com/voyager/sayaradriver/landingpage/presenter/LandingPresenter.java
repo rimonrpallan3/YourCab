@@ -35,9 +35,13 @@ import retrofit2.Retrofit;
     String city ="";
     String country ="";
     String email ="";
+    String CPR ="";
+    String userName ="";
+    String LName ="";
     int driverId;
     String driverStatus = "";
     String AdminDriverStatus = "";
+
 
 
 
@@ -57,14 +61,14 @@ import retrofit2.Retrofit;
                 System.out.println("driverSwitch Clicked :" + " true!!");
                 iLandingView.getOfflineOnlineState(online);
                 driverUserModel.setDriverStatus("1");
-                driverStatus = driverUserModel.getDriverStatus();
+                getDriverDetails();
                 uploadProfileName();
                 iLandingView.startService();
             } else {
                 System.out.println("driverSwitch Clicked :" + " false!!");
                 iLandingView.getOfflineOnlineState(offline);
                 driverUserModel.setDriverStatus("0");
-                driverStatus = driverUserModel.getDriverStatus();
+                getDriverDetails();
                 uploadProfileName();
                 iLandingView.stopService();
             }
@@ -75,6 +79,9 @@ import retrofit2.Retrofit;
 
     private void getDriverDetails(){
         fNmae = driverUserModel.getFName().toString();
+        LName = driverUserModel.getLName().toString();
+        userName = driverUserModel.getUserName().toString();
+        CPR = driverUserModel.getCPR().toString();
         pnoneNo = driverUserModel.getPhno().toString();
         pswd = driverUserModel.getPasswd().toString();
         city = driverUserModel.getCity().toString();
@@ -82,6 +89,7 @@ import retrofit2.Retrofit;
         email = driverUserModel.getEmail().toString();
         driverId = driverUserModel.getDriverId();
         AdminDriverStatus = driverUserModel.getAdiminDriverStatus();
+        driverStatus = driverUserModel.getDriverStatus();
     }
 
 
@@ -95,8 +103,19 @@ import retrofit2.Retrofit;
             @Override
             public void onResponse(Call<DriverUserModel> call,
                                    Response<DriverUserModel> response) {
-
                 driverUserModel =response.body();
+                driverUserModel.setFName(fNmae);
+                driverUserModel.setPhno(pnoneNo);
+                driverUserModel.setPasswd(pswd);
+                driverUserModel.setCountry(country);
+                driverUserModel.setEmail(email);
+                driverUserModel.setDriverId(driverId);
+                driverUserModel.setLName(LName);
+                driverUserModel.setCPR(CPR);
+                driverUserModel.setUserName(userName);
+                driverUserModel.setCity(city);
+                driverUserModel.setDriverStatus(driverStatus);
+                driverUserModel.setAdiminDriverStatus(AdminDriverStatus);
                 System.out.println("LandingPresenter----- uploadProfileName isError: "+driverUserModel.isError +" user_error: "+driverUserModel.error_msg );
                 iLandingView.addUserGsonInSharedPrefrences(driverUserModel);
             }
