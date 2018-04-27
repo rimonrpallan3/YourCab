@@ -32,10 +32,6 @@ public class HomeTabPresenter implements IHomeTabPresenter{
     TripDetails tripDetails;
 
     String tripDist ="";
-    String driverLat = "";
-    String driverlng = "";
-    String pickUpLat = "";
-    String pickUplng = "";
 
     public HomeTabPresenter(IHometabView iHometabView) {
         this.iHometabView =iHometabView;
@@ -148,10 +144,6 @@ public class HomeTabPresenter implements IHomeTabPresenter{
         });
     }
 
-    @Override
-    public void suddenTripStart() {
-
-    }
 
     @Override
     public void hideTripStartViews(int visibility) {

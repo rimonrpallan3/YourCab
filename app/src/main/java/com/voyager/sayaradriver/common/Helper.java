@@ -58,6 +58,7 @@ public class Helper{
     public final static int CAMERA_STORAGE_PERMISSION = 73;
     public final static int SELECT_PICTURE = 23;
     public final static int REQUEST_PHONE_SUPPORT_CALL = 121;
+    public final static int REQUEST_PHONE_CALL = 120;
     public final static int REQUEST_PHONE_CUSTOMER_CALL = 122;
     public static final String MyPREFERENCES = "DriverUserDetails" ;
 

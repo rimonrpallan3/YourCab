@@ -9,7 +9,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:gravity="bottom"
-    android:visibility="gone">
+    android:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/tripCancel"
+                        android:id="@+id/tripSupport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
@@ -80,7 +80,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/imgOnGoingCancel"
+                            android:id="@+id/imgOnGoingSupport"
                             android:layout_width="@dimen/_20"
                             android:layout_height="@dimen/_20"
                             android:layout_marginTop="@dimen/_08"
@@ -91,8 +91,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_08"
-                            android:textColor="@color/red"
-                            android:text="@string/Cancel" />
+                            android:textColor="@color/iconColor"
+                            android:text="Support" />
 
 
                     </LinearLayout>
