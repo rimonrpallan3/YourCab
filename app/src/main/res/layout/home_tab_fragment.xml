@@ -19,5 +19,8 @@
     <include
         layout="@layout/trip_start_on_going_drop" />
 
+    <include
+        layout="@layout/end_trip_receipt" />
+
 
 </FrameLayout>

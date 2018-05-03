@@ -245,6 +245,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         tripSupportCall.setOnClickListener(this);
         tripCustomerCall.setOnClickListener(this);
         tripSupport.setOnClickListener(this);
+        Gson gson = new Gson();
         iHomeTabPresenter = new HomeTabPresenter(this);
 
         final Drawable callIcon = new IconicsDrawable(getActivity())
@@ -277,8 +278,11 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             try {
                 fcmDetials = bundle.getParcelable("FCMDetials");
                 fcmPush = bundle.getString("fcmPush");
-                System.out.println(" ----------- HomeTabFragment fcmPush" + fcmPush);
-                if (fcmPush != null && fcmPush.length() > 1 && fcmDetials.getUserName().length() > 0) {
+                String jsonString = gson.toJson(fcmDetials);
+                System.out.println("-----------HomeTabFragment fcmDetials : " + jsonString);
+                System.out.println("-----------HomeTabFragment getTripStatus : " + fcmDetials.getTripStatus());
+                System.out.println(" ----------- HomeTabFragment fcmPush : " + fcmPush);
+                if (fcmPush != null && fcmPush.length() > 1 && fcmDetials.getUserName()!=null &&fcmDetials.getUserName().length() > 0) {
                     tripUser.setText(fcmDetials.getUserName());
                     tripStartOrgin.setText(fcmDetials.getPickupAddress());
                     tripEndDestin.setText(fcmDetials.getDropAddress());
@@ -295,26 +299,27 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                     tripDist.setText(fcmDetials.getDistance());
                     String[] pickUpLoc = fcmDetials.getPickupLocation().toString().split(",");
                     for (int x=0; x<pickUpLoc.length; x++) {
-                        System.out.println("x : "+x+" = "+pickUpLoc[x]);
+                        System.out.println("Pick x : "+x+" = "+pickUpLoc[x]);
                         pickLat = pickUpLoc[0];
                         picklng = pickUpLoc[1];
                     }
                     String[] dropLoc = fcmDetials.getPickupLocation().toString().split(",");
                     for (int x=0; x<dropLoc.length; x++) {
-                        System.out.println("x : "+x+" = "+dropLoc[x]);
+                        System.out.println("Drop x : "+x+" = "+dropLoc[x]);
                         dropLat = dropLoc[0];
                         droplng = dropLoc[1];
                     }
                     suddenTrip.setVisibility(View.VISIBLE);
-                } else if (fcmPush != null && fcmPush.length() > 0 && fcmDetials.getTripStatus().equals("gone")) {
-                    if (suddenTrip.getVisibility() == View.VISIBLE) {
+                } else if (fcmDetials.getTripStatus().equals("Cancelled")) {
+                    System.out.println("-----------HomeTabFragment getTripStatus : " + fcmDetials.getTripStatus());
                         suddenTrip.setVisibility(View.GONE);
-                    }
+                        iLandingView.hideViewsOnTripStartUp(View.VISIBLE);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("-----------HomeTabFragment Exception" + e.getMessage().toString());
             }
-            Gson gson = new Gson();
+
             if (driverUserModel != null) {
                 String jsonString = gson.toJson(driverUserModel);
                 System.out.println("-----------HomeTabFragment DriverUserModel" + jsonString);
@@ -431,12 +436,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);
+        setLocMethod();
 
-        map.addMarker(new MarkerOptions().position(new LatLng(lat, log)).title("Marker"));
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
-        googleMap.moveCamera(center);
-        googleMap.animateCamera(zoom);
         if (fcmAvliable != null) {
             // suddenTrip.setVisibility(View.VISIBLE);
         }
@@ -445,6 +446,13 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         //mMapView.getMapAsync(this);
     }
 
+    public void setLocMethod(){
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, log)).title("Marker"));
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
+        googleMap.moveCamera(center);
+        googleMap.animateCamera(zoom);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -563,8 +571,6 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             case R.id.tripReject:
                 iHomeTabPresenter.rejectTrip(driverUserModel.driverId, fcmDetials.getTripId());
                 break;
-            case R.id.onGoingTripLayout:
-                break;
             case R.id.tripSupport:
                 System.out.println("callCustomerCare -- -  : ");
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -676,6 +682,11 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
 
     @Override
     public void driverStartTrip() {
+        System.out.println("MapFragmentView setDriverRoutes, " +
+                " destLat : " + currentLat +
+                " ,destLong : " + currentLng +
+                " ,sourceLat : " + dropLat +
+                " ,sourceLong : " + droplng );
         iHomeTabPresenter.startOnGoingTrip(currentLat,currentLng,dropLat,droplng,false,ApiKey);
     }
 
@@ -689,11 +700,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     public void stopedTrip() {
         onGoingTripLayout.setVisibility(View.GONE);
         iLandingView.hideViewsOnTripStartUp(View.VISIBLE);
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, log)).title("Marker"));
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
-        googleMap.moveCamera(center);
-        googleMap.animateCamera(zoom);
+        setLocMethod();
     }
 
     @Override
@@ -710,7 +717,6 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     @OnClick(R.id.stopTrip)
     public void stopOnGoingTripBtnClick(){
         iHomeTabPresenter.endTrip(driverUserModel.driverId,fcmDetials.getTripId());
-
     }
 
     @Override
@@ -722,7 +728,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
 
         if (currentLatD > 0.0 && currentLngD > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
 
-            System.out.println("MapFragmentView---IF");
+            System.out.println("MapFragmentView setRoutesToCustomer ---IF");
             if (googleMap != null) {
                 System.out.println("HomeTabFragment acceptTrip currentLatD: "+ currentLatD +
                         ",currentLngD : "+ currentLngD +",pickUpLatD :"+pickUpLatD+",pickUpLngD: "+pickUpLngD);
@@ -769,11 +775,13 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                 }
                 onTripStartUpLayout.setVisibility(View.VISIBLE);
                 if (polyLineOptions != null) {
-                    System.out.println("MapFragmentView---polyLineOptions --IF");
+                    System.out.println("MapFragmentView setRoutesToCustomer---polyLineOptions --IF");
                     googleMap.addPolyline(polyLineOptions);
                 } else {
                     Toast.makeText(getActivity(), "Could not find path", Toast.LENGTH_SHORT).show();
                 }
+            }else {
+                System.out.println("MapFragmentView  setRoutesToCustomer --- no Map instance  --IF");
             }
         }
     }
@@ -786,7 +794,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         double currentLngD = Double.parseDouble(currentLng);
 
         if (currentLatD > 0.0 && currentLngD > 0.0 && pickUpLatD > 0.0 && pickUpLngD > 0.0) {
-            System.out.println("MapFragmentView---IF");
+            System.out.println("MapFragmentView  setRoutesToDestination---IF");
             if (googleMap != null) {
                 googleMap.clear();
                 googleMap.addMarker(new MarkerOptions()
@@ -831,11 +839,13 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                 }
                 onGoingTripLayout.setVisibility(View.VISIBLE);
                 if (polyLineOptions != null) {
-                    System.out.println("MapFragmentView---polyLineOptions --IF");
+                    System.out.println("MapFragmentView  setRoutesToDestination ---polyLineOptions --IF " );
                     googleMap.addPolyline(polyLineOptions);
                 } else {
                     Toast.makeText(getActivity(), "Could not find path", Toast.LENGTH_SHORT).show();
                 }
+            }else {
+                System.out.println("MapFragmentView  setRoutesToDestination --- no Map instance  --IF");
             }
         }
     }

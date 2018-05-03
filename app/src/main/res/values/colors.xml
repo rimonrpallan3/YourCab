@@ -18,6 +18,9 @@
     <!--Route Found Page -->
     <color name="bag_marker_color">#faaf40</color>
 
+    <!--Tab Home Map Layout-->
+    <color name="bag_receipt_header_color">#ececec</color>
+
     <!--Highlight Text Color-->
     <color name="highLightText">#ffa500</color>
     <color name="hintHighLightText">#a5a5a5</color>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layoutReceiptTrip"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:clickable="false"
+    android:background="@color/transparentColor"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_384"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_10"
+        android:layout_marginRight="@dimen/_10"
+        android:background="@drawable/boder_black"
+        android:orientation="vertical">
+
+        <!-- Top Layer with Time -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bag_receipt_header_color"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_12"
+                android:layout_marginRight="@dimen/_12"
+                android:layout_marginTop="@dimen/_12"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/receipt_heading"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_18" />
+
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_12"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/receipt_date"
+                    android:textSize="@dimen/_12" />
+
+                <TextView
+                    android:id="@+id/receiptDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30/04/2018"
+                    android:textSize="@dimen/_12"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/_50"/>
+
+                <TextView
+                    android:id="@+id/receiptInvNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/_40"
+                    android:gravity="right"
+                    android:text="@string/receipt_inv_no"
+                    android:textSize="@dimen/_12" />
+
+                <TextView
+                    android:id="@+id/tripTimeOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:text="001"
+                    android:textSize="@dimen/_12" />
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/_12"
+            android:layout_marginRight="@dimen/_12"
+            android:layout_marginTop="@dimen/_12">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_08">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/receipt_pickup_spot"
+                    android:textSize="@dimen/_12"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/receiptPickUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="4.5 Kms"
+                    android:textSize="@dimen/_12"
+                    android:textStyle="bold" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_08">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/receipt_destination"
+                    android:textSize="@dimen/_12"/>
+                <TextView
+                    android:id="@+id/receiptDestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="8 BD"
+                    android:textSize="@dimen/_12" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_08">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/receipt_total_distance"
+                    android:textSize="@dimen/_12"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/receiptTotalDis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="15 Kms"
+                    android:textSize="@dimen/_12" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_08">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/receipt_trip_fair"
+                    android:textSize="@dimen/_12"/>
+                <TextView
+                    android:id="@+id/receiptTripFair"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="BD 8.000"
+                    android:textSize="@dimen/_12" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_08">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/receipt_tax"
+                    android:textSize="@dimen/_12"/>
+                <TextView
+                    android:id="@+id/receiptTripTax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="BD 8.000"
+                    android:textSize="@dimen/_12" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_08">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/receipt_total"
+                    android:textSize="@dimen/_12"/>
+                <TextView
+                    android:id="@+id/receiptTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="BD 8.000"
+                    android:textSize="@dimen/_12" />
+            </FrameLayout>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/_10">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/_08"
+                android:background="@color/divider_dark_gray"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/money"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_40"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="@string/receipt_cash"
+                    android:textSize="@dimen/_12"/>
+                <TextView
+                    android:id="@+id/receiptCash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/_20"
+                    android:text="BD 8.000"
+                    android:textSize="@dimen/_12" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_08"
+                android:background="@color/divider_dark_gray"/>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/_10"
+            android:layout_marginRight="@dimen/_10">
+
+            <Button
+                android:id="@+id/tripAccept"
+                android:layout_width="@dimen/_150"
+                android:layout_height="@dimen/_40"
+                android:layout_marginRight="@dimen/_10"
+                android:layout_marginTop="@dimen/_10"
+                android:clickable="true"
+                android:textAllCaps="false"
+                android:text="@string/receipt_btn_received"
+                android:gravity="center"
+                android:textSize="@dimen/_10"
+                android:foreground="@drawable/ripple_effect"
+                android:background="@drawable/rectangle_button"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+</FrameLayout>

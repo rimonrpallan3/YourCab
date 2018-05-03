@@ -51,14 +51,14 @@ public class HomeTabPresenter implements IHomeTabPresenter{
 
                 tripDetails =response.body();
                 iHometabView.acceptTrip();
-                System.out.println("HomeTabPresenter----- rejectTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
+                System.out.println("HomeTabPresenter----- acceptTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
                         ", Error :"+tripDetails.getError());
             }
 
             @Override
             public void onFailure(Call<TripDetails> call, Throwable t) {
                 //Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println("HomeTabPresenter----- rejectTrip onFailure: "+t.getMessage());
+                System.out.println("HomeTabPresenter----- acceptTrip onFailure: "+t.getMessage());
                 Log.e("LandingPresenter uploadProfileName error:", t.getMessage());
             }
         });
@@ -78,14 +78,14 @@ public class HomeTabPresenter implements IHomeTabPresenter{
 
                 tripDetails =response.body();
                 iHometabView.driverStartTrip();
-                System.out.println("HomeTabPresenter----- rejectTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
+                System.out.println("HomeTabPresenter----- startTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
                         ", Error :"+tripDetails.getError());
             }
 
             @Override
             public void onFailure(Call<TripDetails> call, Throwable t) {
                 //Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println("HomeTabPresenter----- rejectTrip onFailure: "+t.getMessage());
+                System.out.println("HomeTabPresenter----- startTrip onFailure: "+t.getMessage());
                 Log.e("LandingPresenter uploadProfileName error:", t.getMessage());
             }
         });
@@ -131,14 +131,14 @@ public class HomeTabPresenter implements IHomeTabPresenter{
 
                 tripDetails =response.body();
                 iHometabView.stopedTrip();
-                System.out.println("HomeTabPresenter----- rejectTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
+                System.out.println("HomeTabPresenter----- endTrip onSuccess- ErrorMsg: "+tripDetails.getError_msg()+
                         ", Error :"+tripDetails.getError());
             }
 
             @Override
             public void onFailure(Call<TripDetails> call, Throwable t) {
                 //Toast.makeText(context.getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                System.out.println("HomeTabPresenter----- rejectTrip onFailure: "+t.getMessage());
+                System.out.println("HomeTabPresenter----- endTrip onFailure: "+t.getMessage());
                 Log.e("LandingPresenter uploadProfileName error:", t.getMessage());
             }
         });

@@ -53,6 +53,19 @@
     <string name="camera">\u0020 \u0020 \u0020 Camera</string>
     <string name="cancel">Cancel</string>
 
+    <!--Tab Home Map Layout-->
+    <string name="receipt_date">Dated :</string>
+    <string name="receipt_inv_no">Inv No :</string>
+    <string name="receipt_pickup_spot">Pickup Spot</string>
+    <string name="receipt_destination">Destination</string>
+    <string name="receipt_total_distance">Total Distance</string>
+    <string name="receipt_trip_fair">Trip Fare</string>
+    <string name="receipt_tax">Tax</string>
+    <string name="receipt_total">Total</string>
+    <string name="receipt_cash">Cash</string>
+    <string name="receipt_btn_received">Received</string>
+    <string name="receipt_heading">Sayara Receipt</string>
+
 
 
 
