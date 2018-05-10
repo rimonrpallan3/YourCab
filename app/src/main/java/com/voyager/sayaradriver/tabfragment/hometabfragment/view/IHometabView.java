@@ -1,5 +1,6 @@
 package com.voyager.sayaradriver.tabfragment.hometabfragment.view;
 
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.CurrentPlaceDetails;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.geogetpath.Route;
 
 import java.util.HashMap;
@@ -17,4 +18,5 @@ public interface IHometabView {
     void hideViewsOnTrip(int visibility);
     void setRoutesToCustomer(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);
     void setRoutesToDestination(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist);
+    void highLikeHoodCurrentPlace(CurrentPlaceDetails maxCurrentPlaceDetails);
 }

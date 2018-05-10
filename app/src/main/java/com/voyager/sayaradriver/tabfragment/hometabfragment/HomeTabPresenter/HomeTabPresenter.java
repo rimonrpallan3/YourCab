@@ -1,8 +1,25 @@
 package com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
 
+import com.google.android.gms.location.places.GeoDataClient;
+import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.voyager.sayaradriver.R;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.CurrentPlaceDetails;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.TripDetails;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.geogetpath.Distance;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.geogetpath.GetPaths;
@@ -32,9 +49,19 @@ public class HomeTabPresenter implements IHomeTabPresenter{
     TripDetails tripDetails;
 
     String tripDist ="";
+    private GeoDataClient mGeoDataClient;
+    private PlaceDetectionClient mPlaceDetectionClient;
+    List<CurrentPlaceDetails> currentPlaceDetailsList = new ArrayList<>();
+    float maxLikeHood = 0;
+    CurrentPlaceDetails maxCurrentPlaceDetails;
+    Activity activity;
+    String TAG;
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
-    public HomeTabPresenter(IHometabView iHometabView) {
+    public HomeTabPresenter(IHometabView iHometabView,Activity activity,String TAG) {
         this.iHometabView =iHometabView;
+        this.activity = activity;
+        this.TAG = TAG;
     }
 
 
@@ -148,6 +175,68 @@ public class HomeTabPresenter implements IHomeTabPresenter{
     @Override
     public void hideTripStartViews(int visibility) {
         iHometabView.hideViewsOnTrip(visibility);
+    }
+
+    @Override
+    public void getCurrentLocDetails() {
+        if (!checkPermissions()) {
+            requestPermissions();
+        } else {
+            maxCurrentPlaceDetails = new CurrentPlaceDetails();
+
+            // Construct a GeoDataClient.
+            mGeoDataClient = Places.getGeoDataClient(activity, null);
+
+            // Construct a PlaceDetectionClient.
+            mPlaceDetectionClient = Places.getPlaceDetectionClient(activity, null);
+            try{
+                int permissionState = ActivityCompat.checkSelfPermission(activity.getApplicationContext(),
+                        android.Manifest.permission.ACCESS_FINE_LOCATION);
+                Task<PlaceLikelihoodBufferResponse> placeResult = mPlaceDetectionClient.getCurrentPlace(null);
+                placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+                    @Override
+                    public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
+                        PlaceLikelihoodBufferResponse likelyPlaces = task.getResult();
+                        for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                            CurrentPlaceDetails currentPlaceDetails = new CurrentPlaceDetails();
+                            Log.i(TAG, String.format("Place '%s' has likelihood: %g",
+                                    placeLikelihood.getPlace().getName(),
+                                    placeLikelihood.getLikelihood()));
+                            currentPlaceDetails.setLikehood(placeLikelihood.getLikelihood());
+                            currentPlaceDetails.setLat(String.valueOf(placeLikelihood.getPlace().getLatLng().latitude));
+                            currentPlaceDetails.setLng(String.valueOf(placeLikelihood.getPlace().getLatLng().longitude));
+                            currentPlaceDetails.setPlaceid(placeLikelihood.getPlace().getId());
+                            currentPlaceDetails.setPlaceName(placeLikelihood.getPlace().getName().toString());
+                            System.out.println("Name : "+placeLikelihood.getPlace().getName()
+                                    +", Like hood : "+placeLikelihood.getLikelihood()
+                                    +", LatLog : "+placeLikelihood.getPlace().getLatLng());
+                            currentPlaceDetailsList.add(currentPlaceDetails);
+
+                        }
+                        likelyPlaces.release();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(currentPlaceDetailsList);
+                        System.out.println("-----------MapFragmentPresenter PlaceLikelihoodBufferResponse currentPlaceDetailsList : " + json);
+                        for(int i=0;i<currentPlaceDetailsList.size();i++){
+                            CurrentPlaceDetails currentPlaceDetails = currentPlaceDetailsList.get(i);
+                            float mostLikeHood= currentPlaceDetails.getLikehood();
+                            System.out.println("-----------MapFragmentPresenter mostLikeHood : " + mostLikeHood);
+                            if(maxLikeHood<mostLikeHood){
+                                maxLikeHood = mostLikeHood;
+                                maxCurrentPlaceDetails = currentPlaceDetails;
+                            }
+
+                        }
+                        iHometabView.highLikeHoodCurrentPlace(maxCurrentPlaceDetails);
+                        String json2 = gson.toJson(maxCurrentPlaceDetails);
+                        System.out.println("-----------MapFragmentPresenter PlaceLikelihoodBufferResponse CurrentPlaceDetails : " + json2);
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println("-----------MapFragmentPresenter PlaceLikelihoodBufferResponse Error  : " + e.getMessage().toString());
+            }
+        }
     }
 
     @Override
@@ -274,5 +363,64 @@ public class HomeTabPresenter implements IHomeTabPresenter{
             poly.add(p);
         }
         return poly;
+    }
+
+
+
+    private void requestPermissions() {
+        boolean shouldProvideRationale =
+                ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION);
+
+        // Provide an additional rationale to the user. This would happen if the user denied the
+        // request previously, but didn't check the "Don't ask again" checkbox.
+        if (shouldProvideRationale) {
+            Log.i(TAG, "Displaying permission rationale to provide additional context.");
+
+            showSnackbar(R.string.permission_rationale, android.R.string.ok,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Request permission
+                            ActivityCompat.requestPermissions(activity,
+                                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                                    REQUEST_PERMISSIONS_REQUEST_CODE);
+                        }
+                    });
+
+        } else {
+            Log.i(TAG, "Requesting permission");
+            // Request permission. It's possible this can be auto answered if device policy
+            // sets the permission in a given state or the user denied the permission
+            // previously and checked "Never ask again".
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    /**
+     * Shows a {@link Snackbar}.
+     *
+     * @param mainTextStringId The id for the string resource for the Snackbar text.
+     * @param actionStringId   The text of the action item.
+     * @param listener         The listener associated with the Snackbar action.
+     */
+    private void showSnackbar(final int mainTextStringId, final int actionStringId,
+                              View.OnClickListener listener) {
+        Snackbar.make(activity.findViewById(android.R.id.content),
+                activity.getString(mainTextStringId),
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction(activity.getString(actionStringId), listener).show();
+    }
+
+
+    /**
+     * Return the current state of the permissions needed.
+     */
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(activity,
+                android.Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 }

@@ -10,6 +10,7 @@ public interface IHomeTabPresenter {
     void rejectTrip(int driverId,Integer tripId);
     void endTrip(int driverId,Integer tripId);
     void hideTripStartViews(int visibility);
+    void getCurrentLocDetails();
     void getToCustomerDirection(final String originLat,final String originLng,  String destinationLat,String destinationLng, Boolean sensor, String ApiKey);
     void startOnGoingTrip(final String originLat,final String originLng,  String destinationLat,String destinationLng, Boolean sensor, String ApiKey);
 }

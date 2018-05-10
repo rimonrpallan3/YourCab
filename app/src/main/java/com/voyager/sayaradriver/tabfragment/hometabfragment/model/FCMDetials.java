@@ -3,11 +3,14 @@ package com.voyager.sayaradriver.tabfragment.hometabfragment.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by User on 15-Mar-18.
  */
 
 public class FCMDetials implements Parcelable {
+
     /**
      * userCity : Kochi
      * fare : 20 BD
@@ -35,6 +38,15 @@ public class FCMDetials implements Parcelable {
     private String dropAddress;
     private String tripStatus;
     private String pickupLocation;
+    private String drop_loc;
+
+    public String getDrop_loc() {
+        return drop_loc;
+    }
+
+    public void setDrop_loc(String drop_loc) {
+        this.drop_loc = drop_loc;
+    }
 
     public String getTripStatus() {
         return tripStatus;
@@ -160,6 +172,7 @@ public class FCMDetials implements Parcelable {
         dest.writeString(this.dropAddress);
         dest.writeString(this.tripStatus);
         dest.writeString(this.pickupLocation);
+        dest.writeString(this.drop_loc);
     }
 
     public FCMDetials() {
@@ -179,6 +192,7 @@ public class FCMDetials implements Parcelable {
         this.dropAddress = in.readString();
         this.tripStatus = in.readString();
         this.pickupLocation = in.readString();
+        this.drop_loc = in.readString();
     }
 
     public static final Creator<FCMDetials> CREATOR = new Creator<FCMDetials>() {

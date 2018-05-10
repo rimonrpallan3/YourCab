@@ -63,6 +63,7 @@ import com.voyager.sayaradriver.landingpage.view.ILandingView;
 import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter.HomeTabPresenter;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.HomeTabPresenter.IHomeTabPresenter;
+import com.voyager.sayaradriver.tabfragment.hometabfragment.model.CurrentPlaceDetails;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.MapDetails;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.geogetpath.Route;
@@ -190,6 +191,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    CurrentPlaceDetails maxCurrentPlaceDetails;
+
     public HomeTabFragment(Activity activity) {
         this.activity = activity;
     }
@@ -246,7 +249,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         tripCustomerCall.setOnClickListener(this);
         tripSupport.setOnClickListener(this);
         Gson gson = new Gson();
-        iHomeTabPresenter = new HomeTabPresenter(this);
+        iHomeTabPresenter = new HomeTabPresenter(this,getActivity(),TAG);
 
         final Drawable callIcon = new IconicsDrawable(getActivity())
                 .icon(CommunityMaterial.Icon.cmd_phone)
@@ -303,7 +306,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
                         pickLat = pickUpLoc[0];
                         picklng = pickUpLoc[1];
                     }
-                    String[] dropLoc = fcmDetials.getPickupLocation().toString().split(",");
+                    String[] dropLoc = fcmDetials.getDrop_loc().toString().split(",");
                     for (int x=0; x<dropLoc.length; x++) {
                         System.out.println("Drop x : "+x+" = "+dropLoc[x]);
                         dropLat = dropLoc[0];
@@ -668,9 +671,14 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             // get the last know location from your location manager.
             Location location= locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             // now get the lat/lon from the location and do something with it.
-            currentLat = String.valueOf(location.getLatitude());
-            currentLng = String.valueOf(location.getLongitude());
-            iHomeTabPresenter.getToCustomerDirection(currentLat,currentLng,pickLat,picklng,false,ApiKey);
+            if(location!=null) {
+                currentLat = String.valueOf(location.getLatitude());
+                currentLng = String.valueOf(location.getLongitude());
+                iHomeTabPresenter.getToCustomerDirection(currentLat, currentLng, pickLat, picklng, false, ApiKey);
+            }else {
+                iHomeTabPresenter.getCurrentLocDetails();
+
+            }
             System.out.println("currentLat: "+currentLat+", currentLng: "+currentLng);
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
@@ -788,8 +796,8 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
 
     @Override
     public void setRoutesToDestination(List<List<HashMap<String, String>>> route, List<Route> routes, String tripDist) {
-        double pickUpLatD = Double.parseDouble(pickLat);
-        double pickUpLngD = Double.parseDouble(picklng);
+        double pickUpLatD = Double.parseDouble(dropLat);
+        double pickUpLngD = Double.parseDouble(droplng);
         double currentLatD = Double.parseDouble(currentLat);
         double currentLngD = Double.parseDouble(currentLng);
 
@@ -849,5 +857,14 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
             }
         }
     }
+
+    @Override
+    public void highLikeHoodCurrentPlace(CurrentPlaceDetails maxCurrentPlaceDetails) {
+        this.maxCurrentPlaceDetails = maxCurrentPlaceDetails;
+        currentLat = maxCurrentPlaceDetails.getLat();
+        currentLng =  maxCurrentPlaceDetails.getLng();
+        iHomeTabPresenter.getToCustomerDirection(currentLat, currentLng, pickLat, picklng, false, ApiKey);
+    }
+
 
 }
