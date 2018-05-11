@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">SayaraDriver</string>
+
+    <!--Firebase Notification -->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
 
     <!--Shared preferance Strings -->
     <string name="myPreference">DriverUserModel</string>
@@ -117,7 +119,6 @@
     <string name="driver_offline">Offline</string>
 
     <!-- Api Map Key-->
-    <string name="place_api_key">AIzaSyA6katt_g-HiZVMaI6ARchSIzYOjRaPPP0</string>
 
     <string name="internal_storage">Internal storage</string>
     <!--Driver Detail Page -->
@@ -138,6 +139,8 @@
     <!--Display Document Page-->
     <string name="displayDocTitle">Documents Review</string>
     <!--About Page-->
+
+
 
 
 </resources>

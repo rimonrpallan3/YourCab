@@ -213,7 +213,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
         ButterKnife.bind(this, rootView);
         System.out.println("HomeTabFragment");
 
-        ApiKey = getString(R.string.place_api_key);
+        ApiKey = getString(R.string.map_api_key);
         bundle = this.getArguments();
 
         mMapView = rootView.findViewById(R.id.map);

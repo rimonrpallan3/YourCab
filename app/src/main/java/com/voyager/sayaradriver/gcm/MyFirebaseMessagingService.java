@@ -1,4 +1,4 @@
-package com.voyager.sayaradriver;
+package com.voyager.sayaradriver.gcm;
 
 
 import android.app.NotificationManager;
@@ -17,8 +17,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
+import com.voyager.sayaradriver.R;
 import com.voyager.sayaradriver.landingpage.LandingPage;
-import com.voyager.sayaradriver.signinpage.model.DriverUserModel;
 import com.voyager.sayaradriver.tabfragment.hometabfragment.model.FCMDetials;
 
 import org.json.JSONArray;

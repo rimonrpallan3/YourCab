@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.voyager.sayaradriver.appconfig.AppConfig;
 import com.voyager.sayaradriver.landingpage.LandingPage;
 import com.voyager.sayaradriver.loginsignuppage.LoginSignUpPage;
 import com.voyager.sayaradriver.R;
@@ -31,6 +32,7 @@ public class SplashScreen extends AppCompatActivity implements ISplashView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        System.out.println("----------- onCreate ----------BaseUrl: " + AppConfig.BASE_URL);
         sharedPrefs = getSharedPreferences(getResources().getString(R.string.myPreference),
                 Context.MODE_PRIVATE);
         editor = sharedPrefs.edit();

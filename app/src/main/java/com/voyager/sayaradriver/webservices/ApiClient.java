@@ -3,6 +3,7 @@ package com.voyager.sayaradriver.webservices;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.voyager.sayaradriver.BuildConfig;
+import com.voyager.sayaradriver.appconfig.AppConfig;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
+    public static String BASE_URL = AppConfig.BASE_URL;
     private static Retrofit retrofit = null;
     private static Retrofit pathRetrofit = null;
     private static OkHttpClient client = new OkHttpClient.Builder().
@@ -48,7 +50,7 @@ public class ApiClient {
                     .setLenient()
                     .create();
             /*http://10.1.1.21/sayara/*/
-            retrofit = new Retrofit.Builder().baseUrl("http://10.1.1.18/sayara/")
+            retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson)).build();
         }
