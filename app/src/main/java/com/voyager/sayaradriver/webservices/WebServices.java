@@ -31,11 +31,11 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface WebServices {
-    @GET("/getDriver/")
+    @GET("getDriver/")
     Call<MainClass> doGetUserList(@Query("page") String page);
 
     @FormUrlEncoded
-    @POST("/register/")
+    @POST("register/")
     public Call<DriverDetails> registerUser(@Nullable @Field("driver_first_name") String FName,
                                             @Nullable @Field("driver_last_name") String LName,
                                             @Nullable @Field("driver_email") String email,
@@ -44,7 +44,7 @@ public interface WebServices {
                                             @Nullable @Field("driver_city") String city,
                                             @Nullable @Field("driver_cpr") String CPR);
     @FormUrlEncoded
-    @POST("/login/")
+    @POST("login/")
     public Call<DriverUserModel> loginUser(@Nullable @Field("username") String name,
                                            @Nullable @Field("password") String passwd,
                                            @Nullable @Field("token") String fireBaseToken);
@@ -54,54 +54,54 @@ public interface WebServices {
     Call<DriverDetails> getRegisterResult(@FieldMap HashMap<String, String> authData);
 
     @Multipart
-    @POST("/documents/")
+    @POST("documents/")
     public Call<DocModel> uploadFile(@Part MultipartBody.Part  driving_license, @Part("driverId") RequestBody driverId,@Part("document_type") RequestBody docType);
 
     @FormUrlEncoded
-    @POST("/updateStatus/")
+    @POST("updateStatus/")
     Call<DriverUserModel> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
                                               @Nullable @Field("driver_online") String status);
 
     @FormUrlEncoded
-    @POST("/rejectTrip/")
+    @POST("rejectTrip/")
     Call<TripDetails> driverRejectTrip (@Nullable @Field("driver_id") int driverID,
                                         @Nullable @Field("trip_id") int status);
     @FormUrlEncoded
-    @POST("/acceptTrip/")
+    @POST("acceptTrip/")
     Call<TripDetails> driverAcceptTrip (@Nullable @Field("driver_id") int driverID,
                                         @Nullable @Field("trip_id") int status);
     @FormUrlEncoded
-    @POST("/stopTrip/")
+    @POST("stopTrip/")
     Call<TripDetails> driverStopTrip (@Nullable @Field("driver_id") int driverID,
                                         @Nullable @Field("trip_id") int status);
 
     @FormUrlEncoded
-    @POST("/updateLocation/")
+    @POST("updateLocation/")
     Call<DriverLocDetails> driverProfileStatus(@Nullable @Field("driver_id") int driverID,
                                                @Nullable @Field("driver_latitude") double driverLatitude,
                                                @Nullable @Field("driver_longitude") double driverLongitude);
 
-    @POST("/updateLocation/")
+    @POST("updateLocation/")
     Call<DriverUserModel> driverLocationUpdate(@Body DriverUserModel driverUserModel);
 
     @FormUrlEncoded
-    @POST("/myEarning/")
+    @POST("myEarning/")
     Call<EarningModel> getEarnings(@Nullable @Field("driver_id") int driverID);
 
     @FormUrlEncoded
-    @POST("/myRating/")
+    @POST("myRating/")
     Call<RatingModel> getRatings(@Nullable @Field("driver_id") int driverID);
 
     @FormUrlEncoded
-    @POST("/myAccount/")
+    @POST("myAccount/")
     Call<List<ProfileModel>> getProfileDetail(@Nullable @Field("driver_id") int driverID);
 
     @FormUrlEncoded
-    @POST("/logout/")
+    @POST("logout/")
     Call<LogOut> logedOut(@Nullable @Field("driver_id") int driverID, @Nullable @Field("logout") int logout);
 
     @FormUrlEncoded
-    @POST("/startTrip/")
+    @POST("startTrip/")
     Call<TripDetails> driverStartTrip (@Nullable @Field("driver_id") int driverID,
                             @Nullable @Field("trip_id") int status);
 

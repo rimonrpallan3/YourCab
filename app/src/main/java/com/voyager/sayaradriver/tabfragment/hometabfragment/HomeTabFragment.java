@@ -450,6 +450,7 @@ public class HomeTabFragment extends Fragment implements OnMapReadyCallback, Vie
     }
 
     public void setLocMethod(){
+        googleMap.clear();
         googleMap.addMarker(new MarkerOptions().position(new LatLng(lat, log)).title("Marker"));
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(lat, log));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
